@@ -1,8 +1,10 @@
-package com.example.tokuverseproject;
+package com.example.tokuverseproject.Activity;
 
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
+
+import com.example.tokuverseproject.R;
 
 public class SignUp extends AppCompatActivity {
 
