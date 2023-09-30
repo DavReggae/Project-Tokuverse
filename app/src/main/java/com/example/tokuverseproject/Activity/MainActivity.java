@@ -2,7 +2,9 @@ package com.example.tokuverseproject.Activity;
 
 import androidx.appcompat.app.AppCompatActivity;
 import android.content.Intent;
+import android.net.wifi.WifiManager;
 import android.os.Bundle;
+import android.text.format.Formatter;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
@@ -28,31 +30,13 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+
         btn_GoToSignUp = findViewById(R.id.btn_GoToSignUp);
         btn_GoToSignUp.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View view)
             {
-                Retrofit retrofit = new Retrofit.Builder()
-                        .baseUrl("https://192.168.1.37/Server/")
-                        .addConverterFactory(GsonConverterFactory.create())
-                        .build();
-                API Api = retrofit.create(API.class);
-                Call<List<User>> call = Api.getUser();
-                call.enqueue(new Callback<List<User>>() {
-                    @Override
-                    public void onResponse(Call<List<User>> call, Response<List<User>> response) {
-                         List<User> userList = response.body();
-                         for(User user : userList)
-                         {
-                         }
-                    }
-
-                    @Override
-                    public void onFailure(Call<List<User>> call, Throwable t) {
-                        Log.d("failed", t.getMessage());
-                    }
-                });
+                test();
             }
         });
     }
@@ -60,5 +44,30 @@ public class MainActivity extends AppCompatActivity {
     {
         Intent intent = new Intent(this, SignUp.class);
         startActivity(intent);
+    }
+
+    void test()
+    {
+        Retrofit retrofit = new Retrofit.Builder()
+                .baseUrl("http://192.168.1.37/Server/")
+                .addConverterFactory(GsonConverterFactory.create())
+                .build();
+        API Api = retrofit.create(API.class);
+        Call<List<User>> call = Api.getUser();
+        call.enqueue(new Callback<List<User>>() {
+            @Override
+            public void onResponse(Call<List<User>> call, Response<List<User>> response) {
+                List<User> userList = response.body();
+                for(int i = 0; i < userList.size(); i++)
+                {
+                    Log.d("sucess", userList.get(i).getPassword());
+                }
+            }
+
+            @Override
+            public void onFailure(Call<List<User>> call, Throwable t) {
+                Log.d("failed", t.getMessage());
+            }
+        });
     }
 }
