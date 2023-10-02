@@ -13,6 +13,9 @@ import android.widget.Toast;
 import com.example.tokuverseproject.Model.User;
 import com.example.tokuverseproject.R;
 import com.example.tokuverseproject.ServerAPI.API;
+import com.example.tokuverseproject.ServerAPI.ServerHandler;
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 
 import java.util.List;
 
@@ -48,26 +51,7 @@ public class MainActivity extends AppCompatActivity {
 
     void test()
     {
-        Retrofit retrofit = new Retrofit.Builder()
-                .baseUrl("http://192.168.1.37/Server/")
-                .addConverterFactory(GsonConverterFactory.create())
-                .build();
-        API Api = retrofit.create(API.class);
-        Call<List<User>> call = Api.getUser();
-        call.enqueue(new Callback<List<User>>() {
-            @Override
-            public void onResponse(Call<List<User>> call, Response<List<User>> response) {
-                List<User> userList = response.body();
-                for(int i = 0; i < userList.size(); i++)
-                {
-                    Log.d("sucess", userList.get(i).getPassword());
-                }
-            }
-
-            @Override
-            public void onFailure(Call<List<User>> call, Throwable t) {
-                Log.d("failed", t.getMessage());
-            }
-        });
+        ServerHandler serverHandler = new ServerHandler();
+        serverHandler.getUser();
     }
 }
