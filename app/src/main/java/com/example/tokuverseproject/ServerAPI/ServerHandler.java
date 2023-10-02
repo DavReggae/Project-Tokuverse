@@ -1,11 +1,16 @@
 package com.example.tokuverseproject.ServerAPI;
 
-import android.util.Log;
+import static android.app.ProgressDialog.show;
 
+import android.util.Log;
+import android.widget.Toast;
+
+import com.example.tokuverseproject.Activity.SignUp;
 import com.example.tokuverseproject.Model.User;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 
+import java.io.IOException;
 import java.util.List;
 
 import retrofit2.Call;
@@ -13,6 +18,7 @@ import retrofit2.Callback;
 import retrofit2.Response;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
+import retrofit2.http.POST;
 
 public class ServerHandler {
     Gson gson = new GsonBuilder()
@@ -47,5 +53,17 @@ public class ServerHandler {
 
     public void signUp(User user)
     {
+        Call<Void> call = Api.signUpAction(user.getUsername(), user.getPassword(), user.getEmail(), user.getPhone_number());
+        call.enqueue(new Callback<Void>() {
+            @Override
+            public void onResponse(Call<Void> call, Response<Void> response) {
+                //Do something if success.
+            }
+
+            @Override
+            public void onFailure(Call<Void> call, Throwable t) {
+                Log.d("failed", t.getMessage());
+            }
+        });
     }
 }
