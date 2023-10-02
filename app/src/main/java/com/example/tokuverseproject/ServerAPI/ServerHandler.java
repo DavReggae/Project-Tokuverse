@@ -15,16 +15,16 @@ import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
 public class ServerHandler {
+    Gson gson = new GsonBuilder()
+            .setLenient()
+            .create();
+    Retrofit retrofit = new Retrofit.Builder()
+            .baseUrl("https://tokutech490.000webhostapp.com/")
+            .addConverterFactory(GsonConverterFactory.create(gson))
+            .build();
+    API Api = retrofit.create(API.class);
     public void getUser()
     {
-        Gson gson = new GsonBuilder()
-                .setLenient()
-                .create();
-        Retrofit retrofit = new Retrofit.Builder()
-                .baseUrl("https://tokutech490.000webhostapp.com/")
-                .addConverterFactory(GsonConverterFactory.create(gson))
-                .build();
-        API Api = retrofit.create(API.class);
         Call<List<User>> call = Api.getUser();
         call.enqueue(new Callback<List<User>>() {
             @Override
@@ -41,5 +41,11 @@ public class ServerHandler {
                 Log.d("failed", t.getMessage());
             }
         });
+
+
+    }
+
+    public void signUp(User user)
+    {
     }
 }
