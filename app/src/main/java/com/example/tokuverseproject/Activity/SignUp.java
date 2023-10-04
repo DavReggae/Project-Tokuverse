@@ -38,7 +38,7 @@ public class SignUp extends AppCompatActivity {
         btn_SignUp = findViewById(R.id.btn_SignUp);
 
 
-        txt_Username = findViewById(R.id.txt_Email);
+        txt_Username = findViewById(R.id.txt_Username);
         txt_Password = findViewById(R.id.txt_Password);
         txt_Email = findViewById(R.id.txt_Email);
         txt_PhoneNumber = findViewById(R.id.txt_PhoneNumber);
@@ -60,6 +60,6 @@ public class SignUp extends AppCompatActivity {
         String email = txt_Email.getText().toString();
         String phoneNumber = txt_PhoneNumber.getText().toString();
         User user = new User(userName, password, email, phoneNumber);
-        serverHandler.signUp(user);
+        serverHandler.signUp(user, this);
     }
 }

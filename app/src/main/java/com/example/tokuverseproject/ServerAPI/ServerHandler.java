@@ -2,6 +2,7 @@ package com.example.tokuverseproject.ServerAPI;
 
 import static android.app.ProgressDialog.show;
 
+import android.app.Activity;
 import android.util.Log;
 import android.widget.Toast;
 
@@ -51,13 +52,15 @@ public class ServerHandler {
 
     }
 
-    public void signUp(User user)
+    public void signUp(User user, Activity signUpActivity)
     {
         Call<Void> call = Api.signUpAction(user.getUsername(), user.getPassword(), user.getEmail(), user.getPhone_number());
         call.enqueue(new Callback<Void>() {
             @Override
             public void onResponse(Call<Void> call, Response<Void> response) {
                 //Do something if success.
+                Toast.makeText(signUpActivity, "Sign up sucessful",
+                        Toast.LENGTH_LONG).show();
             }
 
             @Override
