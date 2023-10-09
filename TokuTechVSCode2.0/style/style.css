@@ -1,0 +1,81 @@
+.kr-wiki {
+  
+  color: #000000; /* This is a valid hexadecimal color code */
+  /* Add a background color if needed */
+  padding: 20px; /* Add padding for spacing within the div */
+  margin: 10px; /* Add margins for spacing around the div */
+}
+
+.kamen-rider-title {
+  font-size: 50px; /* Example: Increase the font size for the title */
+  font-family: 'SPHERE FEZ', sans-serif;
+}
+  body {
+    background: #4ca1f7;
+  }
+  .Main-Title{
+    text-shadow: 2px 2px 4px #000000;
+    text-align: center;
+    font-size-adjust: 40px;
+  }
+  .kr-first-episode {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 400px;
+ }
+ 
+ .kr-first-episode iframe {
+  max-width: 100%;
+  max-height: 100%;
+ }
+ .hongo-content {
+  display: flex;
+  align-items: center;
+}
+
+.hongo-text {
+  flex: 1; /* This will make the text take up available space */
+  text-align: left; /* Align text to the left */
+}
+
+.hongo-image {
+  flex: 0; /* This will prevent the image from taking up extra space */
+  margin-left: 20px; /* Add some space between text and image */
+}
+.Ichimonji-content {
+  display: flex;
+  align-items: center;
+}
+
+.Ichimonji-image {
+  flex: 1; /* This will make the text take up available space */
+  text-align: left; /* Align text to the left */
+}
+
+.Ichimonji-text {
+  flex: 1; /* This will prevent the image from taking up extra space */
+  margin-left: 30px; /* Add some space between text and image */
+}
+  .kr-wiki h1 {
+    text-align: center;
+    font-size: 50px;
+ 
+  }
+  .kr-wiki h2{
+    text-align: left;
+    font-size: 30px;
+    
+  }
+  .kr-wiki h3 {
+    font-size: 25px; /* Adjust the font size for h3 */
+    text-align: left;
+}
+
+.kr-wiki h4 {
+    font-size: 20px; /* Adjust the font size for h4 */
+    text-align: left;
+}
+.kr-wiki p{
+  font-size: 18px;
+}
