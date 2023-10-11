@@ -76,22 +76,20 @@ public class MainActivity extends AppCompatActivity {
     {
         String userName = txt_Username.getText().toString();
         String passWord = txt_Password.getText().toString();
-
-
-        serverHandler.LogIn(this, userName, passWord, new ServerHandler.LoginCallback() {
+        serverHandler.LogIn(userName, passWord, new ServerHandler.LoginCallback() {
             @Override
             public void onSuccess(String userId) {
 
-                Log.d("failed", userId);
-                if(userId != null)
-                {
-                    Intent intent = new Intent(MainActivity.this, HomeActivity.class);
-                    startActivity(intent);
-                }
+                Log.d("success", userId);
+                Toast.makeText(MainActivity.this, "Log in sucessful",
+                        Toast.LENGTH_LONG).show();
+                Intent intent = new Intent(MainActivity.this, HomeActivity.class);
+                startActivity(intent);
             }
             @Override
             public void onFail(String message) {
-
+                Toast.makeText(MainActivity.this, message,
+                        Toast.LENGTH_LONG).show();
             }
         });
     }

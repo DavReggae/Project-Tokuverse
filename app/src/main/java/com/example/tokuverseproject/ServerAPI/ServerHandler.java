@@ -60,7 +60,7 @@ public class ServerHandler {
         void onFail(String message);
     }
 
-    public void LogIn(Activity mainActivity, String username, String password, LoginCallback callback)
+    public void LogIn(String username, String password, LoginCallback callback)
     {
         Call<List<User>> call = Api.logIn(username, password);
         call.enqueue(new Callback<List<User>>() {
@@ -68,17 +68,13 @@ public class ServerHandler {
             public void onResponse(Call<List<User>> call, Response<List<User>> response)
             {
                 List<User> userList = response.body();
+                try{
 
-                if(userList.size() > 0)
-                {
                     callback.onSuccess(userList.get(0).getId());
-                    Toast.makeText(mainActivity, "Log in sucessful",
-                           Toast.LENGTH_LONG).show();
                 }
-                else
-                {
-                    Toast.makeText(mainActivity, "Log in failed",
-                            Toast.LENGTH_LONG).show();
+                catch(Exception e) {
+                    callback.onFail("Log in Failed");
+                    Log.d("failed", e.getMessage());
                 }
             }
 
@@ -97,8 +93,7 @@ public class ServerHandler {
             @Override
             public void onResponse(Call<Void> call, Response<Void> response) {
                 //Do something if success.
-                Toast.makeText(signUpActivity, "Sign up sucessful",
-                        Toast.LENGTH_LONG).show();
+
             }
 
             @Override
