@@ -26,6 +26,8 @@ import retrofit2.http.POST;
 
 public class ServerHandler {
     Context context;
+
+    public String userId;
     Gson gson = new GsonBuilder()
             .setLenient()
             .create();
@@ -56,39 +58,34 @@ public class ServerHandler {
 
     }
 
-    public String LogIn(Activity mainActivity)
+    public String LogIn(Activity mainActivity, String username, String password)
     {
-        Call<List<User>> call = Api.logIn("Test", "123465");
-        final String[] userId = new String[1];
+        Call<List<User>> call = Api.logIn(username, password);
+
         call.enqueue(new Callback<List<User>>() {
             @Override
             public void onResponse(Call<List<User>> call, Response<List<User>> response)
             {
-                try
+                List<User> userList = response.body();
+                if(userList.size() > 0)
                 {
-                    List<User> userList = response.body();
-                    Toast.makeText(mainActivity, "Log In Sucess",
-                            Toast.LENGTH_LONG).show();
-
-                    userId[0] = userList.get(0).getId();
-                    Log.d("sucess", userId[0]);
-
-                }
-                catch(Exception e)
-                {
-                    Log.d("failed", e.getMessage());
-                    Toast.makeText(mainActivity, e.getMessage(),
+                    userId = userList.get(0).getId();
+                    Toast.makeText(mainActivity, "Log in sucessful",
                             Toast.LENGTH_LONG).show();
                 }
-
+                else
+                {
+                    Toast.makeText(mainActivity, "Log in failed",
+                            Toast.LENGTH_LONG).show();
+                }
             }
 
             @Override
             public void onFailure(Call<List<User>> call, Throwable t) {
-
+                Log.d("failed", t.getMessage());
             }
         });
-        return  userId[0];
+        return  userId;
     }
 
     public void signUp(User user, Activity signUpActivity)

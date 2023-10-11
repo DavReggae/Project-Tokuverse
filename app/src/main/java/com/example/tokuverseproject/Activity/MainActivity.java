@@ -73,10 +73,12 @@ public class MainActivity extends AppCompatActivity {
     {
         String userName = txt_Username.getText().toString();
         String passWord = txt_Password.getText().toString();
-        String userID = serverHandler.LogIn(this);
+        String userID = serverHandler.LogIn(this,userName, passWord);
+
         if(userID != null)
         {
-            
+            Intent intent = new Intent(this, HomeActivity.class);
+            startActivity(intent);
         }
 
     }
