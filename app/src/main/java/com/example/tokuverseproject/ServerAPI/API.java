@@ -18,6 +18,10 @@ public interface API {
     Call<List<User>> getUser();
 
     @FormUrlEncoded
+    @POST("logIn.php")
+    Call<List<User>> logIn(@Field("username") String username,
+                           @Field("pass") String password);
+    @FormUrlEncoded
     @POST("signUp.php")
     Call<Void> signUpAction(
             @Field("username") String username,

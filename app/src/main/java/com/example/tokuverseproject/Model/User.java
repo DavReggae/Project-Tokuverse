@@ -2,18 +2,13 @@ package com.example.tokuverseproject.Model;
 
 import com.google.gson.annotations.SerializedName;
 
+import okhttp3.Response;
+
 public class User {
     @SerializedName("id")
-    private  int id;
+    private  String id;
     @SerializedName("username")
     private  String username;
-
-    public User(String username, String password, String email, String phone_number) {
-        this.username = username;
-        this.password = password;
-        this.email = email;
-        this.phone_number = phone_number;
-    }
 
     @SerializedName("pass")
     private String password;
@@ -22,7 +17,15 @@ public class User {
     @SerializedName("phone_number")
     private String phone_number;
 
-    public void setId(int id) {
+    public User(String username, String password, String email, String phone_number) {
+        this.username = username;
+        this.password = password;
+        this.email = email;
+        this.phone_number = phone_number;
+    }
+
+
+    public void setId(String id) {
         this.id = id;
     }
 
@@ -42,7 +45,7 @@ public class User {
         this.phone_number = phone_number;
     }
 
-    public int getId() {
+    public String getId() {
         return id;
     }
 

@@ -3,9 +3,12 @@ package com.example.tokuverseproject.ServerAPI;
 import static android.app.ProgressDialog.show;
 
 import android.app.Activity;
+import android.content.Context;
+import android.content.Intent;
 import android.util.Log;
 import android.widget.Toast;
 
+import com.example.tokuverseproject.Activity.HomeActivity;
 import com.example.tokuverseproject.Activity.SignUp;
 import com.example.tokuverseproject.Model.User;
 import com.google.gson.Gson;
@@ -22,6 +25,7 @@ import retrofit2.converter.gson.GsonConverterFactory;
 import retrofit2.http.POST;
 
 public class ServerHandler {
+    Context context;
     Gson gson = new GsonBuilder()
             .setLenient()
             .create();
@@ -50,6 +54,41 @@ public class ServerHandler {
         });
 
 
+    }
+
+    public String LogIn(Activity mainActivity)
+    {
+        Call<List<User>> call = Api.logIn("Test", "123465");
+        final String[] userId = new String[1];
+        call.enqueue(new Callback<List<User>>() {
+            @Override
+            public void onResponse(Call<List<User>> call, Response<List<User>> response)
+            {
+                try
+                {
+                    List<User> userList = response.body();
+                    Toast.makeText(mainActivity, "Log In Sucess",
+                            Toast.LENGTH_LONG).show();
+
+                    userId[0] = userList.get(0).getId();
+                    Log.d("sucess", userId[0]);
+
+                }
+                catch(Exception e)
+                {
+                    Log.d("failed", e.getMessage());
+                    Toast.makeText(mainActivity, e.getMessage(),
+                            Toast.LENGTH_LONG).show();
+                }
+
+            }
+
+            @Override
+            public void onFailure(Call<List<User>> call, Throwable t) {
+
+            }
+        });
+        return  userId[0];
     }
 
     public void signUp(User user, Activity signUpActivity)

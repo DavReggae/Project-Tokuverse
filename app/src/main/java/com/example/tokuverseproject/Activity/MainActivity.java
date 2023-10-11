@@ -1,13 +1,17 @@
 package com.example.tokuverseproject.Activity;
 
 import androidx.appcompat.app.AppCompatActivity;
+
+import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.net.wifi.WifiManager;
 import android.os.Bundle;
 import android.text.format.Formatter;
 import android.util.Log;
+import android.view.MotionEvent;
 import android.view.View;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.Toast;
 
 import com.example.tokuverseproject.Model.User;
@@ -26,7 +30,11 @@ import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
 public class MainActivity extends AppCompatActivity {
+    public User user;
     Button btn_GoToSignUp;
+    Button btn_Login;
+    EditText txt_Username, txt_Password;
+    boolean showPassword;
     ServerHandler serverHandler = new ServerHandler();
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -35,11 +43,23 @@ public class MainActivity extends AppCompatActivity {
 
 
         btn_GoToSignUp = findViewById(R.id.btn_GoToSignUp);
+        btn_Login = findViewById(R.id.btn_Login);
+        txt_Username = findViewById(R.id.txt_Username);
+        txt_Password = findViewById(R.id.txt_Password);
+
+
         btn_GoToSignUp.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View view)
             {
                 gotoSignUp();
+            }
+        });
+        btn_Login.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View view)
+            {
+                logIn();
             }
         });
     }
@@ -49,9 +69,11 @@ public class MainActivity extends AppCompatActivity {
         startActivity(intent);
     }
 
-    void test()
+    void logIn()
     {
-        ServerHandler serverHandler = new ServerHandler();
-        serverHandler.getUser();
+        String userName = txt_Username.getText().toString();
+        String passWord = txt_Password.getText().toString();
+        serverHandler.LogIn(this);
     }
+
 }
