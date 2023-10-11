@@ -14,6 +14,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
+
 import com.example.tokuverseproject.Model.User;
 import com.example.tokuverseproject.R;
 import com.example.tokuverseproject.ServerAPI.API;
@@ -35,6 +36,8 @@ public class MainActivity extends AppCompatActivity {
     Button btn_Login;
     EditText txt_Username, txt_Password;
     boolean showPassword;
+
+
     ServerHandler serverHandler = new ServerHandler();
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -73,14 +76,24 @@ public class MainActivity extends AppCompatActivity {
     {
         String userName = txt_Username.getText().toString();
         String passWord = txt_Password.getText().toString();
-        String userID = serverHandler.LogIn(this,userName, passWord);
 
-        if(userID != null)
-        {
-            Intent intent = new Intent(this, HomeActivity.class);
-            startActivity(intent);
-        }
 
+        serverHandler.LogIn(this, userName, passWord, new ServerHandler.LoginCallback() {
+            @Override
+            public void onSuccess(String userId) {
+
+                Log.d("failed", userId);
+                if(userId != null)
+                {
+                    Intent intent = new Intent(MainActivity.this, HomeActivity.class);
+                    startActivity(intent);
+                }
+            }
+            @Override
+            public void onFail(String message) {
+
+            }
+        });
     }
 
 }

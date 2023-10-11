@@ -25,9 +25,6 @@ import retrofit2.converter.gson.GsonConverterFactory;
 import retrofit2.http.POST;
 
 public class ServerHandler {
-    Context context;
-
-    public String userId;
     Gson gson = new GsonBuilder()
             .setLenient()
             .create();
@@ -58,20 +55,25 @@ public class ServerHandler {
 
     }
 
-    public String LogIn(Activity mainActivity, String username, String password)
+    public interface LoginCallback {
+        void onSuccess(String userId);
+        void onFail(String message);
+    }
+
+    public void LogIn(Activity mainActivity, String username, String password, LoginCallback callback)
     {
         Call<List<User>> call = Api.logIn(username, password);
-
         call.enqueue(new Callback<List<User>>() {
             @Override
             public void onResponse(Call<List<User>> call, Response<List<User>> response)
             {
                 List<User> userList = response.body();
+
                 if(userList.size() > 0)
                 {
-                    userId = userList.get(0).getId();
+                    callback.onSuccess(userList.get(0).getId());
                     Toast.makeText(mainActivity, "Log in sucessful",
-                            Toast.LENGTH_LONG).show();
+                           Toast.LENGTH_LONG).show();
                 }
                 else
                 {
@@ -83,9 +85,9 @@ public class ServerHandler {
             @Override
             public void onFailure(Call<List<User>> call, Throwable t) {
                 Log.d("failed", t.getMessage());
+                callback.onFail(t.getMessage());
             }
         });
-        return  userId;
     }
 
     public void signUp(User user, Activity signUpActivity)
