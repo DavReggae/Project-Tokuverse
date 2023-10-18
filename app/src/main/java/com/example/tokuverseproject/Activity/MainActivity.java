@@ -85,6 +85,7 @@ public class MainActivity extends AppCompatActivity {
                 Toast.makeText(MainActivity.this, "Log in sucessful",
                         Toast.LENGTH_LONG).show();
                 Intent intent = new Intent(MainActivity.this, HomeActivity.class);
+                intent.putExtra("userID", userId);
                 startActivity(intent);
             }
             @Override
