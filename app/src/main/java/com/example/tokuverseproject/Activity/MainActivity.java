@@ -66,6 +66,11 @@ public class MainActivity extends AppCompatActivity {
             }
         });
     }
+
+    void Test()
+    {
+        serverHandler.getUser();
+    }
     void gotoSignUp()
     {
         Intent intent = new Intent(this, SignUp.class);

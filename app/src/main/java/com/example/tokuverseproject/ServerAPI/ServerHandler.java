@@ -29,7 +29,7 @@ public class ServerHandler {
             .setLenient()
             .create();
     Retrofit retrofit = new Retrofit.Builder()
-            .baseUrl("https://tokutech490.000webhostapp.com/")
+            .baseUrl("http://192.168.1.27/Server//")
             .addConverterFactory(GsonConverterFactory.create(gson))
             .build();
     API Api = retrofit.create(API.class);
@@ -42,7 +42,7 @@ public class ServerHandler {
                 List<User> userList = response.body();
                 for(int i = 0; i < userList.size(); i++)
                 {
-                    Log.d("sucess", userList.get(i).getPassword());
+                    Log.d("sucess", userList.get(i).getId());
                 }
             }
 
