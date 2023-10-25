@@ -25,11 +25,13 @@ import retrofit2.converter.gson.GsonConverterFactory;
 import retrofit2.http.POST;
 
 public class ServerHandler {
+
+    String Ip = "10.40.169.58";
     Gson gson = new GsonBuilder()
             .setLenient()
             .create();
     Retrofit retrofit = new Retrofit.Builder()
-            .baseUrl("http://192.168.1.27/Server/")
+            .baseUrl("http://"+Ip+"/Server/")
             .addConverterFactory(GsonConverterFactory.create(gson))
             .build();
     API Api = retrofit.create(API.class);
