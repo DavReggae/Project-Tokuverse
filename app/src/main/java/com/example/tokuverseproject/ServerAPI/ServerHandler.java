@@ -29,7 +29,7 @@ public class ServerHandler {
             .setLenient()
             .create();
     Retrofit retrofit = new Retrofit.Builder()
-            .baseUrl("http://192.168.1.27/Server//")
+            .baseUrl("http://192.168.1.27/Server/")
             .addConverterFactory(GsonConverterFactory.create(gson))
             .build();
     API Api = retrofit.create(API.class);
