@@ -1,5 +1,6 @@
 package com.example.tokuverseproject.ServerAPI;
 
+import com.example.tokuverseproject.Model.Hero;
 import com.example.tokuverseproject.Model.User;
 
 import java.util.List;
@@ -17,10 +18,17 @@ public interface API {
     @GET("getUser.php")
     Call<List<User>> getUser();
 
+    @GET("getHero.php")
+    Call<List<Hero>> getHero();
     @FormUrlEncoded
     @POST("logIn.php")
     Call<List<User>> logIn(@Field("username") String username,
                            @Field("pass") String password);
+
+    @FormUrlEncoded
+    @POST("getUser_ByID.php")
+    Call<List<User>> getUser_ByID(@Field("id") String id);
+
     @FormUrlEncoded
     @POST("signUp.php")
     Call<Void> signUpAction(
@@ -29,4 +37,9 @@ public interface API {
             @Field("email") String email,
             @Field("phone_number") String phoneNumber
     );
+    @FormUrlEncoded
+    @POST("selectHero.php")
+    Call<Void> selecHero(
+            @Field("user_id") String user_id,
+            @Field("hero_id") String hero_id);
 }

@@ -21,34 +21,39 @@ public class HomeActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
         String userId = getIntent().getStringExtra("userID");
-        Log.d("userID", userId);
+        Bundle bundle = new Bundle();
+        bundle.putString("userID", userId);
+
         binding = ActivityHomeBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
-        replaceFragment(new HomeFragment());
+        replaceFragment(new HomeFragment(), bundle);
+        Log.d("Home", "Home Activity");
         binding.bottomNavigationView.setOnItemSelectedListener(item -> {
             switch (item.getItemId())
             {
                 case R.id.home:
                     Log.d("home", "1");
-                    replaceFragment(new HomeFragment());
+                    replaceFragment(new HomeFragment(),bundle);
                     break;
                 case R.id.profile:
                     Log.d("profile", "1");
-                    replaceFragment(new ProfileFragment());
+                    replaceFragment(new ProfileFragment(),bundle);
                     break;
                 case R.id.setting:
                     Log.d("setting", "1");
-                    replaceFragment(new SettingFragment());
+                    replaceFragment(new SettingFragment(),bundle);
                     break;
             }
             return true;
         });
     }
 
-    private void replaceFragment(Fragment fragment)
+
+    private void replaceFragment(Fragment fragment, Bundle bundle)
     {
         FragmentManager fragmentManager = getSupportFragmentManager();
         FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+        fragment.setArguments(bundle);
         fragmentTransaction.replace(R.id.frameLayout, fragment);
         fragmentTransaction.commit();
     }

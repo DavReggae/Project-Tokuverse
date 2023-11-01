@@ -69,7 +69,6 @@ public class MainActivity extends AppCompatActivity {
 
     void Test()
     {
-        serverHandler.getUser();
     }
     void gotoSignUp()
     {
@@ -81,7 +80,10 @@ public class MainActivity extends AppCompatActivity {
     {
         String userName = txt_Username.getText().toString();
         String passWord = txt_Password.getText().toString();
-        serverHandler.LogIn(userName, passWord, new ServerHandler.LoginCallback()
+
+        String testUN = "Test";
+        String testPW = "123465";
+        serverHandler.LogIn(testUN, testPW, new ServerHandler.LoginCallback()
         {
             @Override
             public void onSuccess(String userId)

@@ -17,6 +17,39 @@ public class User {
     @SerializedName("phone_number")
     private String phone_number;
 
+    @SerializedName("profile_pic")
+    private String profile_pic;
+
+    @SerializedName("hero_id")
+    private String hero_id;
+    @SerializedName("coins")
+    private String coins;
+
+    public String getProfile_pic() {
+        return profile_pic;
+    }
+
+    public void setProfile_pic(String profile_pic) {
+        this.profile_pic = profile_pic;
+    }
+
+    public String getHero_id() {
+        return hero_id;
+    }
+
+    public void setHero_id(String hero_id) {
+        this.hero_id = hero_id;
+    }
+
+    public String getCoins() {
+        return coins;
+    }
+
+    public void setCoins(String coins) {
+        this.coins = coins;
+    }
+
+
     public User(String username, String password, String email, String phone_number) {
         this.username = username;
         this.password = password;

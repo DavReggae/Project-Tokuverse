@@ -15,13 +15,17 @@ import com.example.tokuverseproject.R;
 
 public class HomeFragment extends Fragment {
 
-
+    Bundle bundle = new Bundle();
+    String userId = "0";
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        Intent intent = new Intent(getActivity().getBaseContext(), HomeActivity.class);
-        String userId = intent.getStringExtra("userID");
-        //String userId = intent.getStringExtra("userID");
+        bundle = getArguments();
+        if(bundle != null)
+        {
+            userId = bundle.getString("userID");
+        }
+        Log.d("Home UserID",userId);
     }
 
     @Override
