@@ -20,8 +20,8 @@ public class User {
     @SerializedName("profile_pic")
     private String profile_pic;
 
-    @SerializedName("hero_id")
-    private String hero_id;
+    @SerializedName("hero_details_id")
+    private String hero_details_id;
     @SerializedName("coins")
     private String coins;
 
@@ -34,11 +34,11 @@ public class User {
     }
 
     public String getHero_id() {
-        return hero_id;
+        return hero_details_id;
     }
 
     public void setHero_id(String hero_id) {
-        this.hero_id = hero_id;
+        this.hero_details_id = hero_id;
     }
 
     public String getCoins() {

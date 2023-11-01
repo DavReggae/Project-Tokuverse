@@ -38,42 +38,6 @@ public class ProfileFragment extends Fragment {
     }
 
     @Override
-    public void onResume() {
-        super.onResume();
-        try
-        {
-            serverHandler.GetUserByID(userId, new ServerHandler.GetUserByID_CallBack() {
-                @Override
-                public void onSuccess(User user) {
-                    Log.d("Success", user.getId());
-                    lbl_Username.setText(user.getUsername());
-                    lbl_Email.setText(user.getEmail());
-                    lbl_PhoneNumber.setText(user.getPhone_number());
-                    btn_HeroInfo.setOnClickListener(new View.OnClickListener() {
-                        @Override
-                        public void onClick(View view)
-                        {
-                            if(user.getHero_id().equals("0"))
-                            {
-                                gotoSelectHero();
-                            }
-                        }
-                    });
-                }
-
-                @Override
-                public void onFail(String message)
-                {
-                }
-            });
-        }
-        catch(Exception e)
-        {
-            Log.d("failed", e.getMessage());
-        }
-    }
-
-    @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)
     {
         View view = inflater.inflate(R.layout.fragment_profile, container, false);
@@ -94,10 +58,7 @@ public class ProfileFragment extends Fragment {
                         @Override
                         public void onClick(View view)
                         {
-                            if(user.getHero_id().equals("0"))
-                            {
-                                gotoSelectHero();
-                            }
+                            gotoSelectHero();
                         }
                     });
                 }
@@ -118,8 +79,29 @@ public class ProfileFragment extends Fragment {
 
     void gotoSelectHero()
     {
-        Intent intent = new Intent(getActivity(), SelectHeroActivity.class);
-        intent.putExtra("userID", userId);
-        getActivity().startActivity(intent);
+        serverHandler.GetUserByID(userId, new ServerHandler.GetUserByID_CallBack() {
+            @Override
+            public void onSuccess(User user) {
+                String hero_details_id = user.getHero_id();
+                if(hero_details_id.equals("0"))
+                {
+                    Intent intent = new Intent(getActivity(), SelectHeroActivity.class);
+                    intent.putExtra("userID", userId);
+                    getActivity().startActivity(intent);
+                }
+                else
+                {
+                    Intent intent = new Intent(getActivity(), HeroInfoActivity.class);
+                    intent.putExtra("hero_details_id", hero_details_id);
+                    getActivity().startActivity(intent);
+                }
+            }
+
+            @Override
+            public void onFail(String message) {
+
+            }
+        });
+
     }
 }

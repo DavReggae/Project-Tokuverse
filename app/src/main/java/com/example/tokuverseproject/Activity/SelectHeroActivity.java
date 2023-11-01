@@ -12,6 +12,7 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.ListView;
+import android.widget.Toast;
 
 import com.example.tokuverseproject.Model.Hero;
 import com.example.tokuverseproject.Model.HeroCustomBase;
@@ -82,8 +83,10 @@ public class SelectHeroActivity extends AppCompatActivity {
                             public void onClick(View view) {
                                 serverHandler.selectHero(userId, select_heroID, new ServerHandler.selectHero_CallBack() {
                                     @Override
-                                    public void onSuccess() {
-
+                                    public void onSuccess(){
+                                        Toast.makeText(SelectHeroActivity.this, "Select Hero Sucess",
+                                                Toast.LENGTH_LONG).show();
+                                        onBackPressed();
                                     }
 
                                     @Override

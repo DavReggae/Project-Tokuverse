@@ -11,6 +11,7 @@ import android.widget.Toast;
 import com.example.tokuverseproject.Activity.HomeActivity;
 import com.example.tokuverseproject.Activity.SignUp;
 import com.example.tokuverseproject.Model.Hero;
+import com.example.tokuverseproject.Model.HeroDetails;
 import com.example.tokuverseproject.Model.User;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
@@ -93,6 +94,7 @@ public class ServerHandler {
         void onFail(String message);
     }
 
+
     public void LogIn(String username, String password, LoginCallback callback)
     {
         Call<List<User>> call = Api.logIn(username, password);
@@ -148,14 +150,49 @@ public class ServerHandler {
             }
         });
     }
+
+    public void getHerDetails_ByUserID(String user_id)
+    {
+        Call<List<HeroDetails>> call = Api.getHero_ByUserID(user_id);
+        call.enqueue(new Callback<List<HeroDetails>>() {
+            @Override
+            public void onResponse(Call<List<HeroDetails>> call, Response<List<HeroDetails>> response)
+            {
+                List<HeroDetails> heroDetails = response.body();
+                String hero_details_id = heroDetails.get(0).getId();
+                Log.d("user_ID", hero_details_id);
+                addHeroToUser(user_id, hero_details_id);
+            }
+
+            @Override
+            public void onFailure(Call<List<HeroDetails>> call, Throwable t) {
+
+            }
+        });
+    }
+
+    public void addHeroToUser(String id, String hero_details_id)
+    {
+        Call<Void> call = Api.addHeroToUser(id, hero_details_id);
+        call.enqueue(new Callback<Void>() {
+            @Override
+            public void onResponse(Call<Void> call, Response<Void> response) {
+
+            }
+
+            @Override
+            public void onFailure(Call<Void> call, Throwable t) {
+                Log.d("failed at addHeroToUser", t.getMessage());
+            }
+        });
+    }
     public void signUp(User user, Activity signUpActivity)
     {
         Call<Void> call = Api.signUpAction(user.getUsername(), user.getPassword(), user.getEmail(), user.getPhone_number());
         call.enqueue(new Callback<Void>() {
             @Override
             public void onResponse(Call<Void> call, Response<Void> response) {
-                //Do something if success.
-
+                signUpActivity.onBackPressed();
             }
 
             @Override
@@ -175,6 +212,7 @@ public class ServerHandler {
         call.enqueue(new Callback<Void>() {
             @Override
             public void onResponse(Call<Void> call, Response<Void> response) {
+                getHerDetails_ByUserID(user_id);
                 callBack.onSuccess();
             }
 
