@@ -5,9 +5,10 @@
     $password = $_POST['pass'];
     $email = $_POST['email'];
     $phoneNumber = $_POST['phone_number'];
+    $coins = '0';
 
-    $sql = "INSERT INTO USER(id, username, pass, email, phone_number)
-            VALUE ('$id', '$username', '$password', '$email', '$phoneNumber')";
+    $sql = "INSERT INTO USER(id, username, pass, email, phone_number, coins)
+            VALUE ('$id', '$username', '$password', '$email', '$phoneNumber', '$coins')";
 
     try {
         $stmt = $pdo->prepare($sql);

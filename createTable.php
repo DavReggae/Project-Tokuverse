@@ -1,7 +1,7 @@
 <?php
     include "connect.php";
 
-    $sql = "CREATE TABLE USER (
+    $sql = "CREATE TABLE HERO_DETAILS (
         id INT(6) UNSIGNED AUTO_INCREMENT PRIMARY KEY,
         username VARCHAR(30) NOT NULL,
         pass VARCHAR(30) NOT NULL,
