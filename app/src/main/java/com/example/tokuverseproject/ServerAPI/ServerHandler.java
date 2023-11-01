@@ -28,8 +28,8 @@ import retrofit2.http.POST;
 
 public class ServerHandler {
 
-    String Ip = //"10.40.169.58";
-    "192.168.1.27";
+    String Ip = "10.40.171.72";
+    //"192.168.1.27";
     Gson gson = new GsonBuilder()
             .setLenient()
             .create();
@@ -94,7 +94,6 @@ public class ServerHandler {
         void onFail(String message);
     }
 
-
     public void LogIn(String username, String password, LoginCallback callback)
     {
         Call<List<User>> call = Api.logIn(username, password);
@@ -151,7 +150,66 @@ public class ServerHandler {
         });
     }
 
-    public void getHerDetails_ByUserID(String user_id)
+    public interface getHeroDetails_ByID_callBack
+    {
+        void onSuccess(HeroDetails heroDetails);
+    }
+    public void getHeroDetails_ByID(String id, getHeroDetails_ByID_callBack callBack)
+    {
+        Call<List<HeroDetails>> call = Api.getHeroDetails_ByID(id);
+        call.enqueue(new Callback<List<HeroDetails>>() {
+            @Override
+            public void onResponse(Call<List<HeroDetails>> call, Response<List<HeroDetails>> response) {
+                List<HeroDetails> heroDetails = response.body();
+                try
+                {
+                    callBack.onSuccess(heroDetails.get(0));
+                }
+                catch (Exception e)
+                {
+                    Log.d("Failed at getHeroDetails_ByID", e.getMessage());
+                }
+            }
+
+            @Override
+            public void onFailure(Call<List<HeroDetails>> call, Throwable t) {
+
+            }
+        });
+    }
+
+    public interface CallBack
+    {
+        void getHero_ByID_Success(Hero hero);
+        void onFailed(String message);
+    }
+
+    public void getHero_ByID(String id, CallBack callBack)
+    {
+        Call<List<Hero>> call = Api.getHero_ByID(id);
+        call.enqueue(new Callback<List<Hero>>() {
+            @Override
+            public void onResponse(Call<List<Hero>> call, Response<List<Hero>> response) {
+                List<Hero> hero = response.body();
+                try
+                {
+                    callBack.getHero_ByID_Success(hero.get(0));
+                }
+                catch(Exception e)
+                {
+                    Log.d("Failed at getHero_ByID", e.getMessage());
+                }
+
+            }
+
+            @Override
+            public void onFailure(Call<List<Hero>> call, Throwable t) {
+                Log.d("Failed at getHero_ByID", t.getMessage());
+            }
+        });
+    }
+
+    public void getHeroDetails_ByUserID(String user_id)
     {
         Call<List<HeroDetails>> call = Api.getHero_ByUserID(user_id);
         call.enqueue(new Callback<List<HeroDetails>>() {
@@ -170,7 +228,6 @@ public class ServerHandler {
             }
         });
     }
-
     public void addHeroToUser(String id, String hero_details_id)
     {
         Call<Void> call = Api.addHeroToUser(id, hero_details_id);
@@ -212,7 +269,7 @@ public class ServerHandler {
         call.enqueue(new Callback<Void>() {
             @Override
             public void onResponse(Call<Void> call, Response<Void> response) {
-                getHerDetails_ByUserID(user_id);
+                getHeroDetails_ByUserID(user_id);
                 callBack.onSuccess();
             }
 
