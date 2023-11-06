@@ -55,7 +55,7 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View view)
             {
-                Test();
+                gotoSignUp();
             }
         });
         btn_Login.setOnClickListener(new View.OnClickListener(){
