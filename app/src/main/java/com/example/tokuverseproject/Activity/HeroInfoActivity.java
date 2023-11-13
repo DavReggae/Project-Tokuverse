@@ -43,7 +43,7 @@ public class HeroInfoActivity extends AppCompatActivity {
                 serverHandler.getHero_ByID(heroDetails.getHero_id(), new ServerHandler.CallBack() {
                     @Override
                     public void getHero_ByID_Success(Hero hero) {
-                        
+                        //sa
                     }
 
                     @Override
