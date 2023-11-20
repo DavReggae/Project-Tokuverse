@@ -7,9 +7,11 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.example.tokuverseproject.R;
+import com.squareup.picasso.Picasso;
 
 import java.net.MalformedURLException;
 import java.net.URL;
@@ -51,13 +53,16 @@ public class HeroCustomBase extends BaseAdapter {
         view = inflater.inflate(R.layout.hero_item_list, null);
         TextView lbl_HeroName = view.findViewById(R.id.lbl_HeroName);
         TextView lbl_HeroDes = view.findViewById(R.id.lbl_HeroDescription);
+        ImageView img_heroPic = view.findViewById(R.id.imgView_HeroPic);
         lbl_HeroName.setText(hero_Name[i]);
         lbl_HeroDes.setText(hero_Description[i]);
         try
         {
-            URL url = new URL(hero_pic[i]);
-            Bitmap bmp = BitmapFactory.decodeStream(url.openConnection().getInputStream());
-            
+            if(hero_pic[i].length() > 0)
+            {
+                String imageUrl = hero_pic[i];
+                Picasso.get().load(imageUrl).into(img_heroPic);
+            }
         }
         catch (Exception e)
         {

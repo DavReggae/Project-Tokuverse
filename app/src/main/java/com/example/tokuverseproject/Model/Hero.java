@@ -12,6 +12,9 @@ public class Hero {
     @SerializedName("hero_pic")
     private String hero_pic;
 
+    @SerializedName("full_pic")
+    private String full_pic;
+
     public String getId() {
         return id;
     }
@@ -51,5 +54,13 @@ public class Hero {
 
     public void setHero_pic(String hero_pic) {
         this.hero_pic = hero_pic;
+    }
+
+    public String getFull_pic() {
+        return full_pic;
+    }
+
+    public void setFull_pic(String full_pic) {
+        this.full_pic = full_pic;
     }
 }
