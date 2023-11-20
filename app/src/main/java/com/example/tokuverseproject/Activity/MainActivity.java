@@ -62,14 +62,15 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View view)
             {
-                logIn();
+                Test();
             }
         });
     }
 
     void Test()
     {
-        serverHandler.getUser();
+        Intent intent = new Intent(this, SelectHeroActivity.class);
+        startActivity(intent);
     }
     void gotoSignUp()
     {

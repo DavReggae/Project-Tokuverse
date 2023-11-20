@@ -9,6 +9,9 @@ import android.widget.TextView;
 
 import com.example.tokuverseproject.R;
 
+import java.net.MalformedURLException;
+import java.net.URL;
+
 public class HeroCustomBase extends BaseAdapter {
     Context context;
     String hero_Name[];
@@ -48,6 +51,15 @@ public class HeroCustomBase extends BaseAdapter {
         TextView lbl_HeroDes = view.findViewById(R.id.lbl_HeroDescription);
         lbl_HeroName.setText(hero_Name[i]);
         lbl_HeroDes.setText(hero_Description[i]);
+        try
+        {
+            URL url = new URL(hero_pic[i]);
+            
+        }
+        catch (Exception e)
+        {
+            throw new RuntimeException(e);
+        }
         return view;
     }
 }
