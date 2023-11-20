@@ -1,6 +1,8 @@
 package com.example.tokuverseproject.Model;
 
 import android.content.Context;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -54,6 +56,7 @@ public class HeroCustomBase extends BaseAdapter {
         try
         {
             URL url = new URL(hero_pic[i]);
+            Bitmap bmp = BitmapFactory.decodeStream(url.openConnection().getInputStream());
             
         }
         catch (Exception e)
