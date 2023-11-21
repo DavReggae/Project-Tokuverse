@@ -8,12 +8,10 @@
     tools:context=".Activity.HeroInfoActivity">
 
     <ImageView
-        android:id="@+id/imageView4"
-        android:layout_width="150dp"
-        android:layout_height="0dp"
-        android:layout_marginTop="39dp"
-        android:layout_marginBottom="24dp"
-        app:layout_constraintBottom_toTopOf="@+id/lbl_HeroInfoName"
+        android:id="@+id/imgView_HeroInfoFullPic"
+        android:layout_width="200dp"
+        android:layout_height="250dp"
+        android:layout_marginTop="16dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
@@ -23,38 +21,14 @@
         android:id="@+id/lbl_HeroInfoName"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="427dp"
+        android:layout_marginTop="36dp"
         android:text="Hero Name"
-        android:textSize="20dp"
+        android:textSize="24dp"
         android:textStyle="bold"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/imageView4" />
-
-    <TextView
-        android:id="@+id/lbl_attackPoint"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="56dp"
-        android:drawableLeft="@drawable/sword_icon"
-        android:text="AttachPoint"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/lbl_HeroInfoName" />
-
-    <TextView
-        android:id="@+id/lbl_defendPoint"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="40dp"
-        android:drawableLeft="@drawable/shield_icon"
-        android:text="Defend"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.498"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/lbl_attackPoint" />
+        app:layout_constraintTop_toBottomOf="@+id/imgView_HeroInfoFullPic" />
 
     <TextView
         android:id="@+id/lbl_healthPoint"
@@ -63,9 +37,34 @@
         android:layout_marginTop="36dp"
         android:drawableLeft="@drawable/health_icon"
         android:text="Health"
+        android:textSize="16dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/lbl_defendPoint" />
+
+    <TextView
+        android:id="@+id/lbl_defendPoint"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="36dp"
+        android:drawableLeft="@drawable/shield_icon"
+        android:text="Defend"
+        android:textSize="16dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/lbl_attackPoint" />
+
+    <TextView
+        android:id="@+id/lbl_attackPoint"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="36dp"
+        android:drawableLeft="@drawable/sword_icon"
+        android:text="AttachPoint"
+        android:textSize="16dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/lbl_HeroInfoName" />
 
     <ImageView
         android:id="@+id/imgView_BackBtn"

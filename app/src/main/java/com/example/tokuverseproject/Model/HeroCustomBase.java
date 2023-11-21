@@ -11,30 +11,29 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.example.tokuverseproject.R;
+import com.example.tokuverseproject.ServerAPI.ServerHandler;
 import com.squareup.picasso.Picasso;
 
 import java.net.MalformedURLException;
 import java.net.URL;
+import java.util.List;
 
 public class HeroCustomBase extends BaseAdapter {
-    Context context;
-    String hero_Name[];
-    String hero_Description[];
-    String hero_pic[];
     LayoutInflater inflater;
 
-    public HeroCustomBase(Context ctx, String[] heroName_List, String[] heroDes_List, String[] heroPic_list )
+    List<Hero> heroList;
+
+    ServerHandler serverHandler = new ServerHandler();
+
+    public HeroCustomBase(Context ctx, List<Hero> heroList)
     {
-        this.context = ctx;
-        this.hero_Name = heroName_List;
-        this.hero_Description = heroDes_List;
-        this.hero_pic = heroPic_list;
+        this.heroList = heroList;
         inflater = LayoutInflater.from(ctx);
     }
 
     @Override
     public int getCount() {
-        return hero_Name.length;
+        return heroList.size();
     }
 
 
@@ -54,20 +53,11 @@ public class HeroCustomBase extends BaseAdapter {
         TextView lbl_HeroName = view.findViewById(R.id.lbl_HeroName);
         TextView lbl_HeroDes = view.findViewById(R.id.lbl_HeroDescription);
         ImageView img_heroPic = view.findViewById(R.id.imgView_HeroPic);
-        lbl_HeroName.setText(hero_Name[i]);
-        lbl_HeroDes.setText(hero_Description[i]);
-        try
-        {
-            if(hero_pic[i].length() > 0)
-            {
-                String imageUrl = hero_pic[i];
-                Picasso.get().load(imageUrl).into(img_heroPic);
-            }
-        }
-        catch (Exception e)
-        {
-            throw new RuntimeException(e);
-        }
+        ImageView img_FullPic = view.findViewById(R.id.img_HeroFullPic);
+        lbl_HeroName.setText(heroList.get(i).getHero_name());
+        lbl_HeroDes.setText(heroList.get(i).getDescription());
+        serverHandler.LoadImageFromURL(heroList.get(i).getHero_pic(), img_heroPic);
+        serverHandler.LoadImageFromURL(heroList.get(i).getFull_pic(), img_FullPic);
         return view;
     }
 }

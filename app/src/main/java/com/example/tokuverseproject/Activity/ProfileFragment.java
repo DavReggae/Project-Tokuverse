@@ -92,7 +92,6 @@ public class ProfileFragment extends Fragment {
                 else
                 {
                     Intent intent = new Intent(getActivity(), HeroInfoActivity.class);
-                    intent.putExtra("hero_details_id", hero_details_id);
                     intent.putExtra("user_id", userId);
                     getActivity().startActivity(intent);
                 }

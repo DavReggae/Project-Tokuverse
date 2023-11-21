@@ -6,6 +6,7 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.util.Log;
+import android.widget.ImageView;
 import android.widget.Toast;
 
 import com.example.tokuverseproject.Activity.HomeActivity;
@@ -15,6 +16,7 @@ import com.example.tokuverseproject.Model.HeroDetails;
 import com.example.tokuverseproject.Model.User;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
+import com.squareup.picasso.Picasso;
 
 import java.io.IOException;
 import java.util.List;
@@ -38,6 +40,24 @@ public class ServerHandler {
             .addConverterFactory(GsonConverterFactory.create(gson))
             .build();
     API Api = retrofit.create(API.class);
+
+    public interface CallBack
+    {
+        void getHero_ByID_Success(Hero hero);
+        void onFailed(String message);
+    }
+
+    public void LoadImageFromURL(String url, ImageView imageView)
+    {
+        try
+        {
+            Picasso.get().load(url).into(imageView);
+        }
+        catch (Exception e)
+        {
+            Log.d("Failed To Load Image From URL", e.getMessage());
+        }
+    }
     public void getUser()
     {
         Call<List<User>> call = Api.getUser();
@@ -178,11 +198,6 @@ public class ServerHandler {
         });
     }
 
-    public interface CallBack
-    {
-        void getHero_ByID_Success(Hero hero);
-        void onFailed(String message);
-    }
 
     public void getHero_ByID(String id, CallBack callBack)
     {

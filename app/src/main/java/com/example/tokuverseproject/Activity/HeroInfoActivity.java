@@ -3,6 +3,7 @@ package com.example.tokuverseproject.Activity;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -15,7 +16,7 @@ import com.example.tokuverseproject.ServerAPI.ServerHandler;
 public class HeroInfoActivity extends AppCompatActivity {
 
     TextView lbl_HeroName, lbl_Attack, lbl_Defend, lbl_Heath;
-    ImageView btnBack;
+    ImageView btnBack, img_HeroInfoFullPic;
 
     ServerHandler serverHandler = new ServerHandler();
     @Override
@@ -27,14 +28,15 @@ public class HeroInfoActivity extends AppCompatActivity {
         lbl_Defend = findViewById(R.id.lbl_defendPoint);
         lbl_Heath = findViewById(R.id.lbl_healthPoint);
         btnBack = findViewById(R.id.imgView_BackBtn);
-        String hero_detail_id = getIntent().getStringExtra("hero_details_id");
+        img_HeroInfoFullPic = findViewById(R.id.imgView_HeroInfoFullPic);
+        String userID = getIntent().getStringExtra("user_id");
         btnBack.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 onBackPressed();
             }
         });
-        serverHandler.getHeroDetails_ByID(hero_detail_id, new ServerHandler.getHeroDetails_ByID_callBack() {
+        serverHandler.getHeroDetails_ByID(userID, new ServerHandler.getHeroDetails_ByID_callBack() {
             @Override
             public void onSuccess(HeroDetails heroDetails) {
                 lbl_Attack.setText("  " + heroDetails.getAttach_point());
@@ -43,7 +45,8 @@ public class HeroInfoActivity extends AppCompatActivity {
                 serverHandler.getHero_ByID(heroDetails.getHero_id(), new ServerHandler.CallBack() {
                     @Override
                     public void getHero_ByID_Success(Hero hero) {
-                        //sa
+                        lbl_HeroName.setText(hero.getHero_name());
+                        serverHandler.LoadImageFromURL(hero.getFull_pic(),img_HeroInfoFullPic);
                     }
 
                     @Override

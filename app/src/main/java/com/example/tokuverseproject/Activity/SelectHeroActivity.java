@@ -48,19 +48,8 @@ public class SelectHeroActivity extends AppCompatActivity {
         serverHandler.getHero(new ServerHandler.getHero_CallBack() {
             @Override
             public void onSuccess(List<Hero> heroList) {
-                String[] hero_name = new String[heroList.size()];
-                String[] hero_description = new String[heroList.size()];
-                String[] hero_pic = new String[heroList.size()];
-                for(int i = 0; i < heroList.size(); i++)
-                {
-                    Log.d("Hero List", heroList.get(i).getHero_name());
-                    hero_name[i] = heroList.get(i).getHero_name();
-                    hero_description[i] = heroList.get(i).getDescription();
-                    hero_pic[i] = heroList.get(i).getHero_pic();
-                }
-                HeroCustomBase heroCustomBaseAdapter = new HeroCustomBase(getApplicationContext(), hero_name, hero_description, hero_pic);
+                HeroCustomBase heroCustomBaseAdapter = new HeroCustomBase(getApplicationContext(), heroList);
                 listView_Hero.setAdapter(heroCustomBaseAdapter);
-
                 listView_Hero.setOnItemClickListener(new AdapterView.OnItemClickListener() {
                     @Override
                     public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
