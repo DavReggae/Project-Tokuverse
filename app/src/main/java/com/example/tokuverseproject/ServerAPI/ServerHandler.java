@@ -31,7 +31,7 @@ import retrofit2.http.POST;
 public class ServerHandler {
 
     String Ip = //"10.40.171.72";
-    "192.168.1.37";
+    "192.168.1.14";
     Gson gson = new GsonBuilder()
             .setLenient()
             .create();

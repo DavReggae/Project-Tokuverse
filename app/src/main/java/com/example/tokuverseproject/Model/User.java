@@ -25,6 +25,9 @@ public class User {
     @SerializedName("coins")
     private String coins;
 
+    @SerializedName("avatar")
+    private String avatar;
+
     public String getProfile_pic() {
         return profile_pic;
     }
@@ -96,5 +99,21 @@ public class User {
 
     public String getPhone_number() {
         return phone_number;
+    }
+
+    public String getHero_details_id() {
+        return hero_details_id;
+    }
+
+    public void setHero_details_id(String hero_details_id) {
+        this.hero_details_id = hero_details_id;
+    }
+
+    public String getAvatar() {
+        return avatar;
+    }
+
+    public void setAvatar(String avatar) {
+        this.avatar = avatar;
     }
 }
