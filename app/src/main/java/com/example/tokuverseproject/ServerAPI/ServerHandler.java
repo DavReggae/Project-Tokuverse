@@ -31,7 +31,7 @@ import retrofit2.http.POST;
 public class ServerHandler {
 
     String Ip = //"10.40.171.72";
-    "192.168.1.14";
+    "192.168.1.23";
     Gson gson = new GsonBuilder()
             .setLenient()
             .create();
@@ -76,8 +76,6 @@ public class ServerHandler {
                 Log.d("failed", t.getMessage());
             }
         });
-
-
     }
 
     public interface getHero_CallBack
@@ -291,6 +289,27 @@ public class ServerHandler {
             @Override
             public void onFailure(Call<Void> call, Throwable t) {
                 callBack.onFail(t.getMessage());
+            }
+        });
+    }
+
+    public interface createPost_CallBack
+    {
+        void onSuccess();
+        void onFailed(String message);
+    }
+    public void createPost(String user_id, String content, String date_post, createPost_CallBack callBack)
+    {
+        Call<Void> call = Api.createPostAction(user_id, content, date_post);
+        call.enqueue(new Callback<Void>() {
+            @Override
+            public void onResponse(Call<Void> call, Response<Void> response) {
+                callBack.onSuccess();
+            }
+
+            @Override
+            public void onFailure(Call<Void> call, Throwable t) {
+                callBack.onFailed(t.getMessage());
             }
         });
     }

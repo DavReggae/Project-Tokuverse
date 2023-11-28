@@ -52,6 +52,13 @@ public interface API {
     );
 
     @FormUrlEncoded
+    @POST("createPost.php")
+    Call<Void> createPostAction(
+            @Field("user_id") String user_id,
+            @Field("content") String content,
+            @Field("date_post") String date_post
+    );
+    @FormUrlEncoded
     @POST("selectHero.php")
     Call<Void> selecHero(
             @Field("user_id") String user_id,

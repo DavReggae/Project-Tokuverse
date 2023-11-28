@@ -55,18 +55,20 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="32dp"
         android:text="TextView"
-        android:textSize="16dp"
+        android:textSize="20sp"
         android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="@+id/imgView_CreatePostUserAvatar"
         app:layout_constraintStart_toEndOf="@+id/imgView_CreatePostUserAvatar"
         app:layout_constraintTop_toTopOf="@+id/imgView_CreatePostUserAvatar" />
 
-    <TextView
+    <EditText
         android:id="@+id/txt_CreatePostContent"
         android:layout_width="375dp"
-        android:layout_height="473dp"
-        android:layout_marginTop="32dp"
-        android:layout_marginBottom="24dp"
-        android:hint="What's your opinion about Tokusatsu?"
+        android:layout_height="465dp"
+        android:ems="10"
+        android:gravity="top"
+        android:hint="What's your thought about Tokusatsu?"
+        android:inputType="textMultiLine"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"

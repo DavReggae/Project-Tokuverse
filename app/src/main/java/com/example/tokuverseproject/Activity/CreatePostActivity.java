@@ -2,21 +2,31 @@ package com.example.tokuverseproject.Activity;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.media.Image;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import com.example.tokuverseproject.Model.Hero;
 import com.example.tokuverseproject.Model.User;
 import com.example.tokuverseproject.R;
 import com.example.tokuverseproject.ServerAPI.ServerHandler;
 
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Locale;
+
 public class CreatePostActivity extends AppCompatActivity {
 
     ImageView backButton, img_Avatar;
-    TextView lbl_UserName, txt_CreatePostContent;
+    TextView lbl_UserName;
+    EditText txt_CreatePostContent;
     Button btn_PostAction;
     ServerHandler serverHandler = new ServerHandler();
     @Override
@@ -39,11 +49,48 @@ public class CreatePostActivity extends AppCompatActivity {
             @Override
             public void onSuccess(User user) {
                 lbl_UserName.setText(user.getUsername());
+                serverHandler.LoadImageFromURL(user.getAvatar(), img_Avatar);
             }
 
             @Override
             public void onFail(String message) {
 
+            }
+        });
+
+        Calendar calendar = Calendar.getInstance();
+        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.getDefault());
+        String currentTime = dateFormat.format(calendar.getTime());
+        Log.d("Current Date time", currentTime);
+
+        String content = txt_CreatePostContent.getText().toString();
+        btn_PostAction.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Log.d("Content", txt_CreatePostContent.getText().toString());
+                createPost(userId, txt_CreatePostContent.getText().toString(), currentTime);
+            }
+        });
+    }
+
+    void createPost(String user_id, String content, String date_time)
+    {
+        serverHandler.createPost(user_id, content, date_time, new ServerHandler.createPost_CallBack() {
+            @Override
+            public void onSuccess() {
+                Toast.makeText(CreatePostActivity.this, "Post sucessfull",
+                        Toast.LENGTH_LONG).show();
+
+                Intent intent = new Intent(CreatePostActivity.this, HomeActivity.class);
+                intent.putExtra("userID", user_id);
+                startActivity(intent);
+            }
+
+            @Override
+            public void onFailed(String message)
+            {
+                Toast.makeText(CreatePostActivity.this, "Post failed",
+                        Toast.LENGTH_LONG).show();
             }
         });
     }
