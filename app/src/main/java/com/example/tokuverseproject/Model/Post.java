@@ -1,19 +1,13 @@
 package com.example.tokuverseproject.Model;
 
-import com.google.gson.annotations.SerializedName;
-
-public class NewFeeds {
-    @SerializedName("id")
+public class Post {
     String id;
-    @SerializedName("user_id")
     String user_id;
-    @SerializedName("content")
-    String content;
-    @SerializedName("date_post")
     String date_post;
-    @SerializedName("like_count")
+    String user_name;
+    String content;
+    String user_image;
     String like_count;
-    @SerializedName("comment_count")
     String comment_count;
 
     public String getComment_count() {
@@ -40,6 +34,22 @@ public class NewFeeds {
         this.user_id = user_id;
     }
 
+    public String getDate_post() {
+        return date_post;
+    }
+
+    public void setDate_post(String date_post) {
+        this.date_post = date_post;
+    }
+
+    public String getUser_name() {
+        return user_name;
+    }
+
+    public void setUser_name(String user_name) {
+        this.user_name = user_name;
+    }
+
     public String getContent() {
         return content;
     }
@@ -48,12 +58,12 @@ public class NewFeeds {
         this.content = content;
     }
 
-    public String getDate_post() {
-        return date_post;
+    public String getUser_image() {
+        return user_image;
     }
 
-    public void setDate_post(String date_post) {
-        this.date_post = date_post;
+    public void setUser_image(String user_image) {
+        this.user_image = user_image;
     }
 
     public String getLike_count() {

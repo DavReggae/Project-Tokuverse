@@ -22,7 +22,7 @@ public interface API {
     @GET("getHero.php")
     Call<List<Hero>> getHero();
     @FormUrlEncoded
-    @POST("logIn.php")
+    @POST("login.php")
     Call<List<User>> logIn(@Field("username") String username,
                            @Field("pass") String password);
 

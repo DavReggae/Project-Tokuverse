@@ -69,8 +69,7 @@ public class MainActivity extends AppCompatActivity {
 
     void Test()
     {
-        Intent intent = new Intent(this, SelectHeroActivity.class);
-        startActivity(intent);
+        serverHandler.getUser();
     }
     void gotoSignUp()
     {
