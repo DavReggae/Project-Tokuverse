@@ -55,7 +55,7 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View view)
             {
-                gotoSignUp();
+                Test();
             }
         });
         btn_Login.setOnClickListener(new View.OnClickListener(){
@@ -69,7 +69,8 @@ public class MainActivity extends AppCompatActivity {
 
     void Test()
     {
-        serverHandler.getUser();
+        Intent intent = new Intent(this, SelectHeroActivity.class);
+        startActivity(intent);;
     }
     void gotoSignUp()
     {

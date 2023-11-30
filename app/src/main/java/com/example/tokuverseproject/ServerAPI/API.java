@@ -2,6 +2,7 @@ package com.example.tokuverseproject.ServerAPI;
 
 import com.example.tokuverseproject.Model.Hero;
 import com.example.tokuverseproject.Model.HeroDetails;
+import com.example.tokuverseproject.Model.NewFeeds;
 import com.example.tokuverseproject.Model.User;
 
 import java.util.List;
@@ -21,6 +22,10 @@ public interface API {
 
     @GET("getHero.php")
     Call<List<Hero>> getHero();
+
+    @GET("getNewFeeds.php")
+    Call<List<NewFeeds>> getNewFeeds();
+
     @FormUrlEncoded
     @POST("login.php")
     Call<List<User>> logIn(@Field("username") String username,

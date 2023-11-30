@@ -14,9 +14,14 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.example.tokuverseproject.Model.NewFeeds;
+import com.example.tokuverseproject.Model.Post;
 import com.example.tokuverseproject.Model.User;
 import com.example.tokuverseproject.R;
 import com.example.tokuverseproject.ServerAPI.ServerHandler;
+
+import java.util.ArrayList;
+import java.util.List;
 
 
 public class HomeFragment extends Fragment {
@@ -63,6 +68,42 @@ public class HomeFragment extends Fragment {
 
             }
         });
+        List<Post> postList = new ArrayList<>();
+        serverHandler.getNewFeedAction(new ServerHandler.GetNewFeeds_CallBack() {
+            @Override
+            public void onSuccess(List<NewFeeds> newFeedsList) {
+                for(int i = 0; i < newFeedsList.size(); i++)
+                {
+                    postList.get(i).setId(newFeedsList.get(i).getId());
+                    postList.get(i).setUser_id(newFeedsList.get(i).getId());
+                    postList.get(i).setContent(newFeedsList.get(i).getContent());
+                    postList.get(i).setDate_post(newFeedsList.get(i).getDate_post());
+                    postList.get(i).setLike_count(newFeedsList.get(i).getLike_count());
+                    postList.get(i).setComment_count(newFeedsList.get(i).getComment_count());
+                    int final_i = i;
+                    serverHandler.GetUserByID(postList.get(i).getId(), new ServerHandler.GetUserByID_CallBack() {
+                        @Override
+                        public void onSuccess(User user) {
+                            postList.get(final_i).setUser_name(user.getUsername());
+                            postList.get(final_i).setUser_image(user.getAvatar());
+                        }
+
+                        @Override
+                        public void onFail(String message) {
+
+                        }
+                    });
+                }
+            }
+            @Override
+            public void onFailed(String message) {
+
+            }
+        });
+        for(int i = 0; i < postList.size(); i++)
+        {
+
+        }
 
         btn_CreatePost.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -71,6 +112,7 @@ public class HomeFragment extends Fragment {
             }
         });
         return view;
+
     }
 
     void createPostAction()

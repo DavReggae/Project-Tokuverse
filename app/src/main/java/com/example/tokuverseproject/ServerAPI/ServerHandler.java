@@ -13,6 +13,7 @@ import com.example.tokuverseproject.Activity.HomeActivity;
 import com.example.tokuverseproject.Activity.SignUp;
 import com.example.tokuverseproject.Model.Hero;
 import com.example.tokuverseproject.Model.HeroDetails;
+import com.example.tokuverseproject.Model.NewFeeds;
 import com.example.tokuverseproject.Model.User;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
@@ -309,6 +310,35 @@ public class ServerHandler {
 
             @Override
             public void onFailure(Call<Void> call, Throwable t) {
+                callBack.onFailed(t.getMessage());
+            }
+        });
+    }
+
+    public interface GetNewFeeds_CallBack
+    {
+        void onSuccess(List<NewFeeds> newFeedsList);
+        void onFailed(String message);
+    }
+    public void getNewFeedAction(GetNewFeeds_CallBack callBack)
+    {
+        Call<List<NewFeeds>> call = Api.getNewFeeds();
+        call.enqueue(new Callback<List<NewFeeds>>() {
+            @Override
+            public void onResponse(Call<List<NewFeeds>> call, Response<List<NewFeeds>> response) {
+                List<NewFeeds> newFeedsList = response.body();
+                try
+                {
+                    callBack.onSuccess(newFeedsList);
+                }
+                catch (Exception e)
+                {
+                    callBack.onFailed(e.getMessage());
+                }
+            }
+
+            @Override
+            public void onFailure(Call<List<NewFeeds>> call, Throwable t) {
                 callBack.onFailed(t.getMessage());
             }
         });
