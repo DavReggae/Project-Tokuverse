@@ -3,7 +3,6 @@ package com.example.tokuverseproject.Activity;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
-import android.media.Image;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -13,7 +12,6 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.example.tokuverseproject.Model.Hero;
 import com.example.tokuverseproject.Model.User;
 import com.example.tokuverseproject.R;
 import com.example.tokuverseproject.ServerAPI.ServerHandler;
@@ -34,8 +32,8 @@ public class CreatePostActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_create_post);
         backButton = findViewById(R.id.btn_CreatePostBack);
-        img_Avatar = findViewById(R.id.imgView_CreatePostUserAvatar);
-        lbl_UserName = findViewById(R.id.lbl_CreatePostUserName);
+        img_Avatar = findViewById(R.id.img_UserPageAvatar);
+        lbl_UserName = findViewById(R.id.lbl_UserPageName);
         txt_CreatePostContent = findViewById(R.id.txt_CreatePostContent);
         btn_PostAction = findViewById(R.id.btn_PostAction);
         backButton.setOnClickListener(new View.OnClickListener() {

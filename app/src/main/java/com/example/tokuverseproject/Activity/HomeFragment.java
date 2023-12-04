@@ -76,7 +76,7 @@ public class HomeFragment extends Fragment {
         serverHandler.getNewFeedAction(new ServerHandler.GetNewFeeds_CallBack() {
             @Override
             public void onSuccess(List<NewFeeds> newFeedsList) {
-                NewFeedCustomBase newFeedCustomBase = new NewFeedCustomBase(appContext, newFeedsList);
+                NewFeedCustomBase newFeedCustomBase = new NewFeedCustomBase(appContext, newFeedsList, userId);
                 listView_NewFeeds.setAdapter(newFeedCustomBase);
             }
 

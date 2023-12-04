@@ -40,7 +40,7 @@
         app:layout_constraintTop_toTopOf="@+id/textView2" />
 
     <ImageView
-        android:id="@+id/imgView_CreatePostUserAvatar"
+        android:id="@+id/img_UserPageAvatar"
         android:layout_width="70dp"
         android:layout_height="70dp"
         android:layout_marginStart="16dp"
@@ -50,16 +50,16 @@
         tools:srcCompat="@tools:sample/avatars" />
 
     <TextView
-        android:id="@+id/lbl_CreatePostUserName"
+        android:id="@+id/lbl_UserPageName"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="32dp"
         android:text="TextView"
         android:textSize="20sp"
         android:textStyle="bold"
-        app:layout_constraintBottom_toBottomOf="@+id/imgView_CreatePostUserAvatar"
-        app:layout_constraintStart_toEndOf="@+id/imgView_CreatePostUserAvatar"
-        app:layout_constraintTop_toTopOf="@+id/imgView_CreatePostUserAvatar" />
+        app:layout_constraintBottom_toBottomOf="@+id/img_UserPageAvatar"
+        app:layout_constraintStart_toEndOf="@+id/img_UserPageAvatar"
+        app:layout_constraintTop_toTopOf="@+id/img_UserPageAvatar" />
 
     <EditText
         android:id="@+id/txt_CreatePostContent"
@@ -72,6 +72,6 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/imgView_CreatePostUserAvatar" />
+        app:layout_constraintTop_toBottomOf="@+id/img_UserPageAvatar" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

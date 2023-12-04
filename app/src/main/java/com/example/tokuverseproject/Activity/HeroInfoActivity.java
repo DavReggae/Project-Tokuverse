@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
@@ -18,11 +19,15 @@ public class HeroInfoActivity extends AppCompatActivity {
 
     TextView lbl_HeroName, lbl_Attack, lbl_Defend, lbl_Heath, lbl_Level, lbl_exp, lbl_Attribute;
     ImageView btnBack, img_HeroInfoFullPic;
-
+    String userID, click_userId;
     ProgressBar exp_bar;
     ServerHandler serverHandler = new ServerHandler();
+
+    Button btn_Features;
+
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    protected void onCreate(Bundle savedInstanceState)
+    {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_hero_info);
         lbl_HeroName = findViewById(R.id.lbl_HeroInfoName);
@@ -30,19 +35,39 @@ public class HeroInfoActivity extends AppCompatActivity {
         lbl_Defend = findViewById(R.id.lbl_defendPoint);
         lbl_Heath = findViewById(R.id.lbl_healthPoint);
         btnBack = findViewById(R.id.imgView_BackBtn);
+        btn_Features = findViewById(R.id.btn_HeroInfoFeatures);
         img_HeroInfoFullPic = findViewById(R.id.imgView_HeroInfoFullPic);
         lbl_Level = findViewById(R.id.lbl_level);
         lbl_exp = findViewById(R.id.lbl_exp);
         lbl_Attribute = findViewById(R.id.lbl_Attribute);
         exp_bar = findViewById(R.id.exp_bar);
-        String userID = getIntent().getStringExtra("user_id");
+        userID = getIntent().getStringExtra("user_id");
+        click_userId = getIntent().getStringExtra("cliked_userID");
         btnBack.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 onBackPressed();
             }
         });
-        serverHandler.getHeroDetails_ByID(userID, new ServerHandler.getHeroDetails_ByID_callBack() {
+        if(click_userId == null || click_userId == "")
+        {
+            btn_Features.setText("Fight");
+            LoadHeroInfo(userID);
+            btn_Features.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+
+                }
+            });
+        }
+        else
+        {
+            LoadHeroInfo(click_userId);
+        }
+    }
+    void LoadHeroInfo(String id)
+    {
+        serverHandler.getHeroDetails_ByID(id, new ServerHandler.getHeroDetails_ByID_callBack() {
             @Override
             public void onSuccess(HeroDetails heroDetails) {
                 lbl_Attack.setText("  " + heroDetails.getAttach_point());
@@ -64,7 +89,8 @@ public class HeroInfoActivity extends AppCompatActivity {
                     }
 
                     @Override
-                    public void onFailed(String message) {
+                    public void onFailed(String message)
+                    {
 
                     }
                 });
@@ -72,3 +98,4 @@ public class HeroInfoActivity extends AppCompatActivity {
         });
     }
 }
+

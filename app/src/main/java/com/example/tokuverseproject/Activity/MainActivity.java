@@ -39,6 +39,7 @@ public class MainActivity extends AppCompatActivity {
         txt_Password = findViewById(R.id.txt_Password);
 
 
+
         btn_GoToSignUp.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View view)
@@ -80,8 +81,8 @@ public class MainActivity extends AppCompatActivity {
         String userName = txt_Username.getText().toString();
         String passWord = txt_Password.getText().toString();
 
-        String testUN = "Test";
-        String testPW = "123465";
+        String testUN = "Vong";
+        String testPW = "99663";
         serverHandler.LogIn(testUN, testPW, new ServerHandler.LoginCallback()
         {
             @Override
