@@ -34,7 +34,7 @@ public class LandingActivity extends AppCompatActivity {
                     Log.d("Tag", e.getMessage());
                 }
                 Log.d("Tag", " Test Message");
-                Intent intent = new Intent(LandingActivity.this, MainActivity.class);
+                Intent intent = new Intent(LandingActivity.this, SignUp.class);
                 startActivity(intent);
             }
         });
