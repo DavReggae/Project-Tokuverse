@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
@@ -23,6 +24,7 @@ public class HeroInfoActivity extends AppCompatActivity {
     ProgressBar exp_bar;
     ServerHandler serverHandler = new ServerHandler();
 
+    ImageButton btn_AttackPlus, btn_AttackMinus, btn_DefendPlus, btn_DefendMinus, btn_HealthPlus, btn_HealthMinus;
     Button btn_Features;
 
     @Override
@@ -40,6 +42,13 @@ public class HeroInfoActivity extends AppCompatActivity {
         lbl_Level = findViewById(R.id.lbl_level);
         lbl_exp = findViewById(R.id.lbl_exp);
         lbl_Attribute = findViewById(R.id.lbl_Attribute);
+        btn_AttackPlus = findViewById(R.id.btn_AttackPlus);
+        btn_AttackMinus = findViewById(R.id.btn_AttackMinus);
+        btn_DefendPlus = findViewById(R.id.btn_DefendPlus);
+        btn_DefendMinus = findViewById(R.id.btn_DefendMinus);
+        btn_HealthPlus = findViewById(R.id.btn_HealthPlus);
+        btn_HealthMinus = findViewById(R.id.btn_HealthMinus);
+
         exp_bar = findViewById(R.id.exp_bar);
         userID = getIntent().getStringExtra("user_id");
         click_userId = getIntent().getStringExtra("cliked_userID");
@@ -51,18 +60,23 @@ public class HeroInfoActivity extends AppCompatActivity {
         });
         if(click_userId == null || click_userId == "")
         {
-            btn_Features.setText("Fight");
             LoadHeroInfo(userID);
-            btn_Features.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-
-                }
-            });
         }
         else
         {
+            btn_Features.setText("Fight");
+            btn_AttackPlus.setVisibility(View.GONE);
+            btn_AttackMinus.setVisibility(View.GONE);
+            btn_DefendPlus.setVisibility(View.GONE);
+            btn_DefendMinus.setVisibility(View.GONE);
+            btn_HealthPlus.setVisibility(View.GONE);
+            btn_HealthMinus.setVisibility(View.GONE);
             LoadHeroInfo(click_userId);
+            btn_Features.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                }
+            });
         }
     }
     void LoadHeroInfo(String id)

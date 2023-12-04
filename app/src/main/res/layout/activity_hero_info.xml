@@ -132,4 +132,65 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
 
+    <ImageButton
+        android:id="@+id/btn_AttackPlus"
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        android:layout_marginEnd="16dp"
+        app:layout_constraintBottom_toBottomOf="@+id/lbl_attackPoint"
+        app:layout_constraintEnd_toStartOf="@+id/lbl_attackPoint"
+        app:layout_constraintTop_toTopOf="@+id/lbl_attackPoint"
+        app:srcCompat="@drawable/add" />
+
+    <ImageButton
+        android:id="@+id/btn_AttackMinus"
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        android:layout_marginStart="16dp"
+        app:layout_constraintBottom_toBottomOf="@+id/lbl_attackPoint"
+        app:layout_constraintStart_toEndOf="@+id/lbl_attackPoint"
+        app:layout_constraintTop_toTopOf="@+id/lbl_attackPoint"
+        app:srcCompat="@drawable/minus" />
+
+    <ImageButton
+        android:id="@+id/btn_DefendPlus"
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        android:layout_marginEnd="16dp"
+        app:layout_constraintBottom_toBottomOf="@+id/lbl_defendPoint"
+        app:layout_constraintEnd_toStartOf="@+id/lbl_defendPoint"
+        app:layout_constraintTop_toTopOf="@+id/lbl_defendPoint"
+        app:srcCompat="@drawable/add" />
+
+    <ImageButton
+        android:id="@+id/btn_DefendMinus"
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        android:layout_marginStart="16dp"
+        app:layout_constraintBottom_toBottomOf="@+id/lbl_defendPoint"
+        app:layout_constraintStart_toEndOf="@+id/lbl_defendPoint"
+        app:layout_constraintTop_toTopOf="@+id/lbl_defendPoint"
+        app:srcCompat="@drawable/minus" />
+
+    <ImageButton
+        android:id="@+id/btn_HealthPlus"
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        android:layout_marginEnd="16dp"
+        app:layout_constraintBottom_toBottomOf="@+id/lbl_healthPoint"
+        app:layout_constraintEnd_toStartOf="@+id/lbl_healthPoint"
+        app:layout_constraintTop_toTopOf="@+id/lbl_healthPoint"
+        app:srcCompat="@drawable/add" />
+
+    <ImageButton
+        android:id="@+id/btn_HealthMinus"
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        android:layout_marginStart="16dp"
+        app:layout_constraintBottom_toBottomOf="@+id/lbl_healthPoint"
+        app:layout_constraintStart_toEndOf="@+id/lbl_healthPoint"
+        app:layout_constraintTop_toTopOf="@+id/lbl_healthPoint"
+        app:srcCompat="@drawable/minus" />
+
+
 </androidx.constraintlayout.widget.ConstraintLayout>

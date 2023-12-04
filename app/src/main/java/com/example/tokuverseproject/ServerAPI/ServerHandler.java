@@ -267,13 +267,19 @@ public class ServerHandler {
             }
         });
     }
-    public void signUp(User user, Activity signUpActivity)
+
+    public interface signUp_CallBack
+    {
+        void onSuccess();
+        void onFailed(String message);
+    }
+    public void signUp(User user, signUp_CallBack callBack)
     {
         Call<Void> call = Api.signUpAction(user.getUsername(), user.getPassword(), user.getEmail(), user.getPhone_number());
         call.enqueue(new Callback<Void>() {
             @Override
             public void onResponse(Call<Void> call, Response<Void> response) {
-                signUpActivity.onBackPressed();
+                callBack.onSuccess();
             }
 
             @Override

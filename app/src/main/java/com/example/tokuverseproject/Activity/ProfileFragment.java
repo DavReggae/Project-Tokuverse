@@ -88,7 +88,7 @@ public class ProfileFragment extends Fragment {
             @Override
             public void onSuccess(User user) {
                 String hero_details_id = user.getHero_id();
-                if(hero_details_id.equals("0"))
+                if(hero_details_id.equals("0") || hero_details_id.equals(""))
                 {
                     Intent intent = new Intent(getActivity(), SelectHeroActivity.class);
                     intent.putExtra("userID", userId);

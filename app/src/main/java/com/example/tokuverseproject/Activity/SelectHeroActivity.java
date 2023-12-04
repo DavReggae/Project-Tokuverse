@@ -91,8 +91,7 @@ public class SelectHeroActivity extends AppCompatActivity {
             }
             void LogIn()
             {
-                Intent intent = new Intent(SelectHeroActivity.this, MainActivity.class);
-                startActivity(intent);
+                onBackPressed();
             }
             @Override
             public void onFail(String message)

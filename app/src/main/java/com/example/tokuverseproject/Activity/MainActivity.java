@@ -83,7 +83,7 @@ public class MainActivity extends AppCompatActivity {
 
         String testUN = "Vong";
         String testPW = "99663";
-        serverHandler.LogIn(testUN, testPW, new ServerHandler.LoginCallback()
+        serverHandler.LogIn(userName, passWord, new ServerHandler.LoginCallback()
         {
             @Override
             public void onSuccess(String userId)
