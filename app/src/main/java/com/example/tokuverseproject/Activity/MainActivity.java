@@ -33,7 +33,7 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
 
-        btn_GoToSignUp = findViewById(R.id.btn_GoToSignUp);
+        btn_GoToSignUp = findViewById(R.id.btn_SignUp);
         btn_Login = findViewById(R.id.btn_Login);
         txt_Username = findViewById(R.id.txt_Username);
         txt_Password = findViewById(R.id.txt_Password);

@@ -2,6 +2,7 @@ package com.example.tokuverseproject.Activity;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.util.Log;
@@ -73,9 +74,9 @@ public class SelectHeroActivity extends AppCompatActivity {
                                 serverHandler.selectHero(userId, select_heroID, new ServerHandler.selectHero_CallBack() {
                                     @Override
                                     public void onSuccess(){
-                                        Toast.makeText(SelectHeroActivity.this, "Select Hero Sucess",
+                                        Toast.makeText(SelectHeroActivity.this, "Select Hero Success",
                                                 Toast.LENGTH_LONG).show();
-                                        onBackPressed();
+                                        LogIn();
                                     }
 
                                     @Override
@@ -88,7 +89,11 @@ public class SelectHeroActivity extends AppCompatActivity {
                     }
                 });
             }
-
+            void LogIn()
+            {
+                Intent intent = new Intent(SelectHeroActivity.this, MainActivity.class);
+                startActivity(intent);
+            }
             @Override
             public void onFail(String message)
             {

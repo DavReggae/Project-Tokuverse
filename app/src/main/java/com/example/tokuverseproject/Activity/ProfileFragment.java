@@ -26,6 +26,7 @@ public class ProfileFragment extends Fragment {
     ImageView img_ProfileUserAvatar;
     TextView lbl_Username, lbl_Email, lbl_PhoneNumber, lbl_coins;
     Button btn_HeroInfo;
+    Button btn_LogOut;
     @Override
     public void onCreate(Bundle savedInstanceState)
     {
@@ -35,7 +36,6 @@ public class ProfileFragment extends Fragment {
         {
             userId = bundle.getString("userID");
         }
-
     }
 
     @Override

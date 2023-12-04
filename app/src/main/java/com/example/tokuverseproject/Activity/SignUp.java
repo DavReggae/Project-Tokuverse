@@ -3,6 +3,7 @@ package com.example.tokuverseproject.Activity;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.annotation.SuppressLint;
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -61,5 +62,7 @@ public class SignUp extends AppCompatActivity {
         String phoneNumber = txt_PhoneNumber.getText().toString();
         User user = new User(userName, password, email, phoneNumber);
         serverHandler.signUp(user, this);
+        Intent intent = new Intent(this, SelectHeroActivity.class);
+        startActivity(intent);
     }
 }

@@ -6,11 +6,22 @@
     android:layout_height="match_parent"
     tools:context=".Activity.SignUp">
 
+    <ImageView
+        android:id="@+id/imageView4"
+        android:layout_width="fill_parent"
+        android:layout_height="match_parent"
+        android:alpha="0.6"
+        android:scaleType="fitXY"
+        app:srcCompat="@drawable/kamen_rider"
+        tools:layout_editor_absoluteX="0dp"
+        tools:layout_editor_absoluteY="0dp" />
+
     <EditText
         android:id="@+id/txt_Email"
         android:layout_width="360dp"
         android:layout_height="50dp"
         android:layout_marginTop="32dp"
+        android:background="#EFF8FD"
         android:drawableLeft="@drawable/email_icon"
         android:ems="10"
         android:hint="email"
@@ -25,6 +36,7 @@
         android:layout_width="360dp"
         android:layout_height="50dp"
         android:layout_marginTop="40dp"
+        android:background="#EFF8FD"
         android:drawableLeft="@drawable/password_icon"
         android:ems="10"
         android:hint="password"
@@ -41,6 +53,7 @@
         android:layout_height="50dp"
         android:layout_marginStart="32dp"
         android:layout_marginTop="180dp"
+        android:background="#EFF8FD"
         android:drawableLeft="@drawable/user_icon"
         android:ems="10"
         android:hint="username"
@@ -53,6 +66,7 @@
         android:layout_width="360dp"
         android:layout_height="50dp"
         android:layout_marginTop="40dp"
+        android:background="#EFF8FD"
         android:drawableLeft="@drawable/phone_icon"
         android:ems="10"
         android:hint="mobile phone"
