@@ -7,6 +7,10 @@ public class NewFeeds {
     String id;
     @SerializedName("user_id")
     String user_id;
+    @SerializedName("user_name")
+    String user_name;
+    @SerializedName("user_avatar")
+    String user_avatar;
     @SerializedName("content")
     String content;
     @SerializedName("date_post")
@@ -15,6 +19,22 @@ public class NewFeeds {
     String like_count;
     @SerializedName("comment_count")
     String comment_count;
+
+    public String getUser_name() {
+        return user_name;
+    }
+
+    public void setUser_name(String user_name) {
+        this.user_name = user_name;
+    }
+
+    public String getUser_avatar() {
+        return user_avatar;
+    }
+
+    public void setUser_avatar(String user_avatar) {
+        this.user_avatar = user_avatar;
+    }
 
     public String getComment_count() {
         return comment_count;

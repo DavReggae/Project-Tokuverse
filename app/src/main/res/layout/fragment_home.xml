@@ -40,9 +40,11 @@
 
     <ListView
         android:id="@+id/listView_Post"
-        android:layout_width="409dp"
-        android:layout_height="581dp"
-        android:layout_marginTop="24dp"
+        android:layout_width="match_parent"
+        android:layout_height="500dp"
+        android:layout_marginTop="4dp"
+        android:layout_marginBottom="16dp"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"

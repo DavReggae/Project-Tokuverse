@@ -50,6 +50,19 @@ public class CreatePostActivity extends AppCompatActivity {
             public void onSuccess(User user) {
                 lbl_UserName.setText(user.getUsername());
                 serverHandler.LoadImageFromURL(user.getAvatar(), img_Avatar);
+                Calendar calendar = Calendar.getInstance();
+                SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.getDefault());
+                String currentTime = dateFormat.format(calendar.getTime());
+                Log.d("Current Date time", currentTime);
+
+                String content = txt_CreatePostContent.getText().toString();
+                btn_PostAction.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        Log.d("Content", txt_CreatePostContent.getText().toString());
+                        createPost(userId, txt_CreatePostContent.getText().toString(), currentTime, user.getUsername(), user.getProfile_pic());
+                    }
+                });
             }
 
             @Override
@@ -58,34 +71,20 @@ public class CreatePostActivity extends AppCompatActivity {
             }
         });
 
-        Calendar calendar = Calendar.getInstance();
-        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.getDefault());
-        String currentTime = dateFormat.format(calendar.getTime());
-        Log.d("Current Date time", currentTime);
 
-        String content = txt_CreatePostContent.getText().toString();
-        btn_PostAction.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Log.d("Content", txt_CreatePostContent.getText().toString());
-                createPost(userId, txt_CreatePostContent.getText().toString(), currentTime);
-            }
-        });
     }
 
-    void createPost(String user_id, String content, String date_time)
+    void createPost(String user_id, String content, String date_time, String user_name, String user_avatar)
     {
         serverHandler.createPost(user_id, content, date_time, new ServerHandler.createPost_CallBack() {
             @Override
             public void onSuccess() {
                 Toast.makeText(CreatePostActivity.this, "Post sucessfull",
                         Toast.LENGTH_LONG).show();
-
                 Intent intent = new Intent(CreatePostActivity.this, HomeActivity.class);
                 intent.putExtra("userID", user_id);
                 startActivity(intent);
             }
-
             @Override
             public void onFailed(String message)
             {

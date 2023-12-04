@@ -3,23 +3,18 @@ package com.example.tokuverseproject.ServerAPI;
 import static android.app.ProgressDialog.show;
 
 import android.app.Activity;
-import android.content.Context;
-import android.content.Intent;
 import android.util.Log;
 import android.widget.ImageView;
-import android.widget.Toast;
 
-import com.example.tokuverseproject.Activity.HomeActivity;
-import com.example.tokuverseproject.Activity.SignUp;
 import com.example.tokuverseproject.Model.Hero;
 import com.example.tokuverseproject.Model.HeroDetails;
 import com.example.tokuverseproject.Model.NewFeeds;
 import com.example.tokuverseproject.Model.User;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
+import com.google.gson.annotations.SerializedName;
 import com.squareup.picasso.Picasso;
 
-import java.io.IOException;
 import java.util.List;
 
 import retrofit2.Call;
@@ -27,7 +22,6 @@ import retrofit2.Callback;
 import retrofit2.Response;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
-import retrofit2.http.POST;
 
 public class ServerHandler {
 
@@ -41,6 +35,20 @@ public class ServerHandler {
             .addConverterFactory(GsonConverterFactory.create(gson))
             .build();
     API Api = retrofit.create(API.class);
+
+    public class Message
+    {
+        @SerializedName("message")
+        String message;
+
+        public String getMessage() {
+            return message;
+        }
+
+        public void setMessage(String message) {
+            this.message = message;
+        }
+    }
 
     public interface CallBack
     {
@@ -59,6 +67,7 @@ public class ServerHandler {
             Log.d("Failed To Load Image From URL", e.getMessage());
         }
     }
+
     public void getUser()
     {
         Call<List<User>> call = Api.getUser();
@@ -71,12 +80,12 @@ public class ServerHandler {
                     Log.d("sucess", userList.get(i).getId());
                 }
             }
-
             @Override
             public void onFailure(Call<List<User>> call, Throwable t) {
                 Log.d("failed", t.getMessage());
             }
         });
+
     }
 
     public interface getHero_CallBack
@@ -146,6 +155,7 @@ public class ServerHandler {
 
     public void GetUserByID(String id, GetUserByID_CallBack callBack)
     {
+        Log.d("Curent user id", id);
         Call<List<User>> call = Api.getUser_ByID(id);
         call.enqueue(new Callback<List<User>>() {
             @Override
@@ -157,7 +167,7 @@ public class ServerHandler {
                 }
                 catch(Exception e)
                 {
-                    Log.d("Failed", e.getMessage());
+                    Log.d("Get User by Id Failed", e.getMessage());
                 }
 
             }
@@ -299,12 +309,14 @@ public class ServerHandler {
         void onSuccess();
         void onFailed(String message);
     }
-    public void createPost(String user_id, String content, String date_post, createPost_CallBack callBack)
+
+    public void createPost(String user_id, String content, String current_time, createPost_CallBack callBack)
     {
-        Call<Void> call = Api.createPostAction(user_id, content, date_post);
+        Call<Void> call = Api.createPostAction(user_id, content, current_time);
         call.enqueue(new Callback<Void>() {
             @Override
-            public void onResponse(Call<Void> call, Response<Void> response) {
+            public void onResponse(Call<Void> call, Response<Void> response)
+            {
                 callBack.onSuccess();
             }
 
@@ -314,6 +326,7 @@ public class ServerHandler {
             }
         });
     }
+
 
     public interface GetNewFeeds_CallBack
     {
@@ -329,11 +342,15 @@ public class ServerHandler {
                 List<NewFeeds> newFeedsList = response.body();
                 try
                 {
+                    for(int i = 0; i < newFeedsList.size(); i++)
+                    {
+                        Log.d("Get New Feed Success", newFeedsList.get(i).getUser_name());
+                    }
                     callBack.onSuccess(newFeedsList);
                 }
                 catch (Exception e)
                 {
-                    callBack.onFailed(e.getMessage());
+                    Log.d("Get New Feed Error", e.getMessage());
                 }
             }
 

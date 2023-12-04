@@ -15,6 +15,14 @@ public class HeroDetails {
     String defense_point;
     @SerializedName("health_point")
     String health_point;
+    @SerializedName("exp")
+    String exp;
+    @SerializedName("max_exp")
+    String max_exp;
+    @SerializedName("level")
+    String level;
+    @SerializedName("attribute_point")
+    String attribute_point;
 
     public String getId() {
         return id;
@@ -62,5 +70,37 @@ public class HeroDetails {
 
     public void setHealth_point(String health_point) {
         this.health_point = health_point;
+    }
+
+    public String getExp() {
+        return exp;
+    }
+
+    public void setExp(String exp) {
+        this.exp = exp;
+    }
+
+    public String getMax_exp() {
+        return max_exp;
+    }
+
+    public void setMax_exp(String max_exp) {
+        this.max_exp = max_exp;
+    }
+
+    public String getLevel() {
+        return level;
+    }
+
+    public void setLevel(String level) {
+        this.level = level;
+    }
+
+    public String getAttribute_point() {
+        return attribute_point;
+    }
+
+    public void setAttribute_point(String attribute_point) {
+        this.attribute_point = attribute_point;
     }
 }

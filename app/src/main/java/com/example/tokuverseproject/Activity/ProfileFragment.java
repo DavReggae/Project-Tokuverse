@@ -10,6 +10,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.example.tokuverseproject.Model.User;
@@ -22,7 +23,7 @@ public class ProfileFragment extends Fragment {
     ServerHandler serverHandler = new ServerHandler();
     Bundle bundle = new Bundle();
     String userId = "0";
-
+    ImageView img_ProfileUserAvatar;
     TextView lbl_Username, lbl_Email, lbl_PhoneNumber;
     Button btn_HeroInfo;
     @Override
@@ -44,6 +45,7 @@ public class ProfileFragment extends Fragment {
         lbl_Username = view.findViewById(R.id.lbl_Username);
         lbl_Email = view.findViewById(R.id.lbl_Email);
         lbl_PhoneNumber = view.findViewById(R.id.lbl_MobilePhone);
+        img_ProfileUserAvatar = view.findViewById(R.id.img_ProfileUserAvatar);
         btn_HeroInfo = view.findViewById(R.id.btn_GoToHero);
         try
         {
@@ -54,6 +56,7 @@ public class ProfileFragment extends Fragment {
                     lbl_Username.setText(user.getUsername());
                     lbl_Email.setText(user.getEmail());
                     lbl_PhoneNumber.setText(user.getPhone_number());
+                    serverHandler.LoadImageFromURL(user.getAvatar(), img_ProfileUserAvatar);
                     btn_HeroInfo.setOnClickListener(new View.OnClickListener() {
                         @Override
                         public void onClick(View view)
