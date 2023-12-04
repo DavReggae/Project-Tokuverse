@@ -82,28 +82,37 @@
     <ProgressBar
         android:id="@+id/exp_bar"
         style="?android:attr/progressBarStyleHorizontal"
-        android:layout_width="195dp"
-        android:layout_height="18dp"
-        android:layout_marginEnd="52dp"
-        app:layout_constraintBottom_toBottomOf="@+id/lbl_level"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/lbl_level"
-        app:layout_constraintTop_toTopOf="@+id/lbl_level"
-        app:layout_constraintVertical_bias="1.0" />
+        android:layout_width="150dp"
+        android:layout_height="20dp"
+        android:layout_marginTop="24dp"
+        app:layout_constraintEnd_toEndOf="@+id/imgView_HeroInfoFullPic"
+        app:layout_constraintStart_toStartOf="@+id/imgView_HeroInfoFullPic"
+        app:layout_constraintTop_toBottomOf="@+id/lbl_healthPoint" />
 
     <TextView
         android:id="@+id/lbl_level"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="52dp"
-        android:layout_marginTop="16dp"
+        android:layout_marginEnd="24dp"
         android:text="TextView"
         android:textSize="16dp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/lbl_healthPoint" />
+        app:layout_constraintBottom_toBottomOf="@+id/exp_bar"
+        app:layout_constraintEnd_toStartOf="@+id/exp_bar"
+        app:layout_constraintTop_toTopOf="@+id/exp_bar" />
 
     <TextView
         android:id="@+id/lbl_exp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="24dp"
+        android:text="TextView"
+        android:textSize="16dp"
+        app:layout_constraintBottom_toBottomOf="@+id/exp_bar"
+        app:layout_constraintStart_toEndOf="@+id/exp_bar"
+        app:layout_constraintTop_toTopOf="@+id/exp_bar" />
+
+    <TextView
+        android:id="@+id/lbl_Attribute"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
@@ -112,4 +121,5 @@
         app:layout_constraintEnd_toEndOf="@+id/exp_bar"
         app:layout_constraintStart_toStartOf="@+id/exp_bar"
         app:layout_constraintTop_toBottomOf="@+id/exp_bar" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>

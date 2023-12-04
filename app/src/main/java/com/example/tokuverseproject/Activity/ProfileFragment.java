@@ -24,7 +24,7 @@ public class ProfileFragment extends Fragment {
     Bundle bundle = new Bundle();
     String userId = "0";
     ImageView img_ProfileUserAvatar;
-    TextView lbl_Username, lbl_Email, lbl_PhoneNumber;
+    TextView lbl_Username, lbl_Email, lbl_PhoneNumber, lbl_coins;
     Button btn_HeroInfo;
     @Override
     public void onCreate(Bundle savedInstanceState)
@@ -45,6 +45,7 @@ public class ProfileFragment extends Fragment {
         lbl_Username = view.findViewById(R.id.lbl_Username);
         lbl_Email = view.findViewById(R.id.lbl_Email);
         lbl_PhoneNumber = view.findViewById(R.id.lbl_MobilePhone);
+        lbl_coins = view.findViewById(R.id.lbl_coins);
         img_ProfileUserAvatar = view.findViewById(R.id.img_ProfileUserAvatar);
         btn_HeroInfo = view.findViewById(R.id.btn_GoToHero);
         try
@@ -53,9 +54,10 @@ public class ProfileFragment extends Fragment {
                 @Override
                 public void onSuccess(User user) {
                     Log.d("Success", user.getId());
-                    lbl_Username.setText(user.getUsername());
-                    lbl_Email.setText(user.getEmail());
-                    lbl_PhoneNumber.setText(user.getPhone_number());
+                    lbl_Username.setText("  " + user.getUsername());
+                    lbl_Email.setText("  " + user.getEmail());
+                    lbl_PhoneNumber.setText("  " + user.getPhone_number());
+                    lbl_coins.setText("  " + user.getCoins());
                     serverHandler.LoadImageFromURL(user.getAvatar(), img_ProfileUserAvatar);
                     btn_HeroInfo.setOnClickListener(new View.OnClickListener() {
                         @Override

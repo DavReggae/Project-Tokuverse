@@ -21,40 +21,39 @@
         android:id="@+id/lbl_Username"
         android:layout_width="280dp"
         android:layout_height="0dp"
-        android:layout_marginTop="252dp"
+        android:layout_marginTop="24dp"
         android:drawableLeft="@drawable/user_icon"
-        android:text="TextView"
         android:gravity="center_vertical"
-        app:layout_constraintEnd_toEndOf="parent"
+        android:text="TextView"
+
+        app:layout_constraintEnd_toEndOf="@+id/img_ProfileUserAvatar"
         app:layout_constraintHorizontal_bias="0.498"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintStart_toStartOf="@+id/img_ProfileUserAvatar"
+        app:layout_constraintTop_toBottomOf="@+id/img_ProfileUserAvatar" />
 
     <TextView
         android:id="@+id/lbl_Email"
         android:layout_width="280dp"
         android:layout_height="30dp"
+        android:layout_marginTop="24dp"
         android:drawableLeft="@drawable/email_icon"
-        android:text="TextView"
         android:gravity="center_vertical"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
+        android:text="TextView"
+        app:layout_constraintEnd_toEndOf="@+id/lbl_Username"
         app:layout_constraintHorizontal_bias="0.496"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/lbl_Username"
-        app:layout_constraintVertical_bias="0.123" />
+        app:layout_constraintStart_toStartOf="@+id/lbl_Username"
+        app:layout_constraintTop_toBottomOf="@+id/lbl_Username" />
 
     <TextView
         android:id="@+id/lbl_MobilePhone"
         android:layout_width="280dp"
         android:layout_height="30dp"
-        android:layout_marginTop="40dp"
+        android:layout_marginTop="24dp"
         android:drawableLeft="@drawable/phone_icon"
-        android:text="TextView"
         android:gravity="center_vertical"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.496"
-        app:layout_constraintStart_toStartOf="parent"
+        android:text="TextView"
+        app:layout_constraintEnd_toEndOf="@+id/lbl_Email"
+        app:layout_constraintStart_toStartOf="@+id/lbl_Email"
         app:layout_constraintTop_toBottomOf="@+id/lbl_Email" />
 
     <Button
@@ -67,5 +66,17 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent" />
+
+    <TextView
+        android:id="@+id/lbl_coins"
+        android:layout_width="280dp"
+        android:layout_height="30dp"
+        android:layout_marginTop="24dp"
+        android:text="TextView"
+        android:gravity="center_vertical"
+        android:drawableLeft="@drawable/coins"
+        app:layout_constraintEnd_toEndOf="@+id/lbl_MobilePhone"
+        app:layout_constraintStart_toStartOf="@+id/lbl_MobilePhone"
+        app:layout_constraintTop_toBottomOf="@+id/lbl_MobilePhone" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
