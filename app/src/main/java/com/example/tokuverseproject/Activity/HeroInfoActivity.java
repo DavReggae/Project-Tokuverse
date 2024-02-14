@@ -65,12 +65,13 @@ public class HeroInfoActivity extends AppCompatActivity {
         else
         {
             btn_Features.setText("Fight");
+            /*
             btn_AttackPlus.setVisibility(View.GONE);
             btn_AttackMinus.setVisibility(View.GONE);
             btn_DefendPlus.setVisibility(View.GONE);
             btn_DefendMinus.setVisibility(View.GONE);
             btn_HealthPlus.setVisibility(View.GONE);
-            btn_HealthMinus.setVisibility(View.GONE);
+            btn_HealthMinus.setVisibility(View.GONE);*/
             LoadHeroInfo(click_userId);
             btn_Features.setOnClickListener(new View.OnClickListener() {
                 @Override
