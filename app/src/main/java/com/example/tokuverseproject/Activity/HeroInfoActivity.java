@@ -64,20 +64,6 @@ public class HeroInfoActivity extends AppCompatActivity {
         }
         else
         {
-            btn_Features.setText("Fight");
-            /*
-            btn_AttackPlus.setVisibility(View.GONE);
-            btn_AttackMinus.setVisibility(View.GONE);
-            btn_DefendPlus.setVisibility(View.GONE);
-            btn_DefendMinus.setVisibility(View.GONE);
-            btn_HealthPlus.setVisibility(View.GONE);
-            btn_HealthMinus.setVisibility(View.GONE);*/
-            LoadHeroInfo(click_userId);
-            btn_Features.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                }
-            });
         }
     }
     void LoadHeroInfo(String id)
@@ -91,6 +77,7 @@ public class HeroInfoActivity extends AppCompatActivity {
                 lbl_exp.setText(heroDetails.getExp() + "/" + heroDetails.getMax_exp());
                 lbl_Level.setText("Level " + heroDetails.getLevel());
                 lbl_Attribute.setText("Attribute: " + heroDetails.getAttribute_point() + " points");
+
                 int current_exp = Integer.parseInt(heroDetails.getExp().toString());
                 int max_exp = Integer.parseInt(heroDetails.getMax_exp().toString());
                 exp_bar.setMax(max_exp);
@@ -109,8 +96,129 @@ public class HeroInfoActivity extends AppCompatActivity {
 
                     }
                 });
+                final Integer[] current_attack = new Integer[1];
+                final Integer[] current_defense = new Integer[1];
+                final Integer[] current_health = new Integer[1];
+                final Integer[] current_attribute = new Integer[1];
+                final Integer[] max_attribute = new Integer[1];
+                final Integer[] default_attack = new Integer[1];
+                final Integer[] default_defense = new Integer[1];
+                final Integer[] default_health = new Integer[1];
+
+                current_attack[0] = Integer.parseInt(heroDetails.getAttach_point());
+                current_defense[0] = Integer.parseInt(heroDetails.getDefense_point());
+                current_health[0] = Integer.parseInt(heroDetails.getHealth_point());
+                current_attribute[0] = Integer.parseInt(heroDetails.getAttribute_point());
+                max_attribute[0] = Integer.parseInt(heroDetails.getAttribute_point());
+                default_attack[0] = Integer.parseInt(heroDetails.getAttach_point());
+                default_defense[0] = Integer.parseInt(heroDetails.getDefense_point());
+                default_health[0] = Integer.parseInt(heroDetails.getHealth_point());
+                btn_AttackPlus.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        try {
+                            if (current_attribute[0] > 0 ) {
+                                current_attribute[0] -= 1;
+                                current_attack[0] += 1;
+                                lbl_Attack.setText("  " + current_attack[0]); // Update lbl_Attack with current_attack
+                                lbl_Attribute.setText("Attribute: " + current_attribute[0] + " points"); // Update lbl_Attribute with current_attribute
+                            }
+                        } catch (Exception e) {
+                            Log.d("Error", e.getMessage());
+                        }
+                    }
+                });
+                btn_DefendPlus.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        try {
+                            if (current_attribute[0] > 0) {
+                                current_attribute[0] -= 1;
+                                current_defense[0] += 1;
+                                lbl_Defend.setText("  " + current_defense[0]);
+                                lbl_Attribute.setText("Attribute: " + current_attribute[0] + " points"); // Update lbl_Attribute with current_attribute
+                            }
+                        } catch (Exception e) {
+                            Log.d("Error", e.getMessage());
+                        }
+                    }
+                });
+                btn_HealthPlus.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        try {
+                            if (current_attribute[0] > 0) {
+                                current_attribute[0] -= 1;
+                                current_health[0] += 1;
+                                lbl_Heath.setText("  " + current_health[0]);
+                                lbl_Attribute.setText("Attribute: " + current_attribute[0] + " points"); // Update lbl_Attribute with current_attribute
+                            }
+                        } catch (Exception e) {
+                            Log.d("Error", e.getMessage());
+                        }
+                    }
+                });
+                btn_AttackMinus.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        try {
+                            if(current_attribute[0] < max_attribute[0] && current_attack[0] > default_attack[0])
+                            {
+                                current_attribute[0] += 1;
+                                current_attack[0] -= 1;
+                                lbl_Attack.setText("  " + current_attack[0]);
+                                lbl_Attribute.setText("Attribute: " + current_attribute[0] + " points");
+                            }
+                        }catch (Exception e) {
+                            Log.d("Error", e.getMessage());
+                        }
+                    }
+                });
+                btn_DefendMinus.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        try {
+                            if(current_attribute[0] < max_attribute[0] && current_defense[0] > default_defense[0])
+                            {
+                                current_attribute[0] += 1;
+                                current_defense[0] -= 1;
+                                lbl_Defend.setText("  " + current_defense[0]);
+                                lbl_Attribute.setText("Attribute: " + current_attribute[0] + " points");
+                            }
+                        }catch (Exception e) {
+                            Log.d("Error", e.getMessage());
+                        }
+                    }
+                });
+                btn_HealthMinus.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        try {
+                            if(current_attribute[0] < max_attribute[0] && current_health[0] > default_health[0])
+                            {
+                                current_attribute[0] += 1;
+                                current_health[0] -= 1;
+                                lbl_Heath.setText("  " + current_health[0]);
+                                lbl_Attribute.setText("Attribute: " + current_attribute[0] + " points");
+                            }
+                        }catch (Exception e) {
+                            Log.d("Error", e.getMessage());
+                        }
+                    }
+                });
+
+                btn_Features.setText("Change Stat");
+                btn_Features.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        
+                    }
+                });
             }
         });
     }
+
+
+
 }
 

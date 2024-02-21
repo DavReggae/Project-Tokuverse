@@ -2,6 +2,7 @@ package com.example.tokuverseproject.ServerAPI;
 
 import com.example.tokuverseproject.Model.Hero;
 import com.example.tokuverseproject.Model.HeroDetails;
+import com.example.tokuverseproject.Model.JSON_MESSAGE;
 import com.example.tokuverseproject.Model.NewFeeds;
 import com.example.tokuverseproject.Model.User;
 
@@ -74,4 +75,13 @@ public interface API {
     Call<Void> addHeroToUser(
             @Field("id") String id,
             @Field("hero_details_id") String hero_details_id);
+
+    @FormUrlEncoded
+    @POST("changeAttribute.php")
+    Call<JSON_MESSAGE> changeAttrribute(
+            @Field("id") String id,
+            @Field("attack_point") String attack_point,
+            @Field("defense_point") String defense_point,
+            @Field("health_point") String health_point,
+            @Field("attribute_point") String attribute_point);
 }

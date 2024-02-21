@@ -8,6 +8,7 @@ import android.widget.ImageView;
 
 import com.example.tokuverseproject.Model.Hero;
 import com.example.tokuverseproject.Model.HeroDetails;
+import com.example.tokuverseproject.Model.JSON_MESSAGE;
 import com.example.tokuverseproject.Model.NewFeeds;
 import com.example.tokuverseproject.Model.User;
 import com.google.gson.Gson;
@@ -31,7 +32,7 @@ public class ServerHandler {
             .setLenient()
             .create();
     Retrofit retrofit = new Retrofit.Builder()
-            .baseUrl("https://tokutech490.000webhostapp.com/")
+            .baseUrl("https://tokuserver-online.preview-domain.com/")
             .addConverterFactory(GsonConverterFactory.create(gson))
             .build();
     API Api = retrofit.create(API.class);
@@ -363,6 +364,35 @@ public class ServerHandler {
             @Override
             public void onFailure(Call<List<NewFeeds>> call, Throwable t) {
                 callBack.onFailed(t.getMessage());
+            }
+        });
+    }
+    public interface ChangeAttribute_CallBack
+    {
+        void onSuccess(JSON_MESSAGE jsonMessage);
+        void onFailed(String message);
+    }
+    public void changeAttribute_Action(String id, String attack_point, String defense_point, String health_point, String attribute_point, ChangeAttribute_CallBack callBack)
+    {
+        Call<JSON_MESSAGE> call = Api.changeAttrribute(id, attack_point, defense_point, health_point, attribute_point);
+        call.enqueue(new Callback<JSON_MESSAGE>() {
+            @Override
+            public void onResponse(Call<JSON_MESSAGE> call, Response<JSON_MESSAGE> response) {
+                JSON_MESSAGE jsonMessage = response.body();
+                try
+                {
+                    callBack.onSuccess(jsonMessage);
+                }
+                catch(Exception e)
+                {
+                    Log.d("Change Attribute Error", e.getMessage());
+                }
+            }
+
+            @Override
+            public void onFailure(Call<JSON_MESSAGE> call, Throwable t)
+            {
+
             }
         });
     }
