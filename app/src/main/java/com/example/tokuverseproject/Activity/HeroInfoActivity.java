@@ -10,9 +10,11 @@ import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.tokuverseproject.Model.Hero;
 import com.example.tokuverseproject.Model.HeroDetails;
+import com.example.tokuverseproject.Model.JSON_MESSAGE;
 import com.example.tokuverseproject.R;
 import com.example.tokuverseproject.ServerAPI.ServerHandler;
 
@@ -207,11 +209,27 @@ public class HeroInfoActivity extends AppCompatActivity {
                     }
                 });
 
+
+
                 btn_Features.setText("Change Stat");
                 btn_Features.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
-                        
+                        String attack = String.valueOf(current_attack[0]);
+                        String defense = String.valueOf(current_defense[0]);
+                        String health = String.valueOf(current_health[0]);
+                        String attribute = String.valueOf(current_attribute[0]);
+                        serverHandler.changeAttribute_Action(heroDetails.getId(), attack, defense, health, attribute, new ServerHandler.ChangeAttribute_CallBack() {
+                            @Override
+                            public void onSuccess(JSON_MESSAGE jsonMessage) {
+                                Toast.makeText(HeroInfoActivity.this, jsonMessage.getMessage(), Toast.LENGTH_LONG).show();
+                            }
+
+                            @Override
+                            public void onFailed(String message) {
+
+                            }
+                        });
                     }
                 });
             }

@@ -7,6 +7,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -53,13 +54,13 @@ public class NewFeedCustomBase extends BaseAdapter {
         TextView lbl_PostConent = view.findViewById(R.id.lbl_PostContent);
         TextView lbl_likeCount = view.findViewById(R.id.lbl_PostLikeCount);
         TextView lbl_commentCount = view.findViewById(R.id.lbl_CommentCount);
+        Button btn_Like = view.findViewById(R.id.btn_PostLike);
         NewFeeds newFeeds = newFeedsList.get(i);
         serverHandler.LoadImageFromURL(newFeeds.getUser_avatar(), img_PostUserAvatar);
         lbl_PostUserName.setText(newFeeds.getUser_name());
         lbl_PostConent.setText(newFeeds.getContent());
         lbl_likeCount.setText("   " + newFeeds.getLike_count());
         lbl_commentCount.setText(newFeeds.getComment_count() +"   ");
-
         lbl_PostUserName.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view)
@@ -76,9 +77,9 @@ public class NewFeedCustomBase extends BaseAdapter {
                 {
                     Log.d("User name clicked error", e.getMessage());
                 }
-
             }
         });
+
 
         return view;
     }
