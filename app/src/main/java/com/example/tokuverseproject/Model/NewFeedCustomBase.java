@@ -79,8 +79,6 @@ public class NewFeedCustomBase extends BaseAdapter {
                 }
             }
         });
-
-
         return view;
     }
 }
