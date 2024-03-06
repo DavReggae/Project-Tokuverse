@@ -32,7 +32,7 @@ public class ServerHandler {
             .setLenient()
             .create();
     Retrofit retrofit = new Retrofit.Builder()
-            .baseUrl("https://tokuserver.online/phpFiles/")
+            .baseUrl("https://tokuserver.000webhostapp.com/phpFiles/")
             .addConverterFactory(GsonConverterFactory.create(gson))
             .build();
     API Api = retrofit.create(API.class);
@@ -393,6 +393,34 @@ public class ServerHandler {
             public void onFailure(Call<JSON_MESSAGE> call, Throwable t)
             {
 
+            }
+        });
+    }
+    public interface LikeAction_CallBack
+    {
+        void onSuccess(JSON_MESSAGE jsonMessage);
+        void onFailed(String message);
+    }
+    public void like_Acion(String news_feed_id, String user_id, LikeAction_CallBack callBack)
+    {
+        Call<JSON_MESSAGE> call = Api.likeAction(news_feed_id, user_id);
+        call.enqueue(new Callback<JSON_MESSAGE>() {
+            @Override
+            public void onResponse(Call<JSON_MESSAGE> call, Response<JSON_MESSAGE> response) {
+                JSON_MESSAGE jsonMessage = response.body();
+                try
+                {
+                    callBack.onSuccess(jsonMessage);
+                }
+                catch(Exception e)
+                {
+                    Log.d("Error", e.getMessage());
+                }
+            }
+
+            @Override
+            public void onFailure(Call<JSON_MESSAGE> call, Throwable t) {
+                    callBack.onFailed(t.getMessage());
             }
         });
     }

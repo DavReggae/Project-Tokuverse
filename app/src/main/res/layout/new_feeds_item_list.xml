@@ -67,8 +67,11 @@
         android:layout_marginTop="8dp"
         android:drawableLeft="@drawable/btn_heart"
         android:text="Like"
+        android:textColor="@color/black"
+        android:background="@android:color/transparent"
         app:layout_constraintStart_toStartOf="@+id/lbl_PostLikeCount"
         app:layout_constraintTop_toBottomOf="@+id/lbl_PostLikeCount" />
+
 
     <Button
         android:id="@+id/btn_PostComment"
@@ -77,6 +80,8 @@
         android:layout_marginTop="8dp"
         android:drawableLeft="@drawable/btn_comment"
         android:text="Comment"
+        android:textColor="@color/black"
+        android:background="@android:color/transparent"
         app:layout_constraintEnd_toEndOf="@+id/lbl_CommentCount"
         app:layout_constraintTop_toBottomOf="@+id/lbl_CommentCount" />
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -84,4 +84,10 @@ public interface API {
             @Field("defense_point") String defense_point,
             @Field("health_point") String health_point,
             @Field("attribute_point") String attribute_point);
+    @FormUrlEncoded
+    @POST("likeAction.php")
+    Call<JSON_MESSAGE> likeAction(
+            @Field("news_feed_id") String news_feed_id,
+            @Field("user_id") String user_id
+    );
 }

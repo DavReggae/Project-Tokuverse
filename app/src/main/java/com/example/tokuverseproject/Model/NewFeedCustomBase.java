@@ -2,6 +2,7 @@ package com.example.tokuverseproject.Model;
 
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Color;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -10,6 +11,7 @@ import android.widget.BaseAdapter;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.tokuverseproject.Activity.UserPageActivity;
 import com.example.tokuverseproject.R;
@@ -77,6 +79,26 @@ public class NewFeedCustomBase extends BaseAdapter {
                 {
                     Log.d("User name clicked error", e.getMessage());
                 }
+            }
+        });
+        btn_Like.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                serverHandler.like_Acion(user_id, newFeeds.id, new ServerHandler.LikeAction_CallBack() {
+                    @Override
+                    public void onSuccess(JSON_MESSAGE jsonMessage) {
+                        JSON_MESSAGE message = jsonMessage;
+                        if(message.getMessage().equals("0") == false)
+                        {
+                            Toast.makeText(inflater.getContext(), message.getMessage(),Toast.LENGTH_SHORT).show();
+                            btn_Like.setTextColor(Color.RED);
+                        }
+                    }
+                    @Override
+                    public void onFailed(String message) {
+
+                    }
+                });
             }
         });
         return view;
