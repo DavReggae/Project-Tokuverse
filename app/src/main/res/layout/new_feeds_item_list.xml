@@ -41,7 +41,7 @@
         app:layout_constraintTop_toBottomOf="@+id/img_PostUserAvatar" />
 
     <TextView
-        android:id="@+id/lbl_PostLikeCount"
+        android:id="@+id/lbl_Post_LikeCount"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
@@ -51,7 +51,7 @@
         app:layout_constraintTop_toBottomOf="@+id/lbl_PostContent" />
 
     <TextView
-        android:id="@+id/lbl_CommentCount"
+        android:id="@+id/lbl_Post_CommentCount"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
@@ -65,12 +65,12 @@
         android:layout_width="wrap_content"
         android:layout_height="50dp"
         android:layout_marginTop="8dp"
-        android:drawableLeft="@drawable/btn_heart"
+        android:drawableLeft="@drawable/btn_like_icon_24"
         android:text="Like"
         android:textColor="@color/black"
         android:background="@android:color/transparent"
-        app:layout_constraintStart_toStartOf="@+id/lbl_PostLikeCount"
-        app:layout_constraintTop_toBottomOf="@+id/lbl_PostLikeCount" />
+        app:layout_constraintStart_toStartOf="@+id/lbl_Post_LikeCount"
+        app:layout_constraintTop_toBottomOf="@+id/lbl_Post_LikeCount" />
 
 
     <Button
@@ -82,6 +82,7 @@
         android:text="Comment"
         android:textColor="@color/black"
         android:background="@android:color/transparent"
-        app:layout_constraintEnd_toEndOf="@+id/lbl_CommentCount"
-        app:layout_constraintTop_toBottomOf="@+id/lbl_CommentCount" />
+        android:backgroundTint="@android:color/darker_gray"
+        app:layout_constraintEnd_toEndOf="@+id/lbl_Post_CommentCount"
+        app:layout_constraintTop_toBottomOf="@+id/lbl_Post_CommentCount" />
 </androidx.constraintlayout.widget.ConstraintLayout>

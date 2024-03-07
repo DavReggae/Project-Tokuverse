@@ -3,6 +3,7 @@ package com.example.tokuverseproject.ServerAPI;
 import com.example.tokuverseproject.Model.Hero;
 import com.example.tokuverseproject.Model.HeroDetails;
 import com.example.tokuverseproject.Model.JSON_MESSAGE;
+import com.example.tokuverseproject.Model.Like;
 import com.example.tokuverseproject.Model.NewFeeds;
 import com.example.tokuverseproject.Model.User;
 
@@ -89,5 +90,17 @@ public interface API {
     Call<JSON_MESSAGE> likeAction(
             @Field("news_feed_id") String news_feed_id,
             @Field("user_id") String user_id
+    );
+    @FormUrlEncoded
+    @POST("getLike_ByUserID&NewsFeedId.php")
+    Call<List<Like>> getLike_ByUserID_and_NewsFeedID(
+            @Field("news_feed_id") String news_feed_id,
+            @Field("user_id") String user_id);
+    @FormUrlEncoded
+    @POST("createComment.php")
+    Call<List<JSON_MESSAGE>> createComment(
+            @Field("user_id") String user_id,
+            @Field("news_feed_id") String news_feed_id,
+            @Field("content") String content
     );
 }

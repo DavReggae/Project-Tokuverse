@@ -81,8 +81,8 @@ public class MainActivity extends AppCompatActivity {
         String userName = txt_Username.getText().toString();
         String passWord = txt_Password.getText().toString();
 
-        String testUN = "Vong";
-        String testPW = "99663";
+        String testUN = "Test";
+        String testPW = "123465";
         serverHandler.LogIn(testUN, testPW, new ServerHandler.LoginCallback()
         {
             @Override

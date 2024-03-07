@@ -9,6 +9,7 @@ import android.widget.ImageView;
 import com.example.tokuverseproject.Model.Hero;
 import com.example.tokuverseproject.Model.HeroDetails;
 import com.example.tokuverseproject.Model.JSON_MESSAGE;
+import com.example.tokuverseproject.Model.Like;
 import com.example.tokuverseproject.Model.NewFeeds;
 import com.example.tokuverseproject.Model.User;
 import com.google.gson.Gson;
@@ -424,4 +425,33 @@ public class ServerHandler {
             }
         });
     }
+
+    public  interface getLike_ByUserId_And_NewsFeedId_CallBack
+    {
+        void onSuccess(Like like);
+        void onFailed(String message);
+    }
+
+    public void getLike_ByUserId_And_NewsFeedId(String news_feed_id, String user_id, getLike_ByUserId_And_NewsFeedId_CallBack callBack)
+    {
+        Call<List<Like>> call = Api.getLike_ByUserID_and_NewsFeedID(news_feed_id, user_id);
+        call.enqueue(new Callback<List<Like>>() {
+            @Override
+            public void onResponse(Call<List<Like>> call, Response<List<Like>> response) {
+                Like like = new Like();
+                if(response.body().size() > 0)
+                {
+                    like = response.body().get(0);
+                    callBack.onSuccess(like);
+                }
+
+            }
+            @Override
+            public void onFailure(Call<List<Like>> call, Throwable t)
+            {
+                callBack.onFailed(t.getMessage());
+            }
+        });
+    }
 }
+

@@ -16,6 +16,7 @@ import android.widget.ListView;
 import android.widget.TextView;
 
 import com.example.tokuverseproject.Model.HeroCustomBase;
+import com.example.tokuverseproject.Model.Like;
 import com.example.tokuverseproject.Model.NewFeedCustomBase;
 import com.example.tokuverseproject.Model.NewFeeds;
 import com.example.tokuverseproject.Model.User;
