@@ -55,10 +55,10 @@ public class NewFeedCustomBase extends BaseAdapter {
         view = inflater.inflate(R.layout.new_feeds_item_list, null);
         ImageView img_PostUserAvatar = view.findViewById(R.id.img_PostUserAvatar);
         TextView lbl_PostUserName = view.findViewById(R.id.lbl_PostUserName);
-        TextView lbl_PostConent = view.findViewById(R.id.lbl_PostContent);
-        TextView lbl_likeCount = view.findViewById(R.id.lbl_Post_LikeCount);
-        TextView lbl_commentCount = view.findViewById(R.id.lbl_Post_CommentCount);
-        Button btn_Like = view.findViewById(R.id.btn_PostLike);
+        TextView lbl_PostConent = view.findViewById(R.id.lbl_Content);
+        TextView lbl_likeCount = view.findViewById(R.id.lbl_LikeCount);
+        TextView lbl_commentCount = view.findViewById(R.id.lbl_CommentCount);
+        Button btn_Like = view.findViewById(R.id.btn_Like);
         NewFeeds newFeeds = newFeedsList.get(i);
         serverHandler.LoadImageFromURL(newFeeds.getUser_avatar(), img_PostUserAvatar);
         lbl_PostUserName.setText(newFeeds.getUser_name());
@@ -168,6 +168,7 @@ public class NewFeedCustomBase extends BaseAdapter {
                     Intent intent = new Intent(inflater.getContext(), PostActivity.class);
                     intent.putExtra("userID", user_id);
                     intent.putExtra("cliked_userID", newFeeds.user_id);
+                    intent.putExtra("postID", newFeeds.id);
                     intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                     inflater.getContext().startActivity(intent);
                 }

@@ -24,6 +24,7 @@ public class PostActivity extends AppCompatActivity {
         lbl_ClickedUserName = findViewById(R.id.lbl_ClickedUserName);
         String cliked_userID = getIntent().getStringExtra("cliked_userID");
         String user_ID= getIntent().getStringExtra("userID");
+        String post_ID = getIntent().getStringExtra("postID");
         serverHandler.GetUserByID(cliked_userID, new ServerHandler.GetUserByID_CallBack() {
             @Override
             public void onSuccess(User user) {
