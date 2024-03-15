@@ -453,5 +453,28 @@ public class ServerHandler {
             }
         });
     }
+
+    public interface getNewFeed_ByID_CallBack
+    {
+        void onSuccess(NewFeeds newFeed);
+        void onFailed(String message);
+    }
+
+    public void getNewFeed_ByID(String id, getNewFeed_ByID_CallBack callBack)
+    {
+        Call<List<NewFeeds>> call = Api.getNewsFeed_ByID(id);
+        call.enqueue(new Callback<List<NewFeeds>>() {
+            @Override
+            public void onResponse(Call<List<NewFeeds>> call, Response<List<NewFeeds>> response) {
+                NewFeeds newFeeds = response.body().get(0);
+                callBack.onSuccess(newFeeds);
+            }
+
+            @Override
+            public void onFailure(Call<List<NewFeeds>> call, Throwable t) {
+                callBack.onFailed(t.getMessage());
+            }
+        });
+    }
 }
 

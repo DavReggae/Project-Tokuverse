@@ -103,4 +103,9 @@ public interface API {
             @Field("news_feed_id") String news_feed_id,
             @Field("content") String content
     );
+    @FormUrlEncoded
+    @POST("getNewsFeed_ByID.php")
+    Call<List<NewFeeds>> getNewsFeed_ByID(
+            @Field("id") String id
+    );
 }

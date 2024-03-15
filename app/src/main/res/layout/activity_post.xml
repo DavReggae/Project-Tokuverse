@@ -46,7 +46,7 @@
         app:layout_constraintStart_toStartOf="@+id/lbl_Post_LikeCount"
         app:layout_constraintTop_toBottomOf="@+id/lbl_Post_LikeCount" />
     <Button
-        android:id="@+id/btn_PostComment"
+        android:id="@+id/btn_Post_Comment"
         android:layout_width="wrap_content"
         android:layout_height="50dp"
         android:layout_marginTop="8dp"
