@@ -1,3 +1,4 @@
+/* CSS styles */
 @import url('https://fonts.googleapis.com/css?family=Open+Sans:400,400i,700');
         
 body {
@@ -110,3 +111,31 @@ main {
 .text-container {
   flex: 1; /* Allows the text container to fill up the remaining space */
 }
+
+        body {
+            font-family: 'Open Sans', sans-serif;
+            background: #9fcedf;
+            overflow-x: hidden;
+            margin: 0;
+            color: #333;
+            font-size: 100%;
+            line-height: 1.5;
+        }
+
+        nav.menu {
+            position: fixed; /* Fix the position of the navbar */
+            top: 0;
+            left: 0;
+            bottom: 0; /* Extend the navbar to the bottom of the viewport */
+            width: 220px;
+            background-color: #fff; /* Ensure navbar has a background color */
+            overflow-y: auto; /* Enable vertical scrolling if the content overflows */
+        }
+
+        main {
+            margin-left: 240px; /* Adjust margin to accommodate the width of the navbar */
+            padding: 20px;
+        }
+
+        /* Your existing CSS styles */
+        /* Add your existing CSS styles here */
