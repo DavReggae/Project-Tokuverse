@@ -100,8 +100,8 @@ public interface API {
     @POST("createComment.php")
     Call<List<JSON_MESSAGE>> createComment(
             @Field("user_id") String user_id,
-            @Field("news_feed_id") String news_feed_id,
-            @Field("content") String content
+            @Field("content") String content,
+            @Field("news_feed_id") String news_feed_id
     );
     @FormUrlEncoded
     @POST("getNewsFeed_ByID.php")

@@ -476,5 +476,27 @@ public class ServerHandler {
             }
         });
     }
+
+    public interface CreateComment_CallBack
+    {
+        void onSuccess(JSON_MESSAGE message);
+        void onFailed(String message);
+    }
+
+    public void creaetComment_Action(String user_id, String content, String news_feed_id,  CreateComment_CallBack callBack)
+    {
+        Call<List<JSON_MESSAGE>> call = Api.createComment(user_id, content, news_feed_id);
+        call.enqueue(new Callback<List<JSON_MESSAGE>>() {
+            @Override
+            public void onResponse(Call<List<JSON_MESSAGE>> call, Response<List<JSON_MESSAGE>> response) {
+                callBack.onSuccess(response.body().get(0));
+            }
+
+            @Override
+            public void onFailure(Call<List<JSON_MESSAGE>> call, Throwable t) {
+                callBack.onFailed(t.getMessage());
+            }
+        });
+    }
 }
 
