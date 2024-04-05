@@ -59,6 +59,7 @@ public class NewFeedCustomBase extends BaseAdapter {
         TextView lbl_likeCount = view.findViewById(R.id.lbl_LikeCount);
         TextView lbl_commentCount = view.findViewById(R.id.lbl_CommentCount);
         Button btn_Like = view.findViewById(R.id.btn_Like);
+        Button btn_Comment = view.findViewById(R.id.btn_Comment);
         NewFeeds newFeeds = newFeedsList.get(i);
         serverHandler.LoadImageFromURL(newFeeds.getUser_avatar(), img_PostUserAvatar);
         lbl_PostUserName.setText(newFeeds.getUser_name());
@@ -169,6 +170,26 @@ public class NewFeedCustomBase extends BaseAdapter {
                     intent.putExtra("userID", user_id);
                     intent.putExtra("cliked_userID", newFeeds.user_id);
                     intent.putExtra("postID", newFeeds.id);
+                    intent.putExtra("comment", "false");
+                    intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                    inflater.getContext().startActivity(intent);
+                }
+                catch(Exception e)
+                {
+                    Log.d("User name clicked error", e.getMessage());
+                }
+            }
+        });
+        btn_Comment.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                try
+                {
+                    Intent intent = new Intent(inflater.getContext(), PostActivity.class);
+                    intent.putExtra("userID", user_id);
+                    intent.putExtra("cliked_userID", newFeeds.user_id);
+                    intent.putExtra("postID", newFeeds.id);
+                    intent.putExtra("comment", "true");
                     intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                     inflater.getContext().startActivity(intent);
                 }
@@ -179,5 +200,6 @@ public class NewFeedCustomBase extends BaseAdapter {
             }
         });
         return view;
+
     }
 }

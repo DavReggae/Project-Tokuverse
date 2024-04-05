@@ -1,5 +1,6 @@
 package com.example.tokuverseproject.ServerAPI;
 
+import com.example.tokuverseproject.Model.Comment;
 import com.example.tokuverseproject.Model.Hero;
 import com.example.tokuverseproject.Model.HeroDetails;
 import com.example.tokuverseproject.Model.JSON_MESSAGE;
@@ -92,20 +93,25 @@ public interface API {
             @Field("user_id") String user_id
     );
     @FormUrlEncoded
+    @POST("createComment.php")
+    Call<JSON_MESSAGE> commentAction(
+            @Field("user_id") String user_id,
+            @Field("news_feed_id") String news_feed_id,
+            @Field("content") String content);
+    @FormUrlEncoded
     @POST("getLike_ByUserID&NewsFeedId.php")
     Call<List<Like>> getLike_ByUserID_and_NewsFeedID(
             @Field("news_feed_id") String news_feed_id,
             @Field("user_id") String user_id);
-    @FormUrlEncoded
-    @POST("createComment.php")
-    Call<List<JSON_MESSAGE>> createComment(
-            @Field("user_id") String user_id,
-            @Field("content") String content,
-            @Field("news_feed_id") String news_feed_id
-    );
+
     @FormUrlEncoded
     @POST("getNewsFeed_ByID.php")
     Call<List<NewFeeds>> getNewsFeed_ByID(
             @Field("id") String id
+    );
+    @FormUrlEncoded
+    @POST("getComment_ByNewsFeedID.php")
+    Call<List<Comment>> getComment_ByNewsFeedID(
+            @Field("news_feed_id") String news_feed_id
     );
 }
