@@ -11,8 +11,6 @@ import android.widget.ProgressBar;
 import android.widget.Toast;
 
 
-import com.example.tokuverseproject.Model.Hero;
-import com.example.tokuverseproject.Model.HeroDetails;
 import com.example.tokuverseproject.Model.NewFeeds;
 import com.example.tokuverseproject.Model.User;
 import com.example.tokuverseproject.R;
@@ -35,7 +33,7 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        progressBar = findViewById(R.id.loadingBar_Home);
+        progressBar = findViewById(R.id.loadingBar_Profile);
         btn_GoToSignUp = findViewById(R.id.btn_SignUp);
         btn_Login = findViewById(R.id.btn_Login);
         txt_Username = findViewById(R.id.txt_Username);
@@ -92,50 +90,19 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onSuccess(User user)
             {
-                if(user.getHero_details_id() != "0")
-                {
-                    serverHandler.getHeroDetails_ByUserID(user.getId(), new ServerHandler.getHeroDetails_ByID_callBack() {
-                        @Override
-                        public void onSuccess(HeroDetails heroDetails) {
-                            user.setClass_HeroDetails(heroDetails);
-                            serverHandler.getHero_ByID(user.getClass_HeroDetails().getHero_id(), new ServerHandler.CallBack() {
-                                @Override
-                                public void getHero_ByID_Success(Hero hero) {
-                                    user.getClass_HeroDetails().setClass_Hero(hero);
-                                    dismissLoading();
-                                    Toast.makeText(MainActivity.this, "Log in sucessful",
-                                            Toast.LENGTH_LONG).show();
-                                    Intent intent = new Intent(MainActivity.this, HomeActivity.class);
-                                    intent.putExtra("user", user);
-                                    intent.putExtra("scene", "1");
-                                    startActivity(intent);
-                                }
-
-                                @Override
-                                public void onFailed(String message) {
-
-                                }
-                            });
-
-                        }
-                    });
-                }
-                else
-                {
-                    dismissLoading();
-                    Toast.makeText(MainActivity.this, "Log in sucessful",
-                            Toast.LENGTH_LONG).show();
-                    Intent intent = new Intent(MainActivity.this, HomeActivity.class);
-                    intent.putExtra("user", user);
-                    intent.putExtra("scene", "1");
-                    startActivity(intent);
-                }
+                dismissLoading();
+                Toast.makeText(MainActivity.this, "Log in sucessful",
+                        Toast.LENGTH_LONG).show();
+                Intent intent = new Intent(MainActivity.this, HomeActivity.class);
+                intent.putExtra("user", user);
+                intent.putExtra("scene", "1");
+                startActivity(intent);
             }
             @Override
             public void onFail(String message)
             {
                 dismissLoading();
-                Toast.makeText(MainActivity.this, "Connection Timeout. Check your internet connection",
+                Toast.makeText(MainActivity.this, message,
                         Toast.LENGTH_LONG).show();
             }
         });

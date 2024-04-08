@@ -15,8 +15,10 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 
+import com.example.tokuverseproject.Model.Hero;
 import com.example.tokuverseproject.Model.HeroDetails;
 import com.example.tokuverseproject.Model.User;
 import com.example.tokuverseproject.R;
@@ -32,6 +34,7 @@ public class ProfileFragment extends Fragment {
     TextView lbl_Username, lbl_Email, lbl_PhoneNumber, lbl_coins;
     Button btn_HeroInfo;
     Button btn_LogOut;
+    ProgressBar loadingBar_Profile;
     @Override
     public void onCreate(Bundle savedInstanceState)
     {
@@ -44,7 +47,7 @@ public class ProfileFragment extends Fragment {
             }
             catch (Exception e)
             {
-                Log.d("Errror", e.getMessage());
+                Log.d("Error", e.getMessage());
             }
         }
     }
@@ -66,6 +69,8 @@ public class ProfileFragment extends Fragment {
         lbl_coins.setText("  " + user.getCoins());
         serverHandler.LoadImageFromURL(user.getAvatar(), img_ProfileUserAvatar);
 
+        loadingBar_Profile = view.findViewById(R.id.loadingBar_Profile);
+
         btn_HeroInfo.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view)
@@ -76,38 +81,51 @@ public class ProfileFragment extends Fragment {
         return view;
     }
 
-    ActivityResultLauncher<Intent> launcher = registerForActivityResult(new ActivityResultContracts.StartActivityForResult(),
-            result -> {
-                if (result.getResultCode() == Activity.RESULT_OK) {
-                    Intent data = result.getData();
-                    if (data != null && data.hasExtra("user"))
-                    {
-                        user = (User) data.getSerializableExtra("user");
-                    }
-                }
-            });
     void gotoSelectHero()
     {
-        Intent intent;
+        showLoading();
         if(user.getHero_details_id().equals("0"))
         {
-
+            Intent intent;
             intent = new Intent(getActivity(), SelectHeroActivity.class);
             intent.putExtra("userID", user.getId());
+            getActivity().startActivity(intent);
+
         }
         else
         {
-            intent = new Intent(getActivity(), HeroInfoActivity.class);
-            intent.putExtra("user", user);
-            launcher.launch(intent);
-        }
-        try {
-            getActivity().startActivity(intent);
-        }
-        catch (Exception e)
-        {
-            Log.d("Change activity failed", e.getMessage());
-        }
+            serverHandler.getHeroDetails_ByUserID(user.getId(), new ServerHandler.getHeroDetails_ByID_callBack() {
+                @Override
+                public void onSuccess(HeroDetails heroDetails) {
+                    user.setClass_HeroDetails(heroDetails);
+                    serverHandler.getHero_ByID(user.getClass_HeroDetails().getHero_id(), new ServerHandler.CallBack() {
+                        @Override
+                        public void getHero_ByID_Success(Hero hero) {
+                            user.getClass_HeroDetails().setClass_Hero(hero);
+                            dismissLoading();
+                            Intent intent;
+                            intent = new Intent(getActivity(), HeroInfoActivity.class);
+                            intent.putExtra("user", user);
+                            getActivity().startActivity(intent);
+                        }
 
+                        @Override
+                        public void onFailed(String message) {
+                            dismissLoading();
+                        }
+                    });
+
+                }
+            });
+        }
+    }
+
+    private void showLoading() {
+        loadingBar_Profile.setVisibility(View.VISIBLE);
+    }
+
+    // Method to dismiss loading screen
+    private void dismissLoading() {
+        loadingBar_Profile.setVisibility(View.GONE);
     }
 }

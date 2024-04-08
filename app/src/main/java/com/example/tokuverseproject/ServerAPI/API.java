@@ -99,7 +99,7 @@ public interface API {
             @Field("news_feed_id") String news_feed_id,
             @Field("content") String content);
     @FormUrlEncoded
-    @POST("getLike_ByUserID&NewsFeedId.php")
+    @POST("getLike_ByUserID-NewsFeedId.php")
     Call<List<Like>> getLike_ByUserID_and_NewsFeedID(
             @Field("news_feed_id") String news_feed_id,
             @Field("user_id") String user_id);

@@ -34,7 +34,7 @@ public class ServerHandler {
             .setLenient()
             .create();
     Retrofit retrofit = new Retrofit.Builder()
-            .baseUrl("https://tokuserver.000webhostapp.com/phpFiles/")
+            .baseUrl("https://tokusever491.online/phpFiles/")
             .addConverterFactory(GsonConverterFactory.create(gson))
             .build();
     API Api = retrofit.create(API.class);

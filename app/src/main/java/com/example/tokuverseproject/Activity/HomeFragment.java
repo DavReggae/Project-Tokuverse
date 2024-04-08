@@ -59,7 +59,7 @@ public class HomeFragment extends Fragment {
         img_Avatar = view.findViewById(R.id.image_HomeUserAvatar);
         btn_CreatePost = view.findViewById(R.id.btn_CreatePost);
         listView_NewFeeds = view.findViewById(R.id.listView_Post);
-        loadingBar_Home = view.findViewById(R.id.loadingBar_Home);
+        loadingBar_Home = view.findViewById(R.id.loadingBar_Profile);
 
         lbl_UserName.setText(user.getUsername());
         serverHandler.LoadImageFromURL(user.getAvatar(), img_Avatar);

@@ -61,7 +61,7 @@ public class PostActivity extends AppCompatActivity {
                 onBackPressed();
             }
         });
-        serverHandler.getComment_ByNFID("37", new ServerHandler.getComment_ByNFID_CallBack() {
+        serverHandler.getComment_ByNFID(post_ID, new ServerHandler.getComment_ByNFID_CallBack() {
             @Override
             public void onSuccess(List<Comment> commentList) {
                 CommentCustomBase commentCustomBase = new CommentCustomBase(getApplicationContext(), commentList);
