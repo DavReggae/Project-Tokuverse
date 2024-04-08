@@ -21,11 +21,6 @@ public class SettingFragment extends Fragment {
     {
         super.onCreate(savedInstanceState);
         bundle = getArguments();
-        if(bundle != null)
-        {
-            userId = bundle.getString("userID");
-        }
-        Log.d("Setting UserID",userId);
     }
 
     @Override

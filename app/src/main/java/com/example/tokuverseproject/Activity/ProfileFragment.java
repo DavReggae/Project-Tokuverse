@@ -1,8 +1,12 @@
 package com.example.tokuverseproject.Activity;
 
+
+import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 
+import androidx.activity.result.ActivityResultLauncher;
+import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.fragment.app.Fragment;
 
 import android.util.Log;
@@ -13,6 +17,7 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.example.tokuverseproject.Model.HeroDetails;
 import com.example.tokuverseproject.Model.User;
 import com.example.tokuverseproject.R;
 import com.example.tokuverseproject.ServerAPI.ServerHandler;
@@ -22,7 +27,7 @@ public class ProfileFragment extends Fragment {
 
     ServerHandler serverHandler = new ServerHandler();
     Bundle bundle = new Bundle();
-    String userId = "0";
+    User user;
     ImageView img_ProfileUserAvatar;
     TextView lbl_Username, lbl_Email, lbl_PhoneNumber, lbl_coins;
     Button btn_HeroInfo;
@@ -34,7 +39,13 @@ public class ProfileFragment extends Fragment {
         bundle = getArguments();
         if(bundle != null)
         {
-            userId = bundle.getString("userID");
+            try {
+                user = (User) bundle.getSerializable("user");
+            }
+            catch (Exception e)
+            {
+                Log.d("Errror", e.getMessage());
+            }
         }
     }
 
@@ -48,65 +59,55 @@ public class ProfileFragment extends Fragment {
         lbl_coins = view.findViewById(R.id.lbl_coins);
         img_ProfileUserAvatar = view.findViewById(R.id.img_ProfileUserAvatar);
         btn_HeroInfo = view.findViewById(R.id.btn_GoToHero);
-        try
-        {
-            serverHandler.GetUserByID(userId, new ServerHandler.GetUserByID_CallBack() {
-                @Override
-                public void onSuccess(User user) {
-                    Log.d("Success", user.getId());
-                    lbl_Username.setText("  " + user.getUsername());
-                    lbl_Email.setText("  " + user.getEmail());
-                    lbl_PhoneNumber.setText("  " + user.getPhone_number());
-                    lbl_coins.setText("  " + user.getCoins());
-                    serverHandler.LoadImageFromURL(user.getAvatar(), img_ProfileUserAvatar);
-                    btn_HeroInfo.setOnClickListener(new View.OnClickListener() {
-                        @Override
-                        public void onClick(View view)
-                        {
-                            gotoSelectHero();
-                        }
-                    });
-                }
 
-                @Override
-                public void onFail(String message)
-                {
+        lbl_Username.setText("  " + user.getUsername());
+        lbl_Email.setText("  " + user.getEmail());
+        lbl_PhoneNumber.setText("  " + user.getPhone_number());
+        lbl_coins.setText("  " + user.getCoins());
+        serverHandler.LoadImageFromURL(user.getAvatar(), img_ProfileUserAvatar);
 
-                }
-            });
-        }
-        catch(Exception e)
-        {
-            Log.d("failed", e.getMessage());
-        }
+        btn_HeroInfo.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view)
+            {
+                gotoSelectHero();
+            }
+        });
         return view;
     }
 
+    ActivityResultLauncher<Intent> launcher = registerForActivityResult(new ActivityResultContracts.StartActivityForResult(),
+            result -> {
+                if (result.getResultCode() == Activity.RESULT_OK) {
+                    Intent data = result.getData();
+                    if (data != null && data.hasExtra("user"))
+                    {
+                        user = (User) data.getSerializableExtra("user");
+                    }
+                }
+            });
     void gotoSelectHero()
     {
-        serverHandler.GetUserByID(userId, new ServerHandler.GetUserByID_CallBack() {
-            @Override
-            public void onSuccess(User user) {
-                String hero_details_id = user.getHero_id();
-                if(hero_details_id.equals("0") || hero_details_id.equals(""))
-                {
-                    Intent intent = new Intent(getActivity(), SelectHeroActivity.class);
-                    intent.putExtra("userID", userId);
-                    getActivity().startActivity(intent);
-                }
-                else
-                {
-                    Intent intent = new Intent(getActivity(), HeroInfoActivity.class);
-                    intent.putExtra("user_id", userId);
-                    getActivity().startActivity(intent);
-                }
-            }
+        Intent intent;
+        if(user.getHero_details_id().equals("0"))
+        {
 
-            @Override
-            public void onFail(String message) {
-
-            }
-        });
+            intent = new Intent(getActivity(), SelectHeroActivity.class);
+            intent.putExtra("userID", user.getId());
+        }
+        else
+        {
+            intent = new Intent(getActivity(), HeroInfoActivity.class);
+            intent.putExtra("user", user);
+            launcher.launch(intent);
+        }
+        try {
+            getActivity().startActivity(intent);
+        }
+        catch (Exception e)
+        {
+            Log.d("Change activity failed", e.getMessage());
+        }
 
     }
 }

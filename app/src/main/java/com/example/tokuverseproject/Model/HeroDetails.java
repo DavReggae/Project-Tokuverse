@@ -2,7 +2,9 @@ package com.example.tokuverseproject.Model;
 
 import com.google.gson.annotations.SerializedName;
 
-public class HeroDetails {
+import java.io.Serializable;
+
+public class HeroDetails implements Serializable {
     @SerializedName("id")
     String id;
     @SerializedName("user_id")
@@ -23,6 +25,15 @@ public class HeroDetails {
     String level;
     @SerializedName("attribute_point")
     String attribute_point;
+    Hero class_Hero;
+
+    public Hero getClass_Hero() {
+        return class_Hero;
+    }
+
+    public void setClass_Hero(Hero class_Hero) {
+        this.class_Hero = class_Hero;
+    }
 
     public String getId() {
         return id;

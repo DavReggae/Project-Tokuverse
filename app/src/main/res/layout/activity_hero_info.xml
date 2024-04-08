@@ -7,6 +7,16 @@
     android:layout_height="match_parent"
     tools:context=".Activity.HeroInfoActivity">
 
+    <ProgressBar
+        android:id="@+id/loadingBar_HeroInfo"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:visibility="gone"
+        app:layout_constraintBottom_toTopOf="@+id/btn_HeroInfoFeatures"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/lbl_Attribute" />
+
     <ImageView
         android:id="@+id/imgView_HeroInfoFullPic"
         android:layout_width="200dp"
@@ -137,8 +147,8 @@
         android:layout_width="30dp"
         android:layout_height="30dp"
         android:layout_marginEnd="16dp"
-        android:contentDescription="add"
         android:background="@android:color/transparent"
+        android:contentDescription="add"
         app:layout_constraintBottom_toBottomOf="@+id/lbl_attackPoint"
         app:layout_constraintEnd_toStartOf="@+id/lbl_attackPoint"
         app:layout_constraintTop_toTopOf="@+id/lbl_attackPoint"
@@ -171,8 +181,8 @@
         android:layout_width="30dp"
         android:layout_height="30dp"
         android:layout_marginStart="16dp"
-        android:contentDescription="minus"
         android:background="@android:color/transparent"
+        android:contentDescription="minus"
         app:layout_constraintBottom_toBottomOf="@+id/lbl_defendPoint"
         app:layout_constraintStart_toEndOf="@+id/lbl_defendPoint"
         app:layout_constraintTop_toTopOf="@+id/lbl_defendPoint"

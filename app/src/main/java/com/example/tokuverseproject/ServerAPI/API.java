@@ -44,7 +44,7 @@ public interface API {
 
     @FormUrlEncoded
     @POST("getHeroDetails_ByUserID.php")
-    Call<List<HeroDetails>> getHeroDetails_ByID(@Field("user_id") String id);
+    Call<List<HeroDetails>> getHeroDetails_ByUserID(@Field("user_id") String id);
 
     @FormUrlEncoded
     @POST("getHeroDetails_ByUserID.php")

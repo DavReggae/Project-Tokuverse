@@ -112,7 +112,7 @@ public class ServerHandler {
     }
 
     public interface LoginCallback {
-        void onSuccess(String userId);
+        void onSuccess(User user);
 
         void onFail(String message);
     }
@@ -124,8 +124,7 @@ public class ServerHandler {
             public void onResponse(Call<List<User>> call, Response<List<User>> response) {
                 List<User> userList = response.body();
                 try {
-
-                    callback.onSuccess(userList.get(0).getId());
+                    callback.onSuccess(userList.get(0));
                 } catch (Exception e) {
                     callback.onFail("Log in Failed");
                     Log.d("failed", e.getMessage());
@@ -172,8 +171,8 @@ public class ServerHandler {
         void onSuccess(HeroDetails heroDetails);
     }
 
-    public void getHeroDetails_ByID(String id, getHeroDetails_ByID_callBack callBack) {
-        Call<List<HeroDetails>> call = Api.getHeroDetails_ByID(id);
+    public void getHeroDetails_ByUserID(String id, getHeroDetails_ByID_callBack callBack) {
+        Call<List<HeroDetails>> call = Api.getHeroDetails_ByUserID(id);
         call.enqueue(new Callback<List<HeroDetails>>() {
             @Override
             public void onResponse(Call<List<HeroDetails>> call, Response<List<HeroDetails>> response) {

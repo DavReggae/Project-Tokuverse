@@ -1,6 +1,9 @@
 package com.example.tokuverseproject.Model;
 import com.google.gson.annotations.SerializedName;
-public class Hero {
+
+import java.io.Serializable;
+
+public class Hero implements Serializable {
     @SerializedName("id")
     private String id;
     @SerializedName("hero_name")

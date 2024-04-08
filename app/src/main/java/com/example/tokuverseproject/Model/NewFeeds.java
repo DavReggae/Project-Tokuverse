@@ -2,6 +2,8 @@ package com.example.tokuverseproject.Model;
 
 import com.google.gson.annotations.SerializedName;
 
+import java.util.List;
+
 public class NewFeeds {
     @SerializedName("id")
     String id;
@@ -19,6 +21,25 @@ public class NewFeeds {
     String like_count;
     @SerializedName("comment_count")
     String comment_count;
+
+    List<Comment> commentList;
+    List<Like> likeList;
+
+    public List<Comment> getCommentList() {
+        return commentList;
+    }
+
+    public void setCommentList(List<Comment> commentList) {
+        this.commentList = commentList;
+    }
+
+    public List<Like> getLikeList() {
+        return likeList;
+    }
+
+    public void setLikeList(List<Like> likeList) {
+        this.likeList = likeList;
+    }
 
     public String getUser_name() {
         return user_name;
