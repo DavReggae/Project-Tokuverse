@@ -1,12 +1,9 @@
 package com.example.tokuverseproject.Activity;
 
 
-import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 
-import androidx.activity.result.ActivityResultLauncher;
-import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.fragment.app.Fragment;
 
 import android.util.Log;
@@ -69,7 +66,7 @@ public class ProfileFragment extends Fragment {
         lbl_coins.setText("  " + user.getCoins());
         serverHandler.LoadImageFromURL(user.getAvatar(), img_ProfileUserAvatar);
 
-        loadingBar_Profile = view.findViewById(R.id.loadingBar_Profile);
+        loadingBar_Profile = view.findViewById(R.id.loadingBar_UserPage);
 
         btn_HeroInfo.setOnClickListener(new View.OnClickListener() {
             @Override

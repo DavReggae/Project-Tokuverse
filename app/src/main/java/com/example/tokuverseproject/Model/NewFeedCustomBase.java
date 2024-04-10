@@ -82,6 +82,13 @@ public class NewFeedCustomBase extends BaseAdapter {
             }
         });
 
+        img_PostUserAvatar.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                GotoUserPage(user, newFeeds.user_id);
+            }
+        });
+
         serverHandler.getLike_ByUserId_And_NewsFeedId(newFeeds.id, user.getId(), new ServerHandler.getLike_ByUserId_And_NewsFeedId_CallBack() {
             @Override
             public void onSuccess(Like like)
@@ -213,11 +220,29 @@ public class NewFeedCustomBase extends BaseAdapter {
             serverHandler.GetUserByID(clicked_user_id, new ServerHandler.GetUserByID_CallBack() {
                 @Override
                 public void onSuccess(User user) {
-                    userPageLoadingCallback.onUserPageLoadingFinish();
                     User clicked_user = user;
-                    intent.putExtra("clicked", clicked_user);
-                    intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-                    inflater.getContext().startActivity(intent);
+                    serverHandler.getHeroDetails_ByUserID(clicked_user.getId(), new ServerHandler.getHeroDetails_ByID_callBack() {
+                        @Override
+                        public void onSuccess(HeroDetails heroDetails) {
+                            clicked_user.setClass_HeroDetails(heroDetails);
+                            serverHandler.getHero_ByID(clicked_user.getClass_HeroDetails().getHero_id(), new ServerHandler.CallBack() {
+                                @Override
+                                public void getHero_ByID_Success(Hero hero) {
+                                    clicked_user.getClass_HeroDetails().setClass_Hero(hero);
+                                    userPageLoadingCallback.onUserPageLoadingFinish();
+                                    intent.putExtra("clicked_user", clicked_user);
+                                    intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                                    inflater.getContext().startActivity(intent);
+                                }
+
+                                @Override
+                                public void onFailed(String message) {
+
+                                }
+                            });
+                        }
+                    });
+
                 }
 
                 @Override

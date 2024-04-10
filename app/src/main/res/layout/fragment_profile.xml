@@ -18,7 +18,7 @@
         tools:src="@tools:sample/avatars" />
 
     <ProgressBar
-        android:id="@+id/loadingBar_Profile"
+        android:id="@+id/loadingBar_UserPage"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:visibility="gone"

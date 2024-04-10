@@ -11,11 +11,9 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
-import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.ProgressBar;
-import android.widget.TextView;
 
 import com.example.tokuverseproject.Model.NewFeedCustomBase;
 import com.example.tokuverseproject.Model.NewFeeds;
@@ -57,7 +55,7 @@ public class HomeFragment extends Fragment implements NewFeedCustomBase.UserPage
         View view = inflater.inflate(R.layout.fragment_home, container, false);
         img_Avatar = view.findViewById(R.id.image_HomeUserAvatar);
         listView_NewFeeds = view.findViewById(R.id.listView_Post);
-        loadingBar_Home = view.findViewById(R.id.loadingBar_Profile);
+        loadingBar_Home = view.findViewById(R.id.loadingBar_UserPage);
 
         btn_CreatePost = view.findViewById(R.id.btn_CreatePost);
         btn_CreatePost.setText("What on your mind, " + user.getUsername() + " ?");
