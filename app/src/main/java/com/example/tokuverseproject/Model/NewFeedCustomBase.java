@@ -14,6 +14,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 
+import com.example.tokuverseproject.Activity.HomeFragment;
 import com.example.tokuverseproject.Activity.PostActivity;
 import com.example.tokuverseproject.Activity.UserPageActivity;
 import com.example.tokuverseproject.R;
@@ -24,16 +25,22 @@ import java.util.List;
 public class NewFeedCustomBase extends BaseAdapter {
     LayoutInflater inflater;
     ServerHandler serverHandler = new ServerHandler();
-
-    String user_id;
+    UserPageLoadingCallback userPageLoadingCallback;
+    User user;
 
     List<NewFeeds>  newFeedsList;
 
-    public NewFeedCustomBase(Context ctx, List<NewFeeds> newFeedsList, String user_id)
+    public interface UserPageLoadingCallback {
+        void onUserPageLoadingStart();
+        void onUserPageLoadingFinish();
+    }
+    public NewFeedCustomBase(Context ctx, List<NewFeeds> newFeedsList, User user, UserPageLoadingCallback callback)
     {
         this.newFeedsList = newFeedsList;
-        this.user_id = user_id;
+        this.user = user;
+        this.userPageLoadingCallback = callback;
         inflater = LayoutInflater.from(ctx);
+
     }
     @Override
     public int getCount() {
@@ -71,22 +78,11 @@ public class NewFeedCustomBase extends BaseAdapter {
             @Override
             public void onClick(View view)
             {
-                try
-                {
-                    Intent intent = new Intent(inflater.getContext(), UserPageActivity.class);
-                    intent.putExtra("userID", user_id);
-                    intent.putExtra("cliked_userID", newFeeds.user_id);
-                    intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-                    inflater.getContext().startActivity(intent);
-                }
-                catch(Exception e)
-                {
-                    Log.d("User name clicked error", e.getMessage());
-                }
+                GotoUserPage(user, newFeeds.user_id);
             }
         });
 
-        serverHandler.getLike_ByUserId_And_NewsFeedId(newFeeds.id, user_id, new ServerHandler.getLike_ByUserId_And_NewsFeedId_CallBack() {
+        serverHandler.getLike_ByUserId_And_NewsFeedId(newFeeds.id, user.getId(), new ServerHandler.getLike_ByUserId_And_NewsFeedId_CallBack() {
             @Override
             public void onSuccess(Like like)
             {
@@ -113,7 +109,7 @@ public class NewFeedCustomBase extends BaseAdapter {
         btn_Like.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                serverHandler.like_Acion(newFeeds.id, user_id, new ServerHandler.LikeAction_CallBack() {
+                serverHandler.like_Acion(newFeeds.id, user.getId(), new ServerHandler.LikeAction_CallBack() {
                     @Override
                     public void onSuccess(JSON_MESSAGE jsonMessage) {
                         JSON_MESSAGE message = jsonMessage;
@@ -137,7 +133,7 @@ public class NewFeedCustomBase extends BaseAdapter {
 
                     }
                 });
-                serverHandler.getLike_ByUserId_And_NewsFeedId(newFeeds.id, user_id, new ServerHandler.getLike_ByUserId_And_NewsFeedId_CallBack() {
+                serverHandler.getLike_ByUserId_And_NewsFeedId(newFeeds.id, user.getId(), new ServerHandler.getLike_ByUserId_And_NewsFeedId_CallBack() {
                     @Override
                     public void onSuccess(Like like)
                     {
@@ -167,7 +163,7 @@ public class NewFeedCustomBase extends BaseAdapter {
                 try
                 {
                     Intent intent = new Intent(inflater.getContext(), PostActivity.class);
-                    intent.putExtra("userID", user_id);
+                    intent.putExtra("userID", user.getId());
                     intent.putExtra("cliked_userID", newFeeds.user_id);
                     intent.putExtra("postID", newFeeds.id);
                     intent.putExtra("comment", "false");
@@ -186,7 +182,7 @@ public class NewFeedCustomBase extends BaseAdapter {
                 try
                 {
                     Intent intent = new Intent(inflater.getContext(), PostActivity.class);
-                    intent.putExtra("userID", user_id);
+                    intent.putExtra("userID", user.getId());
                     intent.putExtra("cliked_userID", newFeeds.user_id);
                     intent.putExtra("postID", newFeeds.id);
                     intent.putExtra("comment", "true");
@@ -200,6 +196,35 @@ public class NewFeedCustomBase extends BaseAdapter {
             }
         });
         return view;
+    }
 
+    void GotoUserPage(User user, String clicked_user_id)
+    {
+        if(user.getId() == clicked_user_id)
+        {
+            userPageLoadingCallback.onUserPageLoadingStart();
+        }
+        else
+        {
+            userPageLoadingCallback.onUserPageLoadingStart();
+            Intent intent = new Intent(inflater.getContext(), UserPageActivity.class);
+            intent.putExtra("user", user);
+
+            serverHandler.GetUserByID(clicked_user_id, new ServerHandler.GetUserByID_CallBack() {
+                @Override
+                public void onSuccess(User user) {
+                    userPageLoadingCallback.onUserPageLoadingFinish();
+                    User clicked_user = user;
+                    intent.putExtra("clicked", clicked_user);
+                    intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                    inflater.getContext().startActivity(intent);
+                }
+
+                @Override
+                public void onFail(String message) {
+
+                }
+            });
+        }
     }
 }

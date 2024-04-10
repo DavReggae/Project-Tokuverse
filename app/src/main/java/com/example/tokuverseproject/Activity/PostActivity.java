@@ -3,6 +3,7 @@ package com.example.tokuverseproject.Activity;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.Rect;
 import android.os.Bundle;
@@ -58,7 +59,8 @@ public class PostActivity extends AppCompatActivity {
         btn_Back.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                onBackPressed();
+                Intent intent = new Intent(PostActivity.this, HomeActivity.class);
+                startActivity(intent);
             }
         });
         serverHandler.getComment_ByNFID(post_ID, new ServerHandler.getComment_ByNFID_CallBack() {
@@ -171,6 +173,14 @@ public class PostActivity extends AppCompatActivity {
                         serverHandler.getComment_ByNFID(post_ID, new ServerHandler.getComment_ByNFID_CallBack() {
                             @Override
                             public void onSuccess(List<Comment> commentList) {
+                                try {
+                                    lbl_Post_CommentCount.setText(String.valueOf(commentList.size()));
+                                }
+                                catch (Exception e)
+                                {
+                                    Log.d("Error", e.getMessage());
+                                }
+
                                 CommentCustomBase commentCustomBase = new CommentCustomBase(getApplicationContext(), commentList);
                                 listView_Comment.setAdapter(commentCustomBase);
                             }

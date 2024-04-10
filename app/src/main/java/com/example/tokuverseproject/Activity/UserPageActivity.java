@@ -25,8 +25,6 @@ public class UserPageActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        userId = getIntent().getStringExtra("userID");
-        click_userId = getIntent().getStringExtra("cliked_userID");
         setContentView(R.layout.activity_user_page);
         img_Avatar = findViewById(R.id.img_UserPageAvatar);
         lbl_UserName = findViewById(R.id.lbl_UserPageName);
@@ -35,39 +33,10 @@ public class UserPageActivity extends AppCompatActivity {
         btn_back.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                backToHome();
-            }
-        });
-        serverHandler.GetUserByID(click_userId, new ServerHandler.GetUserByID_CallBack() {
-            @Override
-            public void onSuccess(User user) {
-                serverHandler.LoadImageFromURL(user.getAvatar(), img_Avatar);
-                lbl_UserName.setText(user.getUsername());
-            }
-            @Override
-            public void onFail(String message) {
-
-            }
-        });
-        btn_goToHeroInfo.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                gotoHeroInfo();
+                onBackPressed();
             }
         });
     }
 
-    void gotoHeroInfo()
-    {
-        Intent intent = new Intent(this, HeroInfoActivity.class);
-        intent.putExtra("userID", userId);
-        intent.putExtra("cliked_userID", click_userId);
-        startActivity(intent);
-    }
-    void backToHome()
-    {
-        Intent intent = new Intent(this, HomeActivity.class);
-        intent.putExtra("userID", userId);
-        startActivity(intent);
-    }
+
 }

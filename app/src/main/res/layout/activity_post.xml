@@ -115,7 +115,7 @@
     <ListView
         android:id="@+id/listView_Comment"
         android:layout_width="match_parent"
-        android:layout_height="300dp"
+        android:layout_height="400dp"
         android:layout_marginStart="1dp"
         android:layout_marginTop="32dp"
         android:layout_marginEnd="1dp"

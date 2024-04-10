@@ -11,6 +11,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.ProgressBar;
@@ -25,17 +26,16 @@ import com.example.tokuverseproject.ServerAPI.ServerHandler;
 import java.util.List;
 
 
-public class HomeFragment extends Fragment {
+public class HomeFragment extends Fragment implements NewFeedCustomBase.UserPageLoadingCallback {
 
     Bundle bundle = new Bundle();
     User user;
 
     ImageView img_Avatar;
-    Button btn_CreatePost;
-    TextView lbl_UserName;
     ServerHandler serverHandler = new ServerHandler();
     ListView listView_NewFeeds;
 
+    Button btn_CreatePost;
     ProgressBar loadingBar_Home;
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -55,21 +55,32 @@ public class HomeFragment extends Fragment {
                              Bundle savedInstanceState) {
 
         View view = inflater.inflate(R.layout.fragment_home, container, false);
-        lbl_UserName = view.findViewById(R.id.lbl_HomeUserName);
         img_Avatar = view.findViewById(R.id.image_HomeUserAvatar);
-        btn_CreatePost = view.findViewById(R.id.btn_CreatePost);
         listView_NewFeeds = view.findViewById(R.id.listView_Post);
         loadingBar_Home = view.findViewById(R.id.loadingBar_Profile);
 
-        lbl_UserName.setText(user.getUsername());
+        btn_CreatePost = view.findViewById(R.id.btn_CreatePost);
+        btn_CreatePost.setText("What on your mind, " + user.getUsername() + " ?");
         serverHandler.LoadImageFromURL(user.getAvatar(), img_Avatar);
+
 
         Context appContext = requireContext().getApplicationContext();
         showLoading();
         serverHandler.getNewFeedAction(new ServerHandler.GetNewFeeds_CallBack() {
             @Override
             public void onSuccess(List<NewFeeds> newFeedsList) {
-                NewFeedCustomBase newFeedCustomBase = new NewFeedCustomBase(appContext, newFeedsList, user.getId());
+                NewFeedCustomBase.UserPageLoadingCallback callback = new NewFeedCustomBase.UserPageLoadingCallback() {
+                    @Override
+                    public void onUserPageLoadingStart() {
+                        showLoading();
+                    }
+
+                    @Override
+                    public void onUserPageLoadingFinish() {
+                        dismissLoading();
+                    }
+                };
+                NewFeedCustomBase newFeedCustomBase = new NewFeedCustomBase(appContext, newFeedsList, user, callback);
                 listView_NewFeeds.setAdapter(newFeedCustomBase);
                 dismissLoading();
             }
@@ -82,7 +93,7 @@ public class HomeFragment extends Fragment {
 
         btn_CreatePost.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View view) {
+            public void onClick(View v) {
                 createPostAction();
             }
         });
@@ -91,12 +102,12 @@ public class HomeFragment extends Fragment {
     }
 
     // Method to show loading screen
-    private void showLoading() {
+    public void showLoading() {
         loadingBar_Home.setVisibility(View.VISIBLE);
     }
 
     // Method to dismiss loading screen
-    private void dismissLoading() {
+    public void dismissLoading() {
         loadingBar_Home.setVisibility(View.GONE);
     }
     void createPostAction()
@@ -104,5 +115,15 @@ public class HomeFragment extends Fragment {
         Intent intent = new Intent(getActivity(), CreatePostActivity.class);
         intent.putExtra("userID", user.getId());
         getActivity().startActivity(intent);
+    }
+
+    @Override
+    public void onUserPageLoadingStart() {
+        showLoading();
+    }
+
+    @Override
+    public void onUserPageLoadingFinish() {
+        dismissLoading();
     }
 }
