@@ -13,6 +13,8 @@ import android.widget.ListView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
+import com.example.tokuverseproject.Model.Hero;
+import com.example.tokuverseproject.Model.HeroDetails;
 import com.example.tokuverseproject.Model.NewFeedCustomBase;
 import com.example.tokuverseproject.Model.NewFeeds;
 import com.example.tokuverseproject.Model.User;
@@ -96,6 +98,33 @@ public class UserPageActivity extends AppCompatActivity {
                 intent.putExtra("user", user);
                 intent.putExtra("scene", "1");
                 startActivity(intent);
+            }
+        });
+        btn_UserPage_Fight.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                showLoading();
+                serverHandler.getHeroDetails_ByUserID(user.getId(), new ServerHandler.getHeroDetails_ByID_callBack() {
+                    @Override
+                    public void onSuccess(HeroDetails heroDetails) {
+                        user.setClass_HeroDetails(heroDetails);
+                        serverHandler.getHero_ByID(user.getClass_HeroDetails().getHero_id(), new ServerHandler.CallBack() {
+                            @Override
+                            public void getHero_ByID_Success(Hero hero) {
+                                dismissLoading();
+                                user.getClass_HeroDetails().setClass_Hero(hero);
+                                Intent intent = new Intent(UserPageActivity.this, FightActivity.class);
+                                intent.putExtra("user", user);
+                                intent.putExtra("clicked_user", clicked_user);
+                                startActivity(intent);
+                            }
+                            @Override
+                            public void onFailed(String message) {
+
+                            }
+                        });
+                    }
+                });
             }
         });
     }
