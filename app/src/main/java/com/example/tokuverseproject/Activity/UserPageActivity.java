@@ -9,12 +9,18 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ImageView;
+import android.widget.ListView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
+import com.example.tokuverseproject.Model.NewFeedCustomBase;
+import com.example.tokuverseproject.Model.NewFeeds;
 import com.example.tokuverseproject.Model.User;
 import com.example.tokuverseproject.R;
 import com.example.tokuverseproject.ServerAPI.ServerHandler;
+
+import java.util.LinkedList;
+import java.util.List;
 
 public class UserPageActivity extends AppCompatActivity {
 
@@ -22,7 +28,7 @@ public class UserPageActivity extends AppCompatActivity {
     TextView lbl_UserPage_Username, lbl_UserPage_HeroLevel;
     Button btn_UserPage_Fight;
     User user, clicked_user;
-
+    ListView listView_UserPage_NewsFeed;
     ProgressBar loadingBar_UserPage;
     ServerHandler serverHandler = new ServerHandler();
     @Override
@@ -38,6 +44,7 @@ public class UserPageActivity extends AppCompatActivity {
         lbl_UserPage_HeroLevel = findViewById(R.id.lbl_UserPage_HeroLevel);
         btn_UserPage_Fight = findViewById(R.id.btn_UserPage_Fight);
         loadingBar_UserPage = findViewById(R.id.loadingBar_UserPage);
+        listView_UserPage_NewsFeed = findViewById(R.id.listView_UserPage_NewsFeed);
 
         showLoading();
         serverHandler.LoadImageFromURL(clicked_user.getAvatar(), img_UserPage_Avatar);
@@ -45,7 +52,40 @@ public class UserPageActivity extends AppCompatActivity {
         lbl_UserPage_Username.setText(clicked_user.getUsername());
         lbl_UserPage_HeroLevel.setText("Level: " + clicked_user.getClass_HeroDetails().getLevel());
         dismissLoading();
+        List<NewFeeds> clickedUser_NewsFeeds = new LinkedList<>();
+        showLoading();
+        serverHandler.getNewFeedAction(new ServerHandler.GetNewFeeds_CallBack() {
+            @Override
+            public void onSuccess(List<NewFeeds> newFeedsList) {
 
+                for(int i = 0; i < newFeedsList.size(); i++)
+                {
+                    if(newFeedsList.get(i).getUser_id().equals(clicked_user.getId()))
+                    {
+                        clickedUser_NewsFeeds.add(newFeedsList.get(i));
+                    }
+                }
+                NewFeedCustomBase.UserPageLoadingCallback callback = new NewFeedCustomBase.UserPageLoadingCallback() {
+                    @Override
+                    public void onUserPageLoadingStart() {
+                        showLoading();
+                    }
+
+                    @Override
+                    public void onUserPageLoadingFinish() {
+                        dismissLoading();
+                    }
+                };
+                NewFeedCustomBase newFeedCustomBase = new NewFeedCustomBase(getApplicationContext(), clickedUser_NewsFeeds, user, callback);
+                listView_UserPage_NewsFeed.setAdapter(newFeedCustomBase);
+                dismissLoading();
+            }
+
+            @Override
+            public void onFailed(String message) {
+
+            }
+        });
 
 
         btn_UserPageBack = findViewById(R.id.btn_UserPageBack);
@@ -58,7 +98,6 @@ public class UserPageActivity extends AppCompatActivity {
                 startActivity(intent);
             }
         });
-
     }
 
     public void showLoading() {

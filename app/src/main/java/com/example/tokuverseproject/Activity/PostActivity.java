@@ -60,7 +60,18 @@ public class PostActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(PostActivity.this, HomeActivity.class);
-                startActivity(intent);
+                serverHandler.GetUserByID(user_ID, new ServerHandler.GetUserByID_CallBack() {
+                    @Override
+                    public void onSuccess(User user) {
+                        intent.putExtra("user", user);
+                        startActivity(intent);
+                    }
+
+                    @Override
+                    public void onFail(String message) {
+
+                    }
+                });
             }
         });
         serverHandler.getComment_ByNFID(post_ID, new ServerHandler.getComment_ByNFID_CallBack() {
