@@ -38,6 +38,7 @@ public class FightActivity extends AppCompatActivity {
     TextView lbl_Fight_ClickedUserHealth;
     TextView lbl_Fight_ClickedUserLevel;
     Button btn_FightAction;
+    ImageView btn_FightBack;
     ProgressBar loadingBar_Fight;
 
     ListView listVIew_FightRecord;
@@ -69,6 +70,13 @@ public class FightActivity extends AppCompatActivity {
         loadingBar_Fight = findViewById(R.id.loadingBar_Fight);
         listVIew_FightRecord = findViewById(R.id.listVIew_FightRecord);
         lbl_Fight_Reward = findViewById(R.id.lbl_Fight_Reward);
+        btn_FightBack = findViewById(R.id.btn_FightBack);
+        btn_FightBack.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                onBackPressed();
+            }
+        });
 
         showLoading();
         serverHandler.LoadImageFromURL(user.getClass_HeroDetails().getClass_Hero().getFull_pic(), img_Figh_UserHero);

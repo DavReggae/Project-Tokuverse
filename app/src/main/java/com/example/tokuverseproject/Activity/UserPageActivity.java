@@ -94,10 +94,23 @@ public class UserPageActivity extends AppCompatActivity {
         btn_UserPageBack.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(UserPageActivity.this, HomeActivity.class);
-                intent.putExtra("user", user);
-                intent.putExtra("scene", "1");
-                startActivity(intent);
+                showLoading();
+                serverHandler.GetUserByID(user.getId(), new ServerHandler.GetUserByID_CallBack() {
+                    @Override
+                    public void onSuccess(User user) {
+                        Intent intent = new Intent(UserPageActivity.this, HomeActivity.class);
+                        intent.putExtra("user", user);
+                        intent.putExtra("scene", "1");
+                        dismissLoading();
+                        startActivity(intent);
+                    }
+
+                    @Override
+                    public void onFail(String message) {
+
+                    }
+                });
+
             }
         });
         btn_UserPage_Fight.setOnClickListener(new View.OnClickListener() {
