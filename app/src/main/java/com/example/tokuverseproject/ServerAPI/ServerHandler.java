@@ -494,6 +494,35 @@ public class ServerHandler {
         });
     }
 
+    public interface updateUserCoins_CallBack
+    {
+        void onSuccess();
+
+        void onFailed(String message);
+    }
+
+    public void updateUserCoins(String id, String coins, updateUserCoins_CallBack callBack)
+    {
+        Call<Void> call = Api.updateCoinsAction(id, coins);
+        call.enqueue(new Callback<Void>() {
+            @Override
+            public void onResponse(Call<Void> call, Response<Void> response) {
+                try
+                {
+                    callBack.onSuccess();
+                }
+                catch (Exception e) {
+                    callBack.onFailed(e.getMessage());
+                }
+            }
+
+            @Override
+            public void onFailure(Call<Void> call, Throwable t) {
+                callBack.onFailed(t.getMessage());
+            }
+        });
+    }
+
     public void Test(String user_id, String news_feed_id, String content) {
         Call<JSON_MESSAGE> call = Api.commentAction(user_id, news_feed_id, content);
         call.enqueue(new Callback<JSON_MESSAGE>() {
@@ -508,6 +537,8 @@ public class ServerHandler {
             }
         });
     }
+
+
 
 }
 

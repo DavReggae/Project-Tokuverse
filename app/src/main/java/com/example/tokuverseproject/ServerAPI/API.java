@@ -114,4 +114,10 @@ public interface API {
     Call<List<Comment>> getComment_ByNewsFeedID(
             @Field("news_feed_id") String news_feed_id
     );
+    @FormUrlEncoded
+    @POST("updateUserCoins.php")
+    Call<Void> updateCoinsAction(
+            @Field("id") String id,
+            @Field("coins") String coins
+    );
 }

@@ -7,13 +7,19 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.ListView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.tokuverseproject.Model.FightRecord;
+import com.example.tokuverseproject.Model.FightRecordCustomBase;
 import com.example.tokuverseproject.Model.User;
 import com.example.tokuverseproject.R;
 import com.example.tokuverseproject.ServerAPI.ServerHandler;
+
+import java.util.LinkedList;
+import java.util.List;
 
 public class FightActivity extends AppCompatActivity {
 
@@ -33,6 +39,9 @@ public class FightActivity extends AppCompatActivity {
     TextView lbl_Fight_ClickedUserLevel;
     Button btn_FightAction;
     ProgressBar loadingBar_Fight;
+
+    ListView listVIew_FightRecord;
+    TextView lbl_Fight_Reward;
 
     ServerHandler serverHandler = new ServerHandler();
     @Override
@@ -58,6 +67,8 @@ public class FightActivity extends AppCompatActivity {
         btn_FightAction = findViewById(R.id.btn_FightAction);
 
         loadingBar_Fight = findViewById(R.id.loadingBar_Fight);
+        listVIew_FightRecord = findViewById(R.id.listVIew_FightRecord);
+        lbl_Fight_Reward = findViewById(R.id.lbl_Fight_Reward);
 
         showLoading();
         serverHandler.LoadImageFromURL(user.getClass_HeroDetails().getClass_Hero().getFull_pic(), img_Figh_UserHero);
@@ -79,6 +90,7 @@ public class FightActivity extends AppCompatActivity {
         btn_FightAction.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                showLoading();
                 Integer user_Attack = Integer.parseInt(user.getClass_HeroDetails().getAttach_point());
                 Integer user_Defense = Integer.parseInt(user.getClass_HeroDetails().getDefense_point());
                 Integer user_Health = Integer.parseInt(user.getClass_HeroDetails().getHealth_point());
@@ -89,6 +101,8 @@ public class FightActivity extends AppCompatActivity {
                 Integer damage = 0;
                 Integer total_reward = 0;
                 Integer turn = 1;
+
+                List<FightRecord> fightRecordList = new LinkedList<FightRecord>();
                 if(user_Attack < clickedUser_Defense)
                 {
                     Toast.makeText(FightActivity.this, "You don't have enough damge",
@@ -96,6 +110,9 @@ public class FightActivity extends AppCompatActivity {
                 }
                 while (true)
                 {
+                    FightRecord fightRecord = new FightRecord();
+                    fightRecord.setUser_heroPic(user.getClass_HeroDetails().getClass_Hero().getHero_pic());
+                    fightRecord.setClickedUser_heroPIc(clicked_user.getClass_HeroDetails().getClass_Hero().getHero_pic());
                     if(user_Health <= 0 || clickedUser_Health <= 0)
                     {
                         if(user_Health <= 0)
@@ -105,9 +122,28 @@ public class FightActivity extends AppCompatActivity {
                         }
                         else
                         {
+                            total_reward = total_reward * Integer.parseInt(clicked_user.getClass_HeroDetails().getLevel());
                             Toast.makeText(FightActivity.this, "YOU WIN!!!!. YOU GOT " + total_reward + " coins",
                                     Toast.LENGTH_LONG).show();
                         }
+                        Integer finalTotal_reward = total_reward;
+                        serverHandler.updateUserCoins(user.getId(), total_reward.toString(), new ServerHandler.updateUserCoins_CallBack() {
+                            @Override
+                            public void onSuccess() {
+                                FightRecordCustomBase fightRecordCustomBase = new FightRecordCustomBase(getApplicationContext(), fightRecordList);
+                                listVIew_FightRecord.setAdapter(fightRecordCustomBase);
+                                lbl_Fight_Reward.setText("Total rewards: " + finalTotal_reward);
+                                lbl_Fight_Reward.setVisibility(View.VISIBLE);
+                                btn_FightAction.setVisibility(View.INVISIBLE);
+                                dismissLoading();
+                            }
+
+                            @Override
+                            public void onFailed(String message) {
+
+                            }
+                        });
+
                         break;
                     }
                     else
@@ -132,7 +168,13 @@ public class FightActivity extends AppCompatActivity {
                             damage = clickedUser_Attack - user_Defense;
                             user_Health = user_Health - damage;
                             turn = 1;
+
                         }
+                        fightRecord.setUser_currentHP(user_Health);
+                        fightRecord.setClickedUser_currentHP(clickedUser_Health);
+                        fightRecord.setDamage(damage);
+                        fightRecord.setTurn(turn);
+                        fightRecordList.add(fightRecord);
                     }
                 }
             }

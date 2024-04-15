@@ -116,7 +116,4 @@ public class User implements Serializable{
         this.phone_number = phone_number;
     }
 
-    public User(User other_user){
-
-    }
 }
