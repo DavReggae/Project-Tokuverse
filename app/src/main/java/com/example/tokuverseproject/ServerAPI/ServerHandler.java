@@ -12,6 +12,7 @@ import com.example.tokuverseproject.Model.HeroDetails;
 import com.example.tokuverseproject.Model.JSON_MESSAGE;
 import com.example.tokuverseproject.Model.Like;
 import com.example.tokuverseproject.Model.NewFeeds;
+import com.example.tokuverseproject.Model.Product;
 import com.example.tokuverseproject.Model.User;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
@@ -518,6 +519,33 @@ public class ServerHandler {
 
             @Override
             public void onFailure(Call<Void> call, Throwable t) {
+                callBack.onFailed(t.getMessage());
+            }
+        });
+    }
+
+    public interface getProduct_CallBack
+    {
+        void onSuccess(List<Product> productList);
+        void onFailed(String message);
+    }
+
+    public void getProduct_Action(getProduct_CallBack callBack)
+    {
+        Call<List<Product>> call = Api.getProduct();
+        call.enqueue(new Callback<List<Product>>() {
+            @Override
+            public void onResponse(Call<List<Product>> call, Response<List<Product>> response) {
+                List<Product> productList = response.body();
+                try {
+                    callBack.onSuccess(productList);
+                } catch (Exception e) {
+                    callBack.onFailed(e.getMessage());
+                }
+            }
+
+            @Override
+            public void onFailure(Call<List<Product>> call, Throwable t) {
                 callBack.onFailed(t.getMessage());
             }
         });

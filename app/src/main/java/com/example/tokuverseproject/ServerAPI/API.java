@@ -6,6 +6,7 @@ import com.example.tokuverseproject.Model.HeroDetails;
 import com.example.tokuverseproject.Model.JSON_MESSAGE;
 import com.example.tokuverseproject.Model.Like;
 import com.example.tokuverseproject.Model.NewFeeds;
+import com.example.tokuverseproject.Model.Product;
 import com.example.tokuverseproject.Model.User;
 
 import java.util.List;
@@ -28,6 +29,9 @@ public interface API {
 
     @GET("getNewFeeds.php")
     Call<List<NewFeeds>> getNewFeeds();
+
+    @GET("getProduct.php")
+    Call<List<Product>> getProduct();
 
     @FormUrlEncoded
     @POST("login.php")
@@ -120,4 +124,5 @@ public interface API {
             @Field("id") String id,
             @Field("coins") String coins
     );
+
 }

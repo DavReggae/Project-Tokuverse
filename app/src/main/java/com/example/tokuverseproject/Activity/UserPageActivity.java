@@ -3,11 +3,9 @@ package com.example.tokuverseproject.Activity;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
-import android.media.Image;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
-import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.ProgressBar;
@@ -45,7 +43,7 @@ public class UserPageActivity extends AppCompatActivity {
         lbl_UserPage_Username = findViewById(R.id.lbl_UserPage_Username);
         lbl_UserPage_HeroLevel = findViewById(R.id.lbl_UserPage_HeroLevel);
         btn_UserPage_Fight = findViewById(R.id.btn_UserPage_Fight);
-        loadingBar_UserPage = findViewById(R.id.loadingBar_UserPage);
+        loadingBar_UserPage = findViewById(R.id.loadingBar_Store);
         listView_UserPage_NewsFeed = findViewById(R.id.listView_UserPage_NewsFeed);
 
         showLoading();

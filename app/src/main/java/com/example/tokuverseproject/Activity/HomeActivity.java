@@ -1,22 +1,16 @@
 package com.example.tokuverseproject.Activity;
 
-import androidx.activity.result.ActivityResult;
-import androidx.activity.result.ActivityResultCallback;
-import androidx.activity.result.ActivityResultLauncher;
-import androidx.activity.result.contract.ActivityResultContracts;
-import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
-import android.app.Activity;
-import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 
 import com.example.tokuverseproject.Model.User;
 import com.example.tokuverseproject.R;
+import com.example.tokuverseproject.Model.StoreFragment;
 import com.example.tokuverseproject.databinding.ActivityHomeBinding;
 
 
@@ -50,9 +44,9 @@ public class HomeActivity extends AppCompatActivity {
                     Log.d("profile", "2");
                     replaceFragment(new ProfileFragment(), createUserBundle(finalUser));
                     break;
-                case R.id.setting:
+                case R.id.store:
                     Log.d("setting", "3");
-                    replaceFragment(new SettingFragment(), createUserBundle(finalUser));
+                    replaceFragment(new StoreFragment(), createUserBundle(finalUser));
                     break;
             }
             return true;

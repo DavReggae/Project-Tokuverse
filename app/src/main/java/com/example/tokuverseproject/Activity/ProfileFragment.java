@@ -66,7 +66,7 @@ public class ProfileFragment extends Fragment {
         lbl_coins.setText("  " + user.getCoins());
         serverHandler.LoadImageFromURL(user.getAvatar(), img_ProfileUserAvatar);
 
-        loadingBar_Profile = view.findViewById(R.id.loadingBar_UserPage);
+        loadingBar_Profile = view.findViewById(R.id.loadingBar_Store);
 
         btn_HeroInfo.setOnClickListener(new View.OnClickListener() {
             @Override

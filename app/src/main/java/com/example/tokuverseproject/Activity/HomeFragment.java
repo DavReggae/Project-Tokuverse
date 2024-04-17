@@ -55,7 +55,7 @@ public class HomeFragment extends Fragment implements NewFeedCustomBase.UserPage
         View view = inflater.inflate(R.layout.fragment_home, container, false);
         img_Avatar = view.findViewById(R.id.image_HomeUserAvatar);
         listView_NewFeeds = view.findViewById(R.id.listView_Post);
-        loadingBar_Home = view.findViewById(R.id.loadingBar_UserPage);
+        loadingBar_Home = view.findViewById(R.id.loadingBar_Store);
 
         btn_CreatePost = view.findViewById(R.id.btn_CreatePost);
         btn_CreatePost.setText("What on your mind, " + user.getUsername() + " ?");

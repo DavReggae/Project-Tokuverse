@@ -33,7 +33,7 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        progressBar = findViewById(R.id.loadingBar_UserPage);
+        progressBar = findViewById(R.id.loadingBar_Main);
         btn_GoToSignUp = findViewById(R.id.btn_SignUp);
         btn_Login = findViewById(R.id.btn_Login);
         txt_Username = findViewById(R.id.txt_Username);
