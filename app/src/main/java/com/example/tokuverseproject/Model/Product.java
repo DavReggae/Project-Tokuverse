@@ -2,7 +2,9 @@ package com.example.tokuverseproject.Model;
 
 import com.google.gson.annotations.SerializedName;
 
-public class Product {
+import java.io.Serializable;
+
+public class Product implements Serializable {
     @SerializedName("id")
     String id;
     @SerializedName("name")

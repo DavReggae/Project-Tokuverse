@@ -1,5 +1,6 @@
 package com.example.tokuverseproject.Model;
 
+import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
@@ -14,10 +15,15 @@ import android.widget.ListView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
+import com.example.tokuverseproject.Activity.CheckOutActivity;
+import com.example.tokuverseproject.Activity.CreatePostActivity;
+import com.example.tokuverseproject.Activity.HomeActivity;
+import com.example.tokuverseproject.Activity.UserPageActivity;
 import com.example.tokuverseproject.R;
 import com.example.tokuverseproject.ServerAPI.ServerHandler;
 import com.squareup.picasso.Picasso;
 
+import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -32,7 +38,7 @@ public class StoreFragment extends Fragment {
     ProgressBar loadingBar_Store;
     ServerHandler serverHandler = new ServerHandler();
 
-    public List<String> cart = new LinkedList<>();
+    ArrayList<Product> cart = new ArrayList<Product>();
 
     @Override
     public void onCreate(Bundle savedInstanceState)
@@ -83,7 +89,14 @@ public class StoreFragment extends Fragment {
             btn_StoreCheckout.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    
+                    Intent intent = new Intent(getActivity(), CheckOutActivity.class);
+                    intent.putExtra("user", user);
+                    intent.putExtra("cart", cart);
+
+                    // Debugging: Print the cart contents
+                    Log.d("StoreFragment", "Cart contents: " + cart.toString());
+
+                    getActivity().startActivity(intent);
                 }
             });
         }
@@ -96,8 +109,12 @@ public class StoreFragment extends Fragment {
     }
 
     public void addToCart(Product product) {
-        cart.add(product.getName()); // You can adjust this to add the product ID or any other identifier
+        cart.add(product); // You can adjust this to add the product ID or any other identifier
         btn_StoreCheckout.setText("x " + cart.size());
+    }
+
+    public void removeFromCart(Product product){
+        cart.add(product);
     }
 
 
