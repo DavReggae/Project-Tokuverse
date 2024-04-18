@@ -578,13 +578,24 @@ public class ServerHandler {
 
     public interface createOrderDetails_CallBack
     {
-        void onSuccess(OrderDetails orderDetails);
+        void onSuccess();
         void onFailed(String message);
     }
 
     public void createOrderDetails_Action(String order_id, String product_id, String quantity, String price, createOrderDetails_CallBack callBack)
     {
-        
+        Call<Void> call = Api.createOrderDetails(order_id, product_id, quantity, price);
+        call.enqueue(new Callback<Void>() {
+            @Override
+            public void onResponse(Call<Void> call, Response<Void> response) {
+                callBack.onSuccess();
+            }
+
+            @Override
+            public void onFailure(Call<Void> call, Throwable t) {
+                callBack.onFailed(t.getMessage());
+            }
+        });
     }
 
     public void Test(String user_id, String news_feed_id, String content) {
