@@ -6,6 +6,7 @@ import com.example.tokuverseproject.Model.HeroDetails;
 import com.example.tokuverseproject.Model.JSON_MESSAGE;
 import com.example.tokuverseproject.Model.Like;
 import com.example.tokuverseproject.Model.NewFeeds;
+import com.example.tokuverseproject.Model.Order;
 import com.example.tokuverseproject.Model.Product;
 import com.example.tokuverseproject.Model.User;
 
@@ -124,5 +125,19 @@ public interface API {
             @Field("id") String id,
             @Field("coins") String coins
     );
-
+    @FormUrlEncoded
+    @POST("createOrder.php")
+    Call<Order> createOrder(
+            @Field("user_id") String user_id,
+            @Field("address") String address,
+            @Field("total_price") String total_price
+    );
+    @FormUrlEncoded
+    @POST("createOrderDetails.php")
+    Call<Void> createOrderDetails(
+            @Field("order_id") String order_id,
+            @Field("product_id") String product_id,
+            @Field("quantity") String quantity,
+            @Field("price") String price
+    );
 }

@@ -9,6 +9,7 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.example.tokuverseproject.Activity.StoreFragment;
 import com.example.tokuverseproject.R;
 import com.example.tokuverseproject.ServerAPI.ServerHandler;
 

@@ -12,6 +12,8 @@ import com.example.tokuverseproject.Model.HeroDetails;
 import com.example.tokuverseproject.Model.JSON_MESSAGE;
 import com.example.tokuverseproject.Model.Like;
 import com.example.tokuverseproject.Model.NewFeeds;
+import com.example.tokuverseproject.Model.Order;
+import com.example.tokuverseproject.Model.OrderDetails;
 import com.example.tokuverseproject.Model.Product;
 import com.example.tokuverseproject.Model.User;
 import com.google.gson.Gson;
@@ -549,6 +551,40 @@ public class ServerHandler {
                 callBack.onFailed(t.getMessage());
             }
         });
+    }
+
+    public interface createOrder_CallBack
+    {
+        void onSuccess(Order order);
+        void onFailed(String message);
+    }
+
+    public void createOrderAction(String user_id, String address, String total_price, createOrder_CallBack callBack)
+    {
+        Call<Order> call = Api.createOrder(user_id, address, total_price);
+        call.enqueue(new Callback<Order>() {
+            @Override
+            public void onResponse(Call<Order> call, Response<Order> response) {
+                Order order = response.body();
+                callBack.onSuccess(order);
+            }
+
+            @Override
+            public void onFailure(Call<Order> call, Throwable t) {
+                callBack.onFailed(t.getMessage());
+            }
+        });
+    }
+
+    public interface createOrderDetails_CallBack
+    {
+        void onSuccess(OrderDetails orderDetails);
+        void onFailed(String message);
+    }
+
+    public void createOrderDetails_Action(String order_id, String product_id, String quantity, String price, createOrderDetails_CallBack callBack)
+    {
+        
     }
 
     public void Test(String user_id, String news_feed_id, String content) {
