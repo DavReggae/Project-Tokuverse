@@ -3,6 +3,7 @@ package com.example.tokuverseproject.Model;
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.Color;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -19,11 +20,10 @@ import java.net.URL;
 import java.util.List;
 
 public class HeroCustomBase extends BaseAdapter {
-    LayoutInflater inflater;
-
-    List<Hero> heroList;
-
-    ServerHandler serverHandler = new ServerHandler();
+    private LayoutInflater inflater;
+    private List<Hero> heroList;
+    private ServerHandler serverHandler = new ServerHandler();
+    private int selectedPosition = -1;
 
     public HeroCustomBase(Context ctx, List<Hero> heroList)
     {
@@ -47,6 +47,10 @@ public class HeroCustomBase extends BaseAdapter {
         return 0;
     }
 
+    public void setSelectedPosition(int position) {
+        selectedPosition = position;
+        notifyDataSetChanged();
+    }
     @Override
     public View getView(int i, View view, ViewGroup viewGroup) {
         view = inflater.inflate(R.layout.hero_item_list, null);
@@ -58,6 +62,12 @@ public class HeroCustomBase extends BaseAdapter {
         lbl_HeroDes.setText(heroList.get(i).getDescription());
         serverHandler.LoadImageFromURL(heroList.get(i).getHero_pic(), img_heroPic);
         serverHandler.LoadImageFromURL(heroList.get(i).getFull_pic(), img_FullPic);
+
+        if (i == selectedPosition) {
+            view.setBackgroundColor(Color.CYAN); // Change to your desired color
+        } else {
+            view.setBackgroundColor(Color.TRANSPARENT); // Set default color here
+        }
         return view;
     }
 }

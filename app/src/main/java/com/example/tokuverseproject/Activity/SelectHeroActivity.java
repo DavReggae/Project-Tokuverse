@@ -27,7 +27,6 @@ public class SelectHeroActivity extends AppCompatActivity {
 
     ImageView btn_Back;
     ServerHandler serverHandler = new ServerHandler();
-
     Button btn_Save;
     ListView listView_Hero;
 
@@ -39,7 +38,6 @@ public class SelectHeroActivity extends AppCompatActivity {
         btn_Back = findViewById(R.id.btn_Back);
         btn_Save = findViewById(R.id.btn_Save);
         String userId = getIntent().getStringExtra("userID");
-
         btn_Back.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -51,48 +49,30 @@ public class SelectHeroActivity extends AppCompatActivity {
             public void onSuccess(List<Hero> heroList) {
                 HeroCustomBase heroCustomBaseAdapter = new HeroCustomBase(getApplicationContext(), heroList);
                 listView_Hero.setAdapter(heroCustomBaseAdapter);
-                listView_Hero.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-                    @Override
-                    public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-                        String select_heroID = heroList.get(i).getId();
-                        for(int j = 0; j < adapterView.getChildCount(); j++)
-                        {
-                            if(i == j)
-                            {
-                                adapterView.getChildAt(j).setBackgroundColor(Color.CYAN);
+                listView_Hero.setOnItemClickListener((parent, view, position, id) -> {
+                    heroCustomBaseAdapter.setSelectedPosition(position);
+                    String hero_id = heroList.get(position).getId();
+                    btn_Save.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View view) {
+                            serverHandler.selectHero(userId, hero_id, new ServerHandler.selectHero_CallBack() {
+                                @Override
+                                public void onSuccess() {
+                                    Toast.makeText(SelectHeroActivity.this, "Select Hero Success",
+                                            Toast.LENGTH_LONG).show();
+                                    onBackPressed();
+                                }
 
-                            }
-                            else
-                            {
-                                adapterView.getChildAt(j).setBackgroundColor(Color.TRANSPARENT);
-                            }
+                                @Override
+                                public void onFail(String message) {
+
+                                }
+                            });
                         }
-                        btn_Save.setOnClickListener(new View.OnClickListener()
-                        {
-                            @Override
-                            public void onClick(View view) {
-                                serverHandler.selectHero(userId, select_heroID, new ServerHandler.selectHero_CallBack() {
-                                    @Override
-                                    public void onSuccess(){
-                                        Toast.makeText(SelectHeroActivity.this, "Select Hero Success",
-                                                Toast.LENGTH_LONG).show();
-                                        LogIn();
-                                    }
-
-                                    @Override
-                                    public void onFail(String message) {
-
-                                    }
-                                });
-                            }
-                        });
-                    }
+                    });
                 });
             }
-            void LogIn()
-            {
-                onBackPressed();
-            }
+
             @Override
             public void onFail(String message)
             {

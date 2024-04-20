@@ -81,40 +81,53 @@ public class ProfileFragment extends Fragment {
     void gotoSelectHero()
     {
         showLoading();
-        if(user.getHero_details_id().equals("0"))
-        {
-            Intent intent;
-            intent = new Intent(getActivity(), SelectHeroActivity.class);
-            intent.putExtra("userID", user.getId());
-            getActivity().startActivity(intent);
-
-        }
-        else
-        {
-            serverHandler.getHeroDetails_ByUserID(user.getId(), new ServerHandler.getHeroDetails_ByID_callBack() {
-                @Override
-                public void onSuccess(HeroDetails heroDetails) {
-                    user.setClass_HeroDetails(heroDetails);
-                    serverHandler.getHero_ByID(user.getClass_HeroDetails().getHero_id(), new ServerHandler.CallBack() {
-                        @Override
-                        public void getHero_ByID_Success(Hero hero) {
-                            user.getClass_HeroDetails().setClass_Hero(hero);
-                            dismissLoading();
-                            Intent intent;
-                            intent = new Intent(getActivity(), HeroInfoActivity.class);
-                            intent.putExtra("user", user);
-                            getActivity().startActivity(intent);
-                        }
-
-                        @Override
-                        public void onFailed(String message) {
-                            dismissLoading();
-                        }
-                    });
+        serverHandler.GetUserByID(user.getId(), new ServerHandler.GetUserByID_CallBack() {
+            @Override
+            public void onSuccess(User user) {
+                if(user.getHero_details_id().equals("0"))
+                {
+                    dismissLoading();
+                    Intent intent;
+                    intent = new Intent(getActivity(), SelectHeroActivity.class);
+                    intent.putExtra("userID", user.getId());
+                    getActivity().startActivity(intent);
 
                 }
-            });
-        }
+                else
+                {
+                    dismissLoading();
+                    serverHandler.getHeroDetails_ByUserID(user.getId(), new ServerHandler.getHeroDetails_ByID_callBack() {
+                        @Override
+                        public void onSuccess(HeroDetails heroDetails) {
+                            user.setClass_HeroDetails(heroDetails);
+                            serverHandler.getHero_ByID(user.getClass_HeroDetails().getHero_id(), new ServerHandler.CallBack() {
+                                @Override
+                                public void getHero_ByID_Success(Hero hero) {
+                                    user.getClass_HeroDetails().setClass_Hero(hero);
+                                    dismissLoading();
+                                    Intent intent;
+                                    intent = new Intent(getActivity(), HeroInfoActivity.class);
+                                    intent.putExtra("user", user);
+                                    getActivity().startActivity(intent);
+                                }
+
+                                @Override
+                                public void onFailed(String message) {
+                                    dismissLoading();
+                                }
+                            });
+
+                        }
+                    });
+                }
+            }
+
+            @Override
+            public void onFail(String message) {
+
+            }
+        });
+
     }
 
     private void showLoading() {
