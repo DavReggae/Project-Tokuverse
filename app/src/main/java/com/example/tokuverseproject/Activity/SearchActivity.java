@@ -3,6 +3,8 @@ package com.example.tokuverseproject.Activity;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageView;
@@ -55,8 +57,32 @@ public class SearchActivity extends AppCompatActivity {
                         searchList.add(userList.get(i));
                     }
                 }
-                SearchCustomBase searchCustomBase = new SearchCustomBase(getBaseContext(), searchList);
+                SearchCustomBase searchCustomBase = new SearchCustomBase(getBaseContext(), searchList, user, SearchActivity.this);
                 listView_Search_User.setAdapter(searchCustomBase);
+                txt_Search.addTextChangedListener(new TextWatcher() {
+                    @Override
+                    public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+                    }
+
+                    @Override
+                    public void onTextChanged(CharSequence s, int start, int before, int count) {
+                        String searchText = s.toString();
+                        List<User> search_user_list = new LinkedList<>();
+                        for(int i = 0; i < searchList.size(); i++)
+                        {
+                            if(searchList.get(i).getUsername().toLowerCase().contains(searchText.toLowerCase()))
+                            {
+                                search_user_list.add(searchList.get(i));
+                            }
+                        }
+                        SearchCustomBase searchCustomBase = new SearchCustomBase(getBaseContext(), search_user_list, user, SearchActivity.this);
+                        listView_Search_User.setAdapter(searchCustomBase);
+                    }
+
+                    @Override
+                    public void afterTextChanged(Editable s) {                    }
+                });
                 dismissLoading();
             }
 
