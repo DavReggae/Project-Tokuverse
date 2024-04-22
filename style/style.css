@@ -1,105 +1,100 @@
-/* CSS styles */
-@import url('https://fonts.googleapis.com/css?family=Open+Sans:400,400i,700');
-        
-body {
-    font-family: 'Open Sans', sans-serif;
-    background: #9fcedf;
-    overflow-x: hidden;
-    margin: 0;
-    color: #333;
-    font-size: 100%;
-    line-height: 1.5;
+ /* CSS styles */
+ body {
+  font-family: 'Open Sans', sans-serif;
+  background: #9fcedf;
+  overflow-x: hidden;
+  margin: 0;
+  color: #333;
+  font-size: 100%;
+  line-height: 1.5;
 }
 
 nav {
-    position: relative;
-    z-index: 1000;
-    width: 220px;
-    margin: 20px;
+  position: fixed;
+  z-index: 1000;
+  width: 220px;
+  margin: 240px 20px 20px; /* Adjusted margins to create space for the header */
+  top: 0;
 }
 
 nav ol {
-    list-style-type: none;
-    margin: 0;
-    padding: 0;
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
 }
 
 nav li {
-    margin: -4px 0 0 0;
+  margin: -4px 0 0 0;
 }
 
 nav a {
-    display: block;
-    text-decoration: none;
-    background: #fff;
-    transform-origin: 0 0;
-    transition: transform 0.5s ease-in-out, color 0.5s ease-in-out;
-    border-radius: 4px;
-    padding: 1em 1.52em;
+  display: block;
+  text-decoration: none;
+  background: #fff;
+  transform-origin: 0 0;
+  transition: transform 0.5s ease-in-out, color 0.5s ease-in-out;
+  border-radius: 4px;
+  padding: 1em 1.52em;
 }
 
 nav a:hover {
-    background: #efefef;
+  background: #efefef;
 }
-
+nav.menu {
+  position: fixed;
+  z-index: 1000;
+  width: 220px;
+  margin: 240px 20px 20px; /* Adjusted margins to create space for the header */
+  top: 0;
+  overflow-y: auto;
+  max-height: calc(100vh - 260px); /* Adjusted to create space for the header */
+}
 .sub-menu a {
-    font-size: 0.9em;
-    color: #666;
-    border-left: 2em solid white;
-    padding: 0.75em;
-    background: linear-gradient(to right, #ddd 2px, #fff 2px);
+  font-size: 0.9em;
+  color: #666;
+  border-left: 2em solid white;
+  padding: 0.75em;
+  background: linear-gradient(to right, #ddd 2px, #fff 2px);
 }
 
 .sub-menu a:hover {
-    background: linear-gradient(to right, #ddd 2px, #efefef 2px);
+  background: linear-gradient(to right, #ddd 2px, #efefef 2px);
 }
 
-nav header {
-    font-weight: 600;
-    display: block;
-    background: rgba(255, 255, 255, 0.5);
-    transform-origin: 0 0;
-    transition: transform 0.5s ease-in-out, color 0.5s ease-in-out;
-    border-radius: 4px;
-    padding: 1em 1.52em;
+header {
+  width: 100%;
+  height: 200px; /* Set a fixed height for the header */
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 9999;
+  overflow: hidden;
 }
 
-nav header span {
-    border: none;
-    background: transparent;
-    font-size: 1.5em;
-    padding: 0;
-    cursor: pointer;
-    line-height: 1;
-    float: right;
+header img {
+  width: 100%;
+  height: 100%; /* Ensure the image covers the entire header */
+  object-fit: cover;
 }
+
 main {
-  margin-left: 150px;
-  font-size: 18px;
+  margin-left: 240px;
+  margin-top: 240px; /* Adjusted to create space for the header and navbar */
+  padding: 20px;
 }
-.Main-Title{
-  text-shadow: 2px 2px 4px #000000;
-  text-align: center;
-  font-size-adjust: 40px;
-}
-
-
 
 .content-container {
   display: flex;
-  align-items: center; /* Align items vertically */
-  justify-content: center; /* Align items horizontally */
-  gap: 20px; /* Space between image and text */
+  align-items: center;
+  justify-content: center;
+  gap: 20px;
 }
 
 .image-container img {
-  max-width: 100%; /* Ensure image is responsive and does not overflow its container */
-  height: auto; /* Maintain aspect ratio */
+  max-width: 100%;
+  height: auto;
 }
-.video-container {
-  width: 100% !important; /* Ensure video takes full width */
-  
-}
+
 .video-container {
   width: 100% !important;
 }
@@ -109,33 +104,45 @@ main {
 }
 
 .text-container {
-  flex: 1; /* Allows the text container to fill up the remaining space */
+  flex: 1;
 }
 
-        body {
-            font-family: 'Open Sans', sans-serif;
-            background: #9fcedf;
-            overflow-x: hidden;
-            margin: 0;
-            color: #333;
-            font-size: 100%;
-            line-height: 1.5;
-        }
+nav.signup-login {
+  position: fixed;
+  top: 0;
+  right: 20px; /* Adjust as needed */
+  z-index: 1000;
+  background: none; /* Remove background */
+}
 
-        nav.menu {
-            position: fixed; /* Fix the position of the navbar */
-            top: 0;
-            left: 0;
-            bottom: 0; /* Extend the navbar to the bottom of the viewport */
-            width: 220px;
-            background-color: #fff; /* Ensure navbar has a background color */
-            overflow-y: auto; /* Enable vertical scrolling if the content overflows */
-        }
+nav.signup-login ul {
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+}
 
-        main {
-            margin-left: 240px; /* Adjust margin to accommodate the width of the navbar */
-            padding: 20px;
-        }
+nav.signup-login li {
+  margin: 0;
+}
 
-        /* Your existing CSS styles */
-        /* Add your existing CSS styles here */
+nav.signup-login a {
+  display: block;
+  text-decoration: none;
+  transform-origin: 0 0;
+  transition: transform 0.5s ease-in-out, color 0.5s ease-in-out;
+  border-radius: 4px;
+  padding: 20px 20px; /* Adjusted padding */
+  color: #333;
+}
+
+nav.signup-login a:first-child {
+  margin-right: 10px; /* Add margin to separate buttons */
+}
+
+nav.signup-login a:hover {
+  background: #efefef;
+}
+nav.signup-login.hidden {
+  display: none;
+}
