@@ -69,23 +69,25 @@ public class ServerHandler {
         }
     }
 
-    public void getUser() {
+    public interface getUser_CallBack
+    {
+        void onSuccess(List<User> userList);
+        void onFailed(String message);
+    }
+
+    public void getUser(getUser_CallBack callBack) {
         Call<List<User>> call = Api.getUser();
         call.enqueue(new Callback<List<User>>() {
             @Override
             public void onResponse(Call<List<User>> call, Response<List<User>> response) {
-                List<User> userList = response.body();
-                for (int i = 0; i < userList.size(); i++) {
-                    Log.d("sucess", userList.get(i).getId());
-                }
+                callBack.onSuccess(response.body());
             }
 
             @Override
             public void onFailure(Call<List<User>> call, Throwable t) {
-                Log.d("failed", t.getMessage());
+                callBack.onFailed(t.getMessage());
             }
         });
-
     }
 
     public interface getHero_CallBack {

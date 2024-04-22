@@ -11,6 +11,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.ProgressBar;
@@ -33,6 +34,7 @@ public class HomeFragment extends Fragment implements NewFeedCustomBase.UserPage
     ServerHandler serverHandler = new ServerHandler();
     ListView listView_NewFeeds;
 
+    ImageButton btn_HomeSearch;
     Button btn_CreatePost;
     ProgressBar loadingBar_Home;
     @Override
@@ -60,6 +62,7 @@ public class HomeFragment extends Fragment implements NewFeedCustomBase.UserPage
         btn_CreatePost = view.findViewById(R.id.btn_CreatePost);
         btn_CreatePost.setText("What on your mind, " + user.getUsername() + " ?");
         serverHandler.LoadImageFromURL(user.getAvatar(), img_Avatar);
+        btn_HomeSearch = view.findViewById(R.id.btn_HomeSearch);
 
 
         Context appContext = requireContext().getApplicationContext();
@@ -93,6 +96,14 @@ public class HomeFragment extends Fragment implements NewFeedCustomBase.UserPage
             @Override
             public void onClick(View v) {
                 createPostAction();
+            }
+        });
+        btn_HomeSearch.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(getActivity(), SearchActivity.class);
+                intent.putExtra("user", user);
+                getActivity().startActivity(intent);
             }
         });
         return view;
