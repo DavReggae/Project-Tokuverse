@@ -115,7 +115,7 @@
         android:text="TextView"
         android:textStyle="bold"
         android:textSize="16dp"
-        android:drawableLeft="@drawable/price_icon"
+        android:drawableLeft="@drawable/coins"
         app:layout_constraintBottom_toBottomOf="@+id/btn_CheckOut"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="@+id/btn_CheckOut" />

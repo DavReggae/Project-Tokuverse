@@ -7,6 +7,7 @@ import com.example.tokuverseproject.Model.JSON_MESSAGE;
 import com.example.tokuverseproject.Model.Like;
 import com.example.tokuverseproject.Model.NewFeeds;
 import com.example.tokuverseproject.Model.Order;
+import com.example.tokuverseproject.Model.OrderDetails;
 import com.example.tokuverseproject.Model.Product;
 import com.example.tokuverseproject.Model.User;
 
@@ -139,5 +140,15 @@ public interface API {
             @Field("product_id") String product_id,
             @Field("quantity") String quantity,
             @Field("price") String price
+    );
+    @FormUrlEncoded
+    @POST("getOrder_ByUserID.php")
+    Call<List<Order>> getOrder_ByUserId(
+            @Field("user_id") String user_id
+    );
+    @FormUrlEncoded
+    @POST("getOrderDetails_ByOrderId.php")
+    Call<List<OrderDetails>> getOrderDetails_ByOrderId(
+            @Field("order_id") String order_id
     );
 }

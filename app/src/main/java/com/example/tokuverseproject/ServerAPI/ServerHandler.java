@@ -599,7 +599,46 @@ public class ServerHandler {
             }
         });
     }
+    public interface getOrder_ByUserId_CallBack
+    {
+        void onSuccess(List<Order> orderList);
+        void onFailed(String message);
+    }
+    public void getOrder_ByUserId(String user_id, getOrder_ByUserId_CallBack callBack)
+    {
+        Call<List<Order>> call = Api.getOrder_ByUserId(user_id);
+        call.enqueue(new Callback<List<Order>>() {
+            @Override
+            public void onResponse(Call<List<Order>> call, Response<List<Order>> response) {
+                callBack.onSuccess(response.body());
+            }
 
+            @Override
+            public void onFailure(Call<List<Order>> call, Throwable t) {
+                callBack.onFailed(t.getMessage());
+            }
+        });
+    }
+    public interface getOrderDetails_ByOrderId_CallBack
+    {
+        void onSuccess(List<OrderDetails> orderDetailsList);
+        void onFailed(String message);
+    }
+    public void getOrderDetails_ByOrderId(String order_id, getOrderDetails_ByOrderId_CallBack callBack)
+    {
+        Call<List<OrderDetails>> call = Api.getOrderDetails_ByOrderId(order_id);
+        call.enqueue(new Callback<List<OrderDetails>>() {
+            @Override
+            public void onResponse(Call<List<OrderDetails>> call, Response<List<OrderDetails>> response) {
+                callBack.onSuccess(response.body());
+            }
+
+            @Override
+            public void onFailure(Call<List<OrderDetails>> call, Throwable t) {
+                callBack.onFailed(t.getMessage());
+            }
+        });
+    }
     public void Test(String user_id, String news_feed_id, String content) {
         Call<JSON_MESSAGE> call = Api.commentAction(user_id, news_feed_id, content);
         call.enqueue(new Callback<JSON_MESSAGE>() {

@@ -44,8 +44,12 @@ public class HomeActivity extends AppCompatActivity {
                     replaceFragment(new ProfileFragment(), createUserBundle(finalUser));
                     break;
                 case R.id.store:
-                    Log.d("setting", "3");
+                    Log.d("Store", "3");
                     replaceFragment(new StoreFragment(), createUserBundle(finalUser));
+                    break;
+                case R.id.history:
+                    Log.d("Store", "4");
+                    replaceFragment(new HistoryFragment(), createUserBundle(finalUser));
                     break;
             }
             return true;
