@@ -12,6 +12,7 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.tokuverseproject.Model.FightHistory;
 import com.example.tokuverseproject.Model.FightRecord;
 import com.example.tokuverseproject.Model.FightRecordCustomBase;
 import com.example.tokuverseproject.Model.User;
@@ -138,12 +139,24 @@ public class FightActivity extends AppCompatActivity {
                         serverHandler.updateUserCoins(user.getId(), total_reward.toString(), new ServerHandler.updateUserCoins_CallBack() {
                             @Override
                             public void onSuccess() {
-                                FightRecordCustomBase fightRecordCustomBase = new FightRecordCustomBase(getApplicationContext(), fightRecordList);
-                                listVIew_FightRecord.setAdapter(fightRecordCustomBase);
-                                lbl_Fight_Reward.setText("Total rewards: " + finalTotal_reward);
-                                lbl_Fight_Reward.setVisibility(View.VISIBLE);
-                                btn_FightAction.setVisibility(View.INVISIBLE);
-                                dismissLoading();
+                                serverHandler.createFightHistory(user.getId(), clicked_user.getId(), finalTotal_reward.toString(), new ServerHandler.createFightHistory_CallBack() {
+                                    @Override
+                                    public void onSuccess(FightHistory fightHistory) {
+                                        String fight_id = fightHistory.getId();
+                                        FightRecordCustomBase fightRecordCustomBase = new FightRecordCustomBase(getApplicationContext(), fightRecordList, fight_id, FightActivity.this);
+                                        listVIew_FightRecord.setAdapter(fightRecordCustomBase);
+                                        lbl_Fight_Reward.setText("Total rewards: " + finalTotal_reward);
+                                        lbl_Fight_Reward.setVisibility(View.VISIBLE);
+                                        btn_FightAction.setVisibility(View.INVISIBLE);
+                                        dismissLoading();
+                                    }
+
+                                    @Override
+                                    public void onFailed(String message) {
+
+                                    }
+                                });
+
                             }
 
                             @Override
@@ -189,12 +202,12 @@ public class FightActivity extends AppCompatActivity {
         });
     }
 
-    private void showLoading() {
+    public void showLoading() {
         loadingBar_Fight.setVisibility(View.VISIBLE);
     }
 
     // Method to dismiss loading screen
-    private void dismissLoading() {
+    public void dismissLoading() {
         loadingBar_Fight.setVisibility(View.GONE);
     }
 }

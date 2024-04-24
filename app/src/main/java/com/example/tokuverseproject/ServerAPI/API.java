@@ -1,6 +1,7 @@
 package com.example.tokuverseproject.ServerAPI;
 
 import com.example.tokuverseproject.Model.Comment;
+import com.example.tokuverseproject.Model.FightHistory;
 import com.example.tokuverseproject.Model.Hero;
 import com.example.tokuverseproject.Model.HeroDetails;
 import com.example.tokuverseproject.Model.JSON_MESSAGE;
@@ -155,5 +156,21 @@ public interface API {
     @POST("getProduct_ById.php")
     Call<List<Product>> getProduct_ById(
             @Field("id") String id
+    );
+    @FormUrlEncoded
+    @POST("createFightHistory.php")
+    Call<List<FightHistory>> createFightHistory(
+            @Field("user_id") String user_id,
+            @Field("fight_user_id") String fight_user_id,
+            @Field("rewards") String rewards
+    );
+    @FormUrlEncoded
+    @POST("createFightDetails.php")
+    Call<Void> createFightDetails(
+            @Field("fight_id") String fight_id,
+            @Field("turn") String turn,
+            @Field("damage") String damage,
+            @Field("user_currentHP") String user_currentHP,
+            @Field("fight_user_currentHP") String fight_user_currentHP
     );
 }

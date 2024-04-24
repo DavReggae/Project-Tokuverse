@@ -49,8 +49,30 @@ public class SearchCustomBase extends BaseAdapter {
         view = inflater.inflate(R.layout.search_item_list, null);
         ImageView img_Search_UserAvatar = view.findViewById(R.id.img_Search_UserAvatar);
         TextView lbl_Search_UserName = view.findViewById(R.id.lbl_Search_UserName);
+        ImageView img_Search_UserHeroPic = view.findViewById(R.id.img_Search_UserHeroPic);
         serverHandler.LoadImageFromURL(searchList.get(i).getAvatar(), img_Search_UserAvatar);
         lbl_Search_UserName.setText(searchList.get(i).getUsername());
+        User clicked_user = searchList.get(i);
+        searchActivity.showLoading();
+        serverHandler.getHeroDetails_ByUserID(clicked_user.getId(), new ServerHandler.getHeroDetails_ByID_callBack() {
+            @Override
+            public void onSuccess(HeroDetails heroDetails) {
+                clicked_user.setClass_HeroDetails(heroDetails);
+                serverHandler.getHero_ByID(clicked_user.getClass_HeroDetails().getHero_id(), new ServerHandler.CallBack() {
+                    @Override
+                    public void getHero_ByID_Success(Hero hero) {
+                        clicked_user.getClass_HeroDetails().setClass_Hero(hero);
+                        serverHandler.LoadImageFromURL(hero.getHero_pic(), img_Search_UserHeroPic);
+                        searchActivity.dismissLoading();
+                    }
+
+                    @Override
+                    public void onFailed(String message) {
+
+                    }
+                });
+            }
+        });
         view.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

@@ -26,4 +26,15 @@
         app:layout_constraintBottom_toBottomOf="@+id/img_Search_UserAvatar"
         app:layout_constraintStart_toEndOf="@+id/img_Search_UserAvatar"
         app:layout_constraintTop_toTopOf="@+id/img_Search_UserAvatar" />
+
+    <ImageView
+        android:id="@+id/img_Search_UserHeroPic"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="16dp"
+        app:layout_constraintBottom_toBottomOf="@+id/img_Search_UserAvatar"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/img_Search_UserAvatar"
+        tools:srcCompat="@tools:sample/avatars" />
 </androidx.constraintlayout.widget.ConstraintLayout>

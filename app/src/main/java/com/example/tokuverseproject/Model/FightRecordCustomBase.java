@@ -17,6 +17,7 @@ import android.widget.TextView;
 
 import androidx.core.content.ContextCompat;
 
+import com.example.tokuverseproject.Activity.FightActivity;
 import com.example.tokuverseproject.R;
 import com.example.tokuverseproject.ServerAPI.ServerHandler;
 
@@ -26,10 +27,14 @@ public class FightRecordCustomBase extends BaseAdapter {
     LayoutInflater inflater;
     List<FightRecord> fightRecordList;
     ServerHandler serverHandler = new ServerHandler();
+    String fight_id;
+    FightActivity fightActivity;
 
-    public FightRecordCustomBase(Context ctx, List<FightRecord> fightRecordList)
+    public FightRecordCustomBase(Context ctx, List<FightRecord> fightRecordList, String fight_id, FightActivity fightActivity)
     {
         this.fightRecordList = fightRecordList;
+        this.fight_id = fight_id;
+        this.fightActivity = fightActivity;
         inflater = LayoutInflater.from(ctx);
     }
     @Override
@@ -91,7 +96,6 @@ public class FightRecordCustomBase extends BaseAdapter {
             lbl_FightRecord_UserHP.setTextColor(Color.GREEN);
             lbl_FightRecord_ClickedUserHP.setTextColor(Color.RED);
         }
-
         if(fightRecordList.get(i).getTurn() == 2)
         {
             int blueColor = Color.BLUE;
@@ -105,6 +109,11 @@ public class FightRecordCustomBase extends BaseAdapter {
             img_AttackDirection.setImageResource(R.drawable.attack_direction);
             img_AttackDirection.setColorFilter(redColor, PorterDuff.Mode.SRC_ATOP);
         }
+        fightActivity.showLoading();
+        String turn = fightRecordList.get(i).turn.toString();
+        String damage = fightRecordList.get(i).damage.toString();
+        String user_currentHP = fightRecordList.get(i).user_currentHP.toString();
+        String fight_user_currentHP = fightRecordList.get(i).clickedUser_currentHP.toString();
         return view;
     }
 }

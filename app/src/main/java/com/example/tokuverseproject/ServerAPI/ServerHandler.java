@@ -7,6 +7,7 @@ import android.util.Log;
 import android.widget.ImageView;
 
 import com.example.tokuverseproject.Model.Comment;
+import com.example.tokuverseproject.Model.FightHistory;
 import com.example.tokuverseproject.Model.Hero;
 import com.example.tokuverseproject.Model.HeroDetails;
 import com.example.tokuverseproject.Model.JSON_MESSAGE;
@@ -655,6 +656,46 @@ public class ServerHandler {
 
             @Override
             public void onFailure(Call<List<Product>> call, Throwable t) {
+                callBack.onFailed(t.getMessage());
+            }
+        });
+    }
+    public interface createFightHistory_CallBack
+    {
+        void onSuccess(FightHistory fightHistory);
+        void onFailed(String message);
+    }
+    public void createFightHistory(String user_id, String fight_user_id, String rewards, createFightHistory_CallBack callBack)
+    {
+        Call<List<FightHistory>> call = Api.createFightHistory(user_id, fight_user_id, rewards);
+        call.enqueue(new Callback<List<FightHistory>>() {
+            @Override
+            public void onResponse(Call<List<FightHistory>> call, Response<List<FightHistory>> response) {
+                callBack.onSuccess(response.body().get(0));
+            }
+
+            @Override
+            public void onFailure(Call<List<FightHistory>> call, Throwable t) {
+                callBack.onFailed(t.getMessage());
+            }
+        });
+    }
+    public interface createFightDetails_CallBack
+    {
+        void onSuccess();
+        void onFailed(String message);
+    }
+    public void createFightDetails(String fight_id, String turn, String damage, String user_currentHP, String fight_user_currentHP, createFightDetails_CallBack callBack)
+    {
+        Call<Void> call = Api.createFightDetails(fight_id, turn, damage, user_currentHP, fight_user_currentHP);
+        call.enqueue(new Callback<Void>() {
+            @Override
+            public void onResponse(Call<Void> call, Response<Void> response) {
+                callBack.onSuccess();
+            }
+
+            @Override
+            public void onFailure(Call<Void> call, Throwable t) {
                 callBack.onFailed(t.getMessage());
             }
         });
