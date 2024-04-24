@@ -4,6 +4,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
@@ -12,6 +13,7 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.tokuverseproject.Model.FightDetails;
 import com.example.tokuverseproject.Model.FightHistory;
 import com.example.tokuverseproject.Model.FightRecord;
 import com.example.tokuverseproject.Model.FightRecordCustomBase;
@@ -124,47 +126,6 @@ public class FightActivity extends AppCompatActivity {
                     fightRecord.setClickedUser_heroPIc(clicked_user.getClass_HeroDetails().getClass_Hero().getHero_pic());
                     if(user_Health <= 0 || clickedUser_Health <= 0)
                     {
-                        if(user_Health <= 0)
-                        {
-                            Toast.makeText(FightActivity.this, "YOU LOSE!!!!. YOU GOT " + total_reward + " coins",
-                                    Toast.LENGTH_LONG).show();
-                        }
-                        else
-                        {
-                            total_reward = total_reward * Integer.parseInt(clicked_user.getClass_HeroDetails().getLevel());
-                            Toast.makeText(FightActivity.this, "YOU WIN!!!!. YOU GOT " + total_reward + " coins",
-                                    Toast.LENGTH_LONG).show();
-                        }
-                        Integer finalTotal_reward = total_reward;
-                        serverHandler.updateUserCoins(user.getId(), total_reward.toString(), new ServerHandler.updateUserCoins_CallBack() {
-                            @Override
-                            public void onSuccess() {
-                                serverHandler.createFightHistory(user.getId(), clicked_user.getId(), finalTotal_reward.toString(), new ServerHandler.createFightHistory_CallBack() {
-                                    @Override
-                                    public void onSuccess(FightHistory fightHistory) {
-                                        String fight_id = fightHistory.getId();
-                                        FightRecordCustomBase fightRecordCustomBase = new FightRecordCustomBase(getApplicationContext(), fightRecordList, fight_id, FightActivity.this);
-                                        listVIew_FightRecord.setAdapter(fightRecordCustomBase);
-                                        lbl_Fight_Reward.setText("Total rewards: " + finalTotal_reward);
-                                        lbl_Fight_Reward.setVisibility(View.VISIBLE);
-                                        btn_FightAction.setVisibility(View.INVISIBLE);
-                                        dismissLoading();
-                                    }
-
-                                    @Override
-                                    public void onFailed(String message) {
-
-                                    }
-                                });
-
-                            }
-
-                            @Override
-                            public void onFailed(String message) {
-
-                            }
-                        });
-
                         break;
                     }
                     else
@@ -198,8 +159,88 @@ public class FightActivity extends AppCompatActivity {
                         fightRecordList.add(fightRecord);
                     }
                 }
+                if(user_Health <= 0)
+                {
+                    Toast.makeText(FightActivity.this, "YOU LOSE!!!!. YOU GOT " + total_reward + " coins",
+                            Toast.LENGTH_LONG).show();
+                }
+                else
+                {
+                    total_reward = total_reward * Integer.parseInt(clicked_user.getClass_HeroDetails().getLevel());
+                    Toast.makeText(FightActivity.this, "YOU WIN!!!!. YOU GOT " + total_reward + " coins",
+                            Toast.LENGTH_LONG).show();
+                }
+                Integer finalTotal_reward = total_reward;
+                serverHandler.updateUserCoins(user.getId(), total_reward.toString(), new ServerHandler.updateUserCoins_CallBack() {
+                    @Override
+                    public void onSuccess() {
+                    }
+
+                    @Override
+                    public void onFailed(String message) {
+
+                    }
+                });
+                serverHandler.createFightHistory(user.getId(), clicked_user.getId(), finalTotal_reward.toString(), new ServerHandler.createFightHistory_CallBack() {
+                    @Override
+                    public void onSuccess(FightHistory fightHistory) {
+                        String fight_id = fightHistory.getId();
+                        FightRecordCustomBase fightRecordCustomBase = new FightRecordCustomBase(getApplicationContext(), fightRecordList, fight_id, FightActivity.this);
+                        listVIew_FightRecord.setAdapter(fightRecordCustomBase);
+                        lbl_Fight_Reward.setText("Total rewards: " + finalTotal_reward);
+                        lbl_Fight_Reward.setVisibility(View.VISIBLE);
+                        btn_FightAction.setVisibility(View.INVISIBLE);
+                        List<FightDetails> fightDetailsList = new LinkedList<>();
+                        for(int i = 0; i < fightRecordList.size(); i++)
+                        {
+                            FightDetails fightDetail = new FightDetails();
+                            fightDetail.setFight_id(fight_id);
+                            fightDetail.setTurn(fightRecordList.get(i).getTurn().toString());
+                            fightDetail.setDamage(fightRecordList.get(i).getDamage().toString());
+                            fightDetail.setUser_currentHP(fightRecordList.get(i).getUser_currentHP().toString());
+                            fightDetail.setFight_user_currentHP(fightRecordList.get(i).getClickedUser_currentHP().toString());
+                            fightDetailsList.add(fightDetail);
+                        }
+                        processFightRecord(fightDetailsList);
+                    }
+
+                    @Override
+                    public void onFailed(String message) {
+                    }
+                });
+                dismissLoading();
             }
         });
+    }
+    int currentIndex = 0;
+
+    // Method to process each fight record
+    void processFightRecord(List<FightDetails> fightDetailsList) {
+        if (currentIndex < fightDetailsList.size()) {
+            FightDetails fightDetails = fightDetailsList.get(currentIndex);
+            String api_turn = fightDetails.getTurn().toString();
+            String api_damage = fightDetails.getDamage().toString();
+            String api_user_HP = fightDetails.getUser_currentHP().toString();
+            String api_fightUser_HP = fightDetails.getFight_user_currentHP().toString();
+            String fight_id = fightDetails.getFight_id();
+
+            serverHandler.createFightDetails(fight_id, api_turn, api_damage, api_user_HP, api_fightUser_HP, new ServerHandler.createFightDetails_CallBack() {
+                @Override
+                public void onSuccess() {
+                    // Increment index and process next record
+                    currentIndex++;
+                    processFightRecord(fightDetailsList);
+                }
+
+                @Override
+                public void onFailed(String message) {
+                    // Handle failure if needed
+                }
+            });
+        }
+        else {
+            // All records processed
+        }
     }
 
     public void showLoading() {

@@ -62,7 +62,6 @@ public class FightRecordCustomBase extends BaseAdapter {
         ImageView img_FightRecord_User = view.findViewById(R.id.img_FightRecord_User);
         ImageView img_FightRecord_ClickedUser = view.findViewById(R.id.img_FightRecord_ClickedUser);
         ImageView img_AttackDirection = view.findViewById(R.id.img_AttackDirection);
-
         Integer turn_fight = i + 1;
         lbl_FightRecord_Turn.setText("Turn: " + turn_fight.toString());
         lbl_FightRecord_Damage.setText(fightRecordList.get(i).getDamage().toString() +" damage");
@@ -109,11 +108,6 @@ public class FightRecordCustomBase extends BaseAdapter {
             img_AttackDirection.setImageResource(R.drawable.attack_direction);
             img_AttackDirection.setColorFilter(redColor, PorterDuff.Mode.SRC_ATOP);
         }
-        fightActivity.showLoading();
-        String turn = fightRecordList.get(i).turn.toString();
-        String damage = fightRecordList.get(i).damage.toString();
-        String user_currentHP = fightRecordList.get(i).user_currentHP.toString();
-        String fight_user_currentHP = fightRecordList.get(i).clickedUser_currentHP.toString();
         return view;
     }
 }
