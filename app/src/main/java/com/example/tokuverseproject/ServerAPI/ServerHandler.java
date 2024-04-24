@@ -639,6 +639,26 @@ public class ServerHandler {
             }
         });
     }
+    public interface getProduct_ById_CallBack
+    {
+        void onSuccess(Product product);
+        void onFailed(String message);
+    }
+    public void getProduct_ById(String id, getProduct_ById_CallBack callBack)
+    {
+        Call<List<Product>> call = Api.getProduct_ById(id);
+        call.enqueue(new Callback<List<Product>>() {
+            @Override
+            public void onResponse(Call<List<Product>> call, Response<List<Product>> response) {
+                callBack.onSuccess(response.body().get(0));
+            }
+
+            @Override
+            public void onFailure(Call<List<Product>> call, Throwable t) {
+                callBack.onFailed(t.getMessage());
+            }
+        });
+    }
     public void Test(String user_id, String news_feed_id, String content) {
         Call<JSON_MESSAGE> call = Api.commentAction(user_id, news_feed_id, content);
         call.enqueue(new Callback<JSON_MESSAGE>() {

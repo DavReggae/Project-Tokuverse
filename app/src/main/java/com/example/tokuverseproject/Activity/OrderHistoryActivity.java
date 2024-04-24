@@ -39,11 +39,13 @@ public class OrderHistoryActivity extends AppCompatActivity {
                 onBackPressed();
             }
         });
+        showLoading();
         serverHandler.getOrder_ByUserId(user.getId(), new ServerHandler.getOrder_ByUserId_CallBack() {
             @Override
             public void onSuccess(List<Order> orderList) {
                 OrderHistoryCustomBase orderHistoryCustomBase = new OrderHistoryCustomBase(getApplicationContext(), orderList, OrderHistoryActivity.this);
                 listView_OrderHistory.setAdapter(orderHistoryCustomBase);
+                dismissLoading();
             }
 
             @Override
@@ -52,12 +54,12 @@ public class OrderHistoryActivity extends AppCompatActivity {
             }
         });
     }
-    private void showLoading() {
+    public void showLoading() {
         loadingBar_OrderHistory.setVisibility(View.VISIBLE);
     }
 
     // Method to dismiss loading screen
-    private void dismissLoading() {
+    public void dismissLoading() {
         loadingBar_OrderHistory.setVisibility(View.GONE);
     }
 }

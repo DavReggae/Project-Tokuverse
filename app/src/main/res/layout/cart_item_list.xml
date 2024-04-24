@@ -32,7 +32,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
-        android:drawableLeft="@drawable/price_icon"
+        android:drawableLeft="@drawable/coins"
         android:text="TextView"
         android:textSize="16dp"
         android:textStyle="bold"

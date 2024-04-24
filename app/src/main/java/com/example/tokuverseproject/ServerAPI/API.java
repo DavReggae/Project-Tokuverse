@@ -151,4 +151,9 @@ public interface API {
     Call<List<OrderDetails>> getOrderDetails_ByOrderId(
             @Field("order_id") String order_id
     );
+    @FormUrlEncoded
+    @POST("getProduct_ById.php")
+    Call<List<Product>> getProduct_ById(
+            @Field("id") String id
+    );
 }

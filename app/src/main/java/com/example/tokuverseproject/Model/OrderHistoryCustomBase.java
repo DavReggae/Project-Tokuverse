@@ -2,7 +2,9 @@ package com.example.tokuverseproject.Model;
 
 
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.drawable.Drawable;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -12,7 +14,9 @@ import android.widget.TextView;
 
 import androidx.core.content.ContextCompat;
 
+import com.example.tokuverseproject.Activity.OrderDetailsHistoryActivity;
 import com.example.tokuverseproject.Activity.OrderHistoryActivity;
+import com.example.tokuverseproject.Activity.UserPageActivity;
 import com.example.tokuverseproject.R;
 import com.example.tokuverseproject.ServerAPI.ServerHandler;
 
@@ -59,10 +63,23 @@ public class OrderHistoryCustomBase extends BaseAdapter
         view.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                orderHistoryActivity.showLoading();
                 serverHandler.getOrderDetails_ByOrderId(orderList.get(i).id, new ServerHandler.getOrderDetails_ByOrderId_CallBack() {
                     @Override
                     public void onSuccess(List<OrderDetails> orderDetailsList) {
                         orderList.get(i).setOrderDetailsList(orderDetailsList);
+                        Intent intent = new Intent(inflater.getContext(), OrderDetailsHistoryActivity.class);
+                        intent.putExtra("order_history", orderList.get(i));
+                        try
+                        {
+                            intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                            inflater.getContext().startActivity(intent);
+                        }
+                        catch (Exception e)
+                        {
+                            Log.d("ERRROR", e.getMessage());
+                        }
+                        orderHistoryActivity.dismissLoading();
                     }
 
                     @Override

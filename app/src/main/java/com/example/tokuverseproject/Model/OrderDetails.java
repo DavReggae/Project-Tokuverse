@@ -15,6 +15,7 @@ public class OrderDetails implements Serializable {
     String quantity;
     @SerializedName("price")
     String price;
+    Product product;
 
     public String getId() {
         return id;
@@ -54,5 +55,13 @@ public class OrderDetails implements Serializable {
 
     public void setPrice(String price) {
         this.price = price;
+    }
+
+    public Product getProduct() {
+        return product;
+    }
+
+    public void setProduct(Product product) {
+        this.product = product;
     }
 }
