@@ -59,6 +59,14 @@ public class HistoryFragment extends Fragment {
                 getActivity().startActivity(intent);
             }
         });
+        btn_FightHistory.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(getActivity(), FightHistoryActivity.class);
+                intent.putExtra("user", user);
+                getActivity().startActivity(intent);
+            }
+        });
         return view;
     }
 }
