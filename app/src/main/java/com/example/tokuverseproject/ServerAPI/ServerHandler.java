@@ -7,6 +7,7 @@ import android.util.Log;
 import android.widget.ImageView;
 
 import com.example.tokuverseproject.Model.Comment;
+import com.example.tokuverseproject.Model.FightDetails;
 import com.example.tokuverseproject.Model.FightHistory;
 import com.example.tokuverseproject.Model.Hero;
 import com.example.tokuverseproject.Model.HeroDetails;
@@ -67,6 +68,21 @@ public class ServerHandler {
             Picasso.get().load(url).into(imageView);
         } catch (Exception e) {
             Log.d("Failed To Load Image From URL", e.getMessage());
+        }
+    }
+    public interface getImage_FromURL_CallBack
+    {
+        void onSuccess();
+        void onFailed(String message);
+    }
+    public void getImage_FromURL(String url, ImageView imageView, getImage_FromURL_CallBack callBack)
+    {
+        try {
+            Picasso.get().load(url).into(imageView);
+            callBack.onSuccess();
+        } catch (Exception e) {
+            Log.d("Failed To Load Image From URL", e.getMessage());
+            callBack.onFailed(e.getMessage());
         }
     }
 
@@ -665,17 +681,18 @@ public class ServerHandler {
         void onSuccess(FightHistory fightHistory);
         void onFailed(String message);
     }
-    public void createFightHistory(String user_id, String fight_user_id, String rewards, createFightHistory_CallBack callBack)
+    public void createFightHistory(String user_id, String fight_user_id, String rewards, String status, createFightHistory_CallBack callBack)
     {
-        Call<List<FightHistory>> call = Api.createFightHistory(user_id, fight_user_id, rewards);
-        call.enqueue(new Callback<List<FightHistory>>() {
+        Call<FightHistory> call = Api.createFightHistory(user_id, fight_user_id, rewards, status);
+        call.enqueue(new Callback<FightHistory>() {
             @Override
-            public void onResponse(Call<List<FightHistory>> call, Response<List<FightHistory>> response) {
-                callBack.onSuccess(response.body().get(0));
+            public void onResponse(Call<FightHistory> call, Response<FightHistory> response) {
+                FightHistory fightHistory = response.body();
+                callBack.onSuccess(fightHistory);
             }
 
             @Override
-            public void onFailure(Call<List<FightHistory>> call, Throwable t) {
+            public void onFailure(Call<FightHistory> call, Throwable t) {
                 callBack.onFailed(t.getMessage());
             }
         });
@@ -696,6 +713,46 @@ public class ServerHandler {
 
             @Override
             public void onFailure(Call<Void> call, Throwable t) {
+                callBack.onFailed(t.getMessage());
+            }
+        });
+    }
+    public interface getFightHistory_ByUserId_CallBack
+    {
+        void onSuccess(List<FightHistory> fightHistoryList);
+        void onFailed(String message);
+    }
+    public void getFightHistory_ByUserId(String user_id, getFightHistory_ByUserId_CallBack callBack)
+    {
+        Call<List<FightHistory>> call = Api.getFightHistory_ByUserId(user_id);
+        call.enqueue(new Callback<List<FightHistory>>() {
+            @Override
+            public void onResponse(Call<List<FightHistory>> call, Response<List<FightHistory>> response) {
+                callBack.onSuccess(response.body());
+            }
+
+            @Override
+            public void onFailure(Call<List<FightHistory>> call, Throwable t) {
+                callBack.onFailed(t.getMessage());
+            }
+        });
+    }
+    public interface getFightDetails_ByFightID_CallBack
+    {
+        void onSuccess(List<FightDetails> fightDetailsList);
+        void onFailed(String message);
+    }
+    public void getFightDetails_ByFightID(String fight_id, getFightDetails_ByFightID_CallBack callBack)
+    {
+        Call<List<FightDetails>> call = Api.getFightDetails_ByFightId(fight_id);
+        call.enqueue(new Callback<List<FightDetails>>() {
+            @Override
+            public void onResponse(Call<List<FightDetails>> call, Response<List<FightDetails>> response) {
+                callBack.onSuccess(response.body());
+            }
+
+            @Override
+            public void onFailure(Call<List<FightDetails>> call, Throwable t) {
                 callBack.onFailed(t.getMessage());
             }
         });

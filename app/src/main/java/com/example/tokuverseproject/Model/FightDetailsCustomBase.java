@@ -1,13 +1,11 @@
 package com.example.tokuverseproject.Model;
 
-import android.annotation.SuppressLint;
 import android.content.Context;
 import android.graphics.Color;
 import android.graphics.ColorMatrix;
 import android.graphics.ColorMatrixColorFilter;
 import android.graphics.PorterDuff;
 import android.graphics.drawable.Drawable;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -15,24 +13,19 @@ import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import androidx.core.content.ContextCompat;
-
-import com.example.tokuverseproject.Activity.FightActivity;
+import com.example.tokuverseproject.Activity.FightDetailsActivity;
 import com.example.tokuverseproject.R;
 import com.example.tokuverseproject.ServerAPI.ServerHandler;
 
 import java.util.List;
 
-public class FightRecordCustomBase extends BaseAdapter {
+public class FightDetailsCustomBase extends BaseAdapter {
     LayoutInflater inflater;
     List<FightRecord> fightRecordList;
     ServerHandler serverHandler = new ServerHandler();
-    FightActivity fightActivity;
-
-    public FightRecordCustomBase(Context ctx, List<FightRecord> fightRecordList, FightActivity fightActivity)
+    public FightDetailsCustomBase(Context ctx, List<FightRecord> fightRecordList)
     {
         this.fightRecordList = fightRecordList;
-        this.fightActivity = fightActivity;
         inflater = LayoutInflater.from(ctx);
     }
     @Override

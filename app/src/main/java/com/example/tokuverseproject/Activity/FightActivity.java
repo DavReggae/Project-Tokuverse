@@ -159,16 +159,19 @@ public class FightActivity extends AppCompatActivity {
                         fightRecordList.add(fightRecord);
                     }
                 }
+                String status;
                 if(user_Health <= 0)
                 {
                     Toast.makeText(FightActivity.this, "YOU LOSE!!!!. YOU GOT " + total_reward + " coins",
                             Toast.LENGTH_LONG).show();
+                    status = "lose";
                 }
                 else
                 {
                     total_reward = total_reward * Integer.parseInt(clicked_user.getClass_HeroDetails().getLevel());
                     Toast.makeText(FightActivity.this, "YOU WIN!!!!. YOU GOT " + total_reward + " coins",
                             Toast.LENGTH_LONG).show();
+                    status = "win";
                 }
                 Integer finalTotal_reward = total_reward;
                 serverHandler.updateUserCoins(user.getId(), total_reward.toString(), new ServerHandler.updateUserCoins_CallBack() {
@@ -181,11 +184,11 @@ public class FightActivity extends AppCompatActivity {
 
                     }
                 });
-                serverHandler.createFightHistory(user.getId(), clicked_user.getId(), finalTotal_reward.toString(), new ServerHandler.createFightHistory_CallBack() {
+                serverHandler.createFightHistory(user.getId(), clicked_user.getId(), finalTotal_reward.toString(), status, new ServerHandler.createFightHistory_CallBack() {
                     @Override
                     public void onSuccess(FightHistory fightHistory) {
                         String fight_id = fightHistory.getId();
-                        FightRecordCustomBase fightRecordCustomBase = new FightRecordCustomBase(getApplicationContext(), fightRecordList, fight_id, FightActivity.this);
+                        FightRecordCustomBase fightRecordCustomBase = new FightRecordCustomBase(getApplicationContext(), fightRecordList, FightActivity.this);
                         listVIew_FightRecord.setAdapter(fightRecordCustomBase);
                         lbl_Fight_Reward.setText("Total rewards: " + finalTotal_reward);
                         lbl_Fight_Reward.setVisibility(View.VISIBLE);
@@ -202,10 +205,12 @@ public class FightActivity extends AppCompatActivity {
                             fightDetailsList.add(fightDetail);
                         }
                         processFightRecord(fightDetailsList);
+
                     }
 
                     @Override
                     public void onFailed(String message) {
+                        Log.d("FaILEED", message);
                     }
                 });
                 dismissLoading();

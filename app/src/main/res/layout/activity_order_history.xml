@@ -17,7 +17,7 @@
         app:srcCompat="@drawable/baseline_arrow_back_24" />
 
     <TextView
-        android:id="@+id/textView7"
+        android:id="@+id/lbl_FightDetails_ID"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="ORDER HISTORY"
@@ -47,5 +47,5 @@
         android:layout_marginEnd="8dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView7" />
+        app:layout_constraintTop_toBottomOf="@+id/lbl_FightDetails_ID" />
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -1,6 +1,7 @@
 package com.example.tokuverseproject.ServerAPI;
 
 import com.example.tokuverseproject.Model.Comment;
+import com.example.tokuverseproject.Model.FightDetails;
 import com.example.tokuverseproject.Model.FightHistory;
 import com.example.tokuverseproject.Model.Hero;
 import com.example.tokuverseproject.Model.HeroDetails;
@@ -159,10 +160,11 @@ public interface API {
     );
     @FormUrlEncoded
     @POST("createFightHistory.php")
-    Call<List<FightHistory>> createFightHistory(
+    Call<FightHistory> createFightHistory(
             @Field("user_id") String user_id,
             @Field("fight_user_id") String fight_user_id,
-            @Field("rewards") String rewards
+            @Field("rewards") String rewards,
+            @Field("status") String status
     );
     @FormUrlEncoded
     @POST("createFightDetails.php")
@@ -172,5 +174,15 @@ public interface API {
             @Field("damage") String damage,
             @Field("user_currentHP") String user_currentHP,
             @Field("fight_user_currentHP") String fight_user_currentHP
+    );
+    @FormUrlEncoded
+    @POST("getFighHistory_ByUserId.php")
+    Call<List<FightHistory>> getFightHistory_ByUserId(
+            @Field("user_id") String user_id
+    );
+    @FormUrlEncoded
+    @POST("getFightDetails_ByFightId.php")
+    Call<List<FightDetails>> getFightDetails_ByFightId(
+            @Field("fight_id") String fight_id
     );
 }

@@ -14,6 +14,25 @@ public class FightHistory implements Serializable {
     String fight_user_id;
     @SerializedName("rewards")
     String rewards;
+    @SerializedName("status")
+    String status;
+    List<FightDetails> fightDetailsList;
+
+    public String getStatus() {
+        return status;
+    }
+
+    public void setStatus(String status) {
+        this.status = status;
+    }
+
+    public List<FightDetails> getFightDetailsList() {
+        return fightDetailsList;
+    }
+
+    public void setFightDetailsList(List<FightDetails> fightDetailsList) {
+        this.fightDetailsList = fightDetailsList;
+    }
 
     public String getId() {
         return id;

@@ -59,6 +59,7 @@ public class ProfileFragment extends Fragment {
         lbl_coins = view.findViewById(R.id.lbl_coins);
         img_ProfileUserAvatar = view.findViewById(R.id.img_ProfileUserAvatar);
         btn_HeroInfo = view.findViewById(R.id.btn_GoToHero);
+        btn_LogOut = view.findViewById(R.id.btn_LogOut);
 
         lbl_Username.setText("  " + user.getUsername());
         lbl_Email.setText("  " + user.getEmail());
@@ -73,6 +74,13 @@ public class ProfileFragment extends Fragment {
             public void onClick(View view)
             {
                 gotoSelectHero();
+            }
+        });
+        btn_LogOut.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getActivity(), MainActivity.class);
+                getActivity().startActivity(intent);
             }
         });
         return view;

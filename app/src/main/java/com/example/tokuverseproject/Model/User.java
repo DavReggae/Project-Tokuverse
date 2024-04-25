@@ -115,5 +115,9 @@ public class User implements Serializable{
         this.email = email;
         this.phone_number = phone_number;
     }
+    public User()
+    {
+
+    }
 
 }
