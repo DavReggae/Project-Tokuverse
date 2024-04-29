@@ -146,3 +146,57 @@ nav.signup-login a:hover {
 nav.signup-login.hidden {
   display: none;
 }
+.news-container {
+  max-width: 800px;
+  margin: 20px auto;
+  padding: 20px;
+  background-color: #fff;
+  border-radius: 8px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+.news-item {
+  margin-bottom: 20px;
+  padding: 10px;
+  background-color: #fff;
+  border-radius: 8px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  display: flex;
+}
+.news-item img {
+  width: 400px;
+  height: 300px;
+  margin-right: 20px;
+  border-radius: 8px;
+}
+.news-item h2 {
+  margin-top: 0;
+  font-size: 24px;
+  color: #333;
+}
+.news-item p {
+  margin: 10px 0;
+  color: #666;
+}
+.news-item .author {
+  margin-top: 5px;
+  font-style: italic;
+  color: #888;
+}
+.news-item .publish-date {
+  font-size: 14px;
+  color: #888;
+}
+.news-item .learn-more {
+  margin-top: 10px;
+}
+.news-item .learn-more a {
+  text-decoration: none;
+  color: #007bff;
+  font-weight: bold;
+}
+.news-item .learn-more a:hover {
+  text-decoration: underline;
+}
+.news-item .arrow {
+  margin-left: 5px;
+}
