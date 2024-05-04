@@ -1,0 +1,348 @@
+ /* CSS styles */
+ body {
+  font-family: 'Open Sans', sans-serif;
+  background: #9fcedf;
+  overflow-x: hidden;
+  margin: 0;
+  color: #333;
+  font-size: 100%;
+  line-height: 1.5;
+}
+
+nav {
+  position: fixed;
+  z-index: 1000;
+  width: 220px;
+  margin: 240px 20px 20px; /* Adjusted margins to create space for the header */
+  top: 0;
+}
+
+nav ol {
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+}
+
+nav li {
+  margin: -4px 0 0 0;
+}
+
+nav a {
+  display: block;
+  text-decoration: none;
+  background: #fff;
+  transform-origin: 0 0;
+  transition: transform 0.5s ease-in-out, color 0.5s ease-in-out;
+  border-radius: 4px;
+  padding: 1em 1.52em;
+}
+
+nav a:hover {
+  background: #efefef;
+}
+nav.menu {
+  position: fixed;
+  z-index: 1000;
+  width: 220px;
+  margin: 240px 20px 20px; /* Adjusted margins to create space for the header */
+  top: 0;
+  overflow-y: auto;
+  max-height: calc(100vh - 260px); /* Adjusted to create space for the header */
+}
+.sub-menu a {
+  font-size: 0.9em;
+  color: #666;
+  border-left: 2em solid white;
+  padding: 0.75em;
+  background: linear-gradient(to right, #ddd 2px, #fff 2px);
+}
+
+.sub-menu a:hover {
+  background: linear-gradient(to right, #ddd 2px, #efefef 2px);
+}
+
+header {
+  width: 100%;
+  height: 200px; /* Set a fixed height for the header */
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 9999;
+  overflow: hidden;
+}
+
+header img {
+  width: 100%;
+  height: 100%; /* Ensure the image covers the entire header */
+  object-fit: cover;
+}
+
+main {
+  margin-left: 240px;
+  margin-top: 240px; /* Adjusted to create space for the header and navbar */
+  padding: 20px;
+}
+
+.content-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 20px;
+}
+
+.image-container img {
+  max-width: 100%;
+  height: auto;
+}
+
+.video-container {
+  width: 100% !important;
+}
+
+.video-container iframe {
+  width: 100% !important;
+}
+
+.text-container {
+  flex: 1;
+  margin: 20px;
+  
+}
+
+nav.signup-login {
+  position: fixed;
+  top: 0;
+  right: 20px; /* Adjust as needed */
+  z-index: 1000;
+  background: none; /* Remove background */
+}
+
+nav.signup-login ul {
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+}
+
+nav.signup-login li {
+  margin: 0;
+}
+
+nav.signup-login a {
+  display: block;
+  text-decoration: none;
+  transform-origin: 0 0;
+  transition: transform 0.5s ease-in-out, color 0.5s ease-in-out;
+  border-radius: 4px;
+  padding: 20px 20px; /* Adjusted padding */
+  color: #333;
+}
+
+nav.signup-login a:first-child {
+  margin-right: 10px; /* Add margin to separate buttons */
+}
+
+nav.signup-login a:hover {
+  background: #efefef;
+}
+nav.signup-login.hidden {
+  display: none;
+}
+.news-container {
+  max-width: 800px;
+  margin: 20px auto;
+  padding: 20px;
+  background-color: #fff;
+  border-radius: 8px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+.news-item {
+  margin-bottom: 20px;
+  padding: 10px;
+  background-color: #fff;
+  border-radius: 8px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  display: flex;
+}
+.news-item img {
+  width: 400px;
+  height: 300px;
+  margin-right: 20px;
+  border-radius: 8px;
+}
+.news-item h2 {
+  margin-top: 0;
+  font-size: 24px;
+  color: #333;
+}
+.news-item p {
+  margin: 10px 0;
+  color: #666;
+}
+.news-item .author {
+  margin-top: 5px;
+  font-style: italic;
+  color: #888;
+}
+.news-item .publish-date {
+  font-size: 14px;
+  color: #888;
+}
+.news-item .learn-more {
+  margin-top: 10px;
+}
+.news-item .learn-more a {
+  text-decoration: none;
+  color: #007bff;
+  font-weight: bold;
+}
+.news-item .learn-more a:hover {
+  text-decoration: underline;
+}
+.news-item .arrow {
+  margin-left: 5px;
+}
+body.custom-body {
+  --color-primary: #009579;
+  --color-primary-dark: #007f67;
+  --color-secondary: #252c6a;
+  --color-error: #cc3333;
+  --color-secondary: #4bb544;
+  --border-radius: 4px;
+
+  margin: 0;
+  height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center; /* Center horizontally */
+  font-size: 18px;
+
+  background-image: url("../images/godzilla.jpg");
+  background-size: cover;
+  opacity: 0.9; /* Adjust the opacity of the background image */
+}
+
+.container {
+  width: 400px;
+  max-width: 400px;
+  margin: 1rem;
+  padding: 2rem;
+  box-shadow: 0 0 40px rgba(0,0,0, 0.2);
+  border-radius: var(--border-radius);
+  background: rgba(255, 255, 255, 0.8); /* Transparent background */
+  display: flex; /* Center the content vertically and horizontally */
+  flex-direction: column; /* Stack child elements vertically */
+  align-items: center; /* Center horizontally */
+}
+
+.container-content {
+  opacity: 1; /* Set child content opacity to 1 to make it fully visible */
+}
+
+.form {
+  width: 100%;
+}
+
+.container,
+.form__input,
+.form__button {
+  font: 500 1rem 'Quicksand', sans-serif;
+}
+
+.form--hidden {
+  display: none;
+}
+
+.form > *:first-child {
+  margin-top: 0;
+}
+
+.form > *:last-child {
+  margin-bottom: 0;
+}
+
+.form__title{
+  margin-bottom: 2rem;
+  text-align: center;
+}
+.form__message{
+  text-align: center;
+  margin-bottom: 1rem;
+}
+
+.form__message--success{
+  color: var(--color-success);   
+}
+
+.form__message--error{
+  color: var(--color-error);   
+}
+
+.form__input-group{
+  margin-bottom: 1rem;
+}
+
+.form__input{
+  display: block;
+  width: 100%;
+  padding: 0.75rem;
+  box-sizing: border-box;
+  border-radius: var(--border-radius);
+  border: 1px solid #dddddd;
+  outline: none;
+  background: #eeeeee;
+  transition: background 0.2s, border-color 0.2s;
+}
+
+.form__input:focus {
+  border-color: var(--color-primary);
+  background: #ffffff;
+}
+
+.form__input--error {
+  color: var(--color-error);
+  border-color: var(--color-error);
+}
+
+.form__input-error-message{
+  margin-top: 0.5rem;
+  font-size: 0.85rem;
+  color: var(--color-error);
+}
+
+.form__button {
+  width: 100%;
+  padding: 1rem 2rem;
+  font-weight: bold;
+  font-size: 1.1rem;
+  color: #ffffff;
+  border: none;
+  border-radius: var(--border-radius);
+  outline: none;
+  cursor: pointer;
+  background: var(--color-primary);
+}
+
+.form__button:hover{
+      background: var(--color-primary-dark);
+}
+
+.form__button:active{
+  transform: scale(0.98);
+}
+
+.form__text {
+  text-align: center;
+}
+
+.form__link {
+  color: var(--color-secondary);
+  text-decoration: none;
+  cursor: pointer;
+  font-weight: bold;
+  color: #000000; 
+}
+
+.form__link:hover {
+  text-decoration: underline;
+}
