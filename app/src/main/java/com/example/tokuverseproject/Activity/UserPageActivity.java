@@ -53,6 +53,10 @@ public class UserPageActivity extends AppCompatActivity {
         lbl_UserPage_HeroLevel.setText("Level: " + clicked_user.getClass_HeroDetails().getLevel());
         dismissLoading();
         List<NewFeeds> clickedUser_NewsFeeds = new LinkedList<>();
+        if(user.getId().equals(clicked_user.getId()))
+        {
+            btn_UserPage_Fight.setVisibility(View.GONE);
+        }
         showLoading();
         serverHandler.getNewFeedAction(new ServerHandler.GetNewFeeds_CallBack() {
             @Override

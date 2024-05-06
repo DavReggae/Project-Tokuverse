@@ -60,7 +60,7 @@
 
     <Button
         android:id="@+id/btn_CreatePost"
-        android:layout_width="212dp"
+        android:layout_width="270dp"
         android:layout_height="50dp"
         android:layout_marginStart="8dp"
         android:background="@drawable/button_border"

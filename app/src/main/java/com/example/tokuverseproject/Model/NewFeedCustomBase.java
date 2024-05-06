@@ -134,33 +134,47 @@ public class NewFeedCustomBase extends BaseAdapter {
                                 lbl_likeCount.setText("  You and " + newFeeds.like_count + " others");
                             }
                         }
-                    }
-                    @Override
-                    public void onFailed(String message) {
-
-                    }
-                });
-                serverHandler.getLike_ByUserId_And_NewsFeedId(newFeeds.id, user.getId(), new ServerHandler.getLike_ByUserId_And_NewsFeedId_CallBack() {
-                    @Override
-                    public void onSuccess(Like like)
-                    {
-                        if(like.is_liked.equals("1"))
-                        {
-                            btn_Like.setTextColor(Color.BLACK);
-                            btn_Like.setCompoundDrawablesWithIntrinsicBounds(R.drawable.btn_like_icon_24,0 ,0 ,0);
-                        }
                         else
                         {
-                            btn_Like.setTextColor(Color.RED);
-                            btn_Like.setCompoundDrawablesWithIntrinsicBounds(R.drawable.btn_liked_icon_24,0 ,0 ,0);
+                            serverHandler.getLike_ByUserId_And_NewsFeedId(newFeeds.id, user.getId(), new ServerHandler.getLike_ByUserId_And_NewsFeedId_CallBack() {
+                                @Override
+                                public void onSuccess(Like like)
+                                {
+                                    Integer like_count = Integer.parseInt(newFeeds.like_count);
+                                    if(like.is_liked.equals("1"))
+                                    {
+                                        btn_Like.setTextColor(Color.RED);
+                                        btn_Like.setCompoundDrawablesWithIntrinsicBounds(R.drawable.btn_liked_icon_24,0 ,0 ,0);
+                                        if(like_count == 0)
+                                        {
+                                            lbl_likeCount.setText("   You");
+                                        }
+                                        else
+                                        {
+                                            lbl_likeCount.setText("  You and " + like_count + " others");
+                                        }
+                                    }
+                                    else
+                                    {
+                                        btn_Like.setTextColor(Color.BLACK);
+                                        btn_Like.setCompoundDrawablesWithIntrinsicBounds(R.drawable.btn_like_icon_24,0 ,0 ,0);
+                                        lbl_likeCount.setText("    " + like_count);
+                                    }
+                                }
+
+                                @Override
+                                public void onFailed(String message) {
+
+                                }
+                            });
                         }
                     }
-
                     @Override
                     public void onFailed(String message) {
 
                     }
                 });
+
             }
         });
 

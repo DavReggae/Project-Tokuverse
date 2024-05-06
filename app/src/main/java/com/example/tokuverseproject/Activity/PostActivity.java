@@ -102,7 +102,8 @@ public class PostActivity extends AppCompatActivity {
             @Override
             public void onSuccess(NewFeeds newFeed) {
                 lbl_Post_Content.setText(newFeed.getContent());
-                lbl_Post_CommentCount.setText(newFeed.getComment_count());
+                lbl_Post_CommentCount.setText(newFeed.getComment_count() +"  ");
+                lbl_Post_LikeCount.setText(" " + newFeed.getLike_count());
                 serverHandler.getLike_ByUserId_And_NewsFeedId(post_ID, user_ID, new ServerHandler.getLike_ByUserId_And_NewsFeedId_CallBack() {
                     @Override
                     public void onSuccess(Like like) {
@@ -185,7 +186,7 @@ public class PostActivity extends AppCompatActivity {
                             @Override
                             public void onSuccess(List<Comment> commentList) {
                                 try {
-                                    lbl_Post_CommentCount.setText(String.valueOf(commentList.size()));
+                                    lbl_Post_CommentCount.setText(String.valueOf(commentList.size()) + "  ");
                                 }
                                 catch (Exception e)
                                 {
