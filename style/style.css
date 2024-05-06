@@ -127,6 +127,12 @@ main {
   font-weight: bold; /* Set font weight to bold */
   font-style: normal;
 }
+.text-container h3 {
+  font-family: "Noto Sans JP", sans-serif;
+  font-optical-sizing: auto;
+  font-weight: bold; /* Set font weight to bold */
+  font-style: normal;
+}
 .text-container p{
   font-family: 'Verdana', sans-serif;
 }
